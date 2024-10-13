@@ -1,11 +1,7 @@
-import { View, Text, SafeAreaView } from "react-native";
+import { Redirect } from "expo-router";
 
 const Home = () => {
-	return (
-		<SafeAreaView>
-			<Text>This is where you see all the pokemons</Text>
-		</SafeAreaView>
-	);
+	return <Redirect href={"/pokedex"} />;
 };
 
 export default Home;
