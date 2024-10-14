@@ -9,11 +9,13 @@ const Home = () => {
 	const testGetPokemon = async () => {
 		const dittoInfo = await getPokemonInfo('ditto')
 		if(dittoInfo.data){
+			console.log(dittoInfo.data)
 			setPokemon(dittoInfo.data.name)
 		}
 	}
 
 	const clearPokemon = () => {
+		console.log("CLEAR")
 		setPokemon('')
 	}
 	// can delete this ^ once comfortable
