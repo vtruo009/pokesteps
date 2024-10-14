@@ -14,5 +14,6 @@ export const getPokemonInfo = async (pokemonName: string): Promise<ApiResponse<g
     } else {
         //TODO: how to type response structure for error and valid responses
         return {error: "something to indicate error here"}
+        console.log("test")
     }
 }
