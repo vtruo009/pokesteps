@@ -1,5 +1,5 @@
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, Tabs } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -10,9 +10,9 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
 	const [loaded] = useFonts({
 		PixelifySans: require("../assets/fonts/PixelifySans-Regular.ttf"),
-		PixeifySansMedium: require("../assets/fonts/PixelifySans-Medium.ttf"),
-		PixelifySansSemiBold: require("../assets/fonts/PixelifySans-SemiBold.ttf"),
-		PixelifySansBold: require("../assets/fonts/PixelifySans-Bold.ttf"),
+		"PixelifySans-Medium": require("../assets/fonts/PixelifySans-Medium.ttf"),
+		"PixelifySans-SemiBold": require("../assets/fonts/PixelifySans-SemiBold.ttf"),
+		"PixelifySans-Bold": require("../assets/fonts/PixelifySans-Bold.ttf"),
 	});
 
 	useEffect(() => {
@@ -27,7 +27,7 @@ export default function RootLayout() {
 
 	return (
 		<Stack>
-			<Stack.Screen name='index' options={{ headerShown: false }} />
+			<Stack.Screen name='tabs' options={{ headerShown: false }} />
 			<Stack.Screen name='+not-found' />
 		</Stack>
 	);
