@@ -1,8 +1,10 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import Pokemon from "@/components/PokemonCard";
 import { FlatList, GestureHandlerRootView } from "react-native-gesture-handler";
 import PokemonCard from "@/components/PokemonCard";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 
 // TODO: Remove when API is ready
 const STARTERS = [
@@ -64,11 +66,11 @@ const STARTERS = [
 
 const Pokedex = () => {
 	return (
-		<SafeAreaView className='flex-1 w-full h-full justify-between bg-white'>
-			<Text className='text-5xl mx-5 mt-5 mb-3 font-PixelifySans'>
+		<View style={styles.container}>
+			<Text style={styles.title}>
 				Van's Pokedex
 			</Text>
-			<View className='flex flex-1 justify-center items-center'>
+			<View style={styles.listContainer}>
 				<GestureHandlerRootView>
 					<FlatList
 						data={STARTERS}
@@ -76,17 +78,44 @@ const Pokedex = () => {
 							<PokemonCard name={item.name} url={item.url} image={item.image} />
 						)}
 						numColumns={2}
-						contentContainerStyle={{
-							paddingHorizontal: 20,
-						}}
-						columnWrapperStyle={{
-							gap: 15,
-						}}
+						contentContainerStyle={styles.flatListContent}
+						columnWrapperStyle={styles.flatListColumn}
 					/>
 				</GestureHandlerRootView>
 			</View>
-		</SafeAreaView>
+		</View>
 	);
 };
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		width: '100%',
+		height: '100%',
+		justifyContent: 'space-between',
+		backgroundColor: 'white',
+	},
+	//Pokedex Name
+	title: {
+		fontSize: wp('10%'),
+		marginHorizontal: wp('3%'), //Left margin
+		paddingTop: hp('6%'), //Height from top
+		fontFamily: 'PixelifySans',
+	},
+	//Pokemons
+	listContainer: {
+		flex: 1,
+		paddingTop: hp('5.75%'), //Space for search bar, change later
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	flatListContent: {
+		paddingBottom: 0,
+	},
+	//Column gap
+	flatListColumn: {
+		gap: wp('1%'),
+	}
+})
 
 export default Pokedex;
