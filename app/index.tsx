@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Text, SafeAreaView, Button } from "react-native";
-import { getPokemonInfo } from "./common/api/pokemon-calls";
-import useHealthData from "./hooks/useHealthData";
+import { useState } from 'react';
+import { Text, SafeAreaView, Button } from 'react-native';
+import { getPokemonInfo } from './common/api/pokemon-calls';
+import useHealthData from './hooks/useHealthData';
 
 const Home = () => {
 	// Next few lines of code are just for reference. Can be removed once everyone gets more accustomed to using call structure.
-	const [pokemon, setPokemon] = useState("pokemon");
+	const [pokemon, setPokemon] = useState('pokemon');
 	const { todaySteps, yesterdaySteps } = useHealthData();
 
 	const testGetPokemon = async () => {
-		const dittoInfo = await getPokemonInfo("ditto");
+		const dittoInfo = await getPokemonInfo('ditto');
 		if (dittoInfo.data) {
 			console.log(dittoInfo.data);
 			setPokemon(dittoInfo.data.name);
@@ -17,8 +17,8 @@ const Home = () => {
 	};
 
 	const clearPokemon = () => {
-		console.log("CLEAR");
-		setPokemon("");
+		console.log('CLEAR');
+		setPokemon('');
 	};
 	// can delete this ^ once comfortable
 
