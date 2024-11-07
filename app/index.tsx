@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Text, SafeAreaView, Button } from 'react-native';
 import { getPokemonInfo } from './common/api/pokemon-calls';
-import useHealthData from './hooks/useHealthData';
+import useHealthData from '../hooks/useHealthData';
 
 const Home = () => {
 	// Next few lines of code are just for reference. Can be removed once everyone gets more accustomed to using call structure.
