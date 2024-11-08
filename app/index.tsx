@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Text, SafeAreaView, Button } from 'react-native';
 import { getPokemonInfo } from './common/api/pokemon-calls';
-import useHealthData from './hooks/useHealthData';
+import useHealthData from '../hooks/useHealthData';
+import ProgressRing from '@/components/ProgressRing';
 
 const Home = () => {
 	// Next few lines of code are just for reference. Can be removed once everyone gets more accustomed to using call structure.
@@ -23,7 +24,14 @@ const Home = () => {
 	// can delete this ^ once comfortable
 
 	return (
-		<SafeAreaView>
+		<SafeAreaView
+			style={{
+				flex: 1,
+				justifyContent: 'space-evenly',
+				alignItems: 'center',
+			}}
+		>
+			<ProgressRing progress={0.2} />
 			<Text>pokemon is {pokemon}</Text>
 			<Button title='test get ditto' onPress={testGetPokemon} />
 			<Button title='clear pokemon' onPress={clearPokemon} />
