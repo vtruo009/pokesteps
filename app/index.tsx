@@ -3,6 +3,7 @@ import { Text, SafeAreaView, Button } from 'react-native';
 import { getPokemonInfo } from './common/api/pokemon-calls';
 import useHealthData from '../hooks/useHealthData';
 import ProgressRing from '@/components/ProgressRing';
+import { Redirect, router } from 'expo-router';
 
 const Home = () => {
 	// Next few lines of code are just for reference. Can be removed once everyone gets more accustomed to using call structure.
@@ -23,6 +24,7 @@ const Home = () => {
 	};
 	// can delete this ^ once comfortable
 
+	// TODO: Replace all testing code with <Redirect href='/root/tabs' /> once we verify that everything works
 	return (
 		<SafeAreaView
 			style={{
@@ -37,6 +39,10 @@ const Home = () => {
 			<Button title='clear pokemon' onPress={clearPokemon} />
 			<Text>today steps: {todaySteps}</Text>
 			<Text>yesterday steps: {yesterdaySteps}</Text>
+			<Button
+				title='Go to tabs'
+				onPress={() => router.navigate('/root/tabs')}
+			/>
 		</SafeAreaView>
 	);
 };
