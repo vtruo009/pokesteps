@@ -3,7 +3,7 @@ import { useRoute } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Pokemon } from '../common/interface/pokemon.mixin';
-import { calculateWeight } from '../common/util/helpers';
+import { calculateWeight, calculateHeight } from '../common/util/helpers';
 
 const PokemonDetails = () => {
 	const pokemon = useRoute().params as Pokemon;
@@ -16,7 +16,9 @@ const PokemonDetails = () => {
 					.padStart(4, '0')}`}</Text>
 			</View>
 			<View className=''>
-				<Text className='text-xl font-PixelifySans'>{`Height: ${pokemon.height}`}</Text>
+				<Text className='text-xl font-PixelifySans'>{`Height: ${calculateHeight(
+					pokemon.height!
+				)}`}</Text>
 				<Text className='text-xl font-PixelifySans'>{`Weight: ${calculateWeight(
 					pokemon.weight!
 				)}`}</Text>
