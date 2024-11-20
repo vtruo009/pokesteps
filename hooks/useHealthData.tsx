@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import appleHealthKit, {
 	HealthInputOptions,
 	HealthKitPermissions,
 	HealthValue,
-} from "react-native-health";
+} from 'react-native-health';
 
 const useHealthData = () => {
 	const [permission, setPermission] = useState(false);
@@ -50,7 +50,7 @@ const useHealthData = () => {
 					console.log(error);
 					return;
 				}
-				console.log(result);
+				console.log('daily step count result', result);
 				setTodaySteps(result[0].value);
 				setYesterdaySteps(result[1].value);
 			}

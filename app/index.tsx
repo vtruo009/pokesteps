@@ -1,28 +1,62 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Text, SafeAreaView, Button } from 'react-native';
-import { getPokemonInfo } from './common/api/pokemon-calls';
+import { getPokemonInfo, getPokemonsLocally } from './common/api/pokemon-calls';
 import useHealthData from '../hooks/useHealthData';
 import ProgressRing from '@/components/ProgressRing';
-import { Redirect, router } from 'expo-router';
+import { router } from 'expo-router';
+import {
+	getItemForKey,
+	removeItemForKey,
+	storeData,
+} from './utils/storageHelper';
+import { Pokemon } from './common/interface/pokemon.interface';
+
+const HAS_LAUNCHED = 'HAS_LAUNCHED';
+const POKEMONS = 'POKEMONS';
 
 const Home = () => {
-	// Next few lines of code are just for reference. Can be removed once everyone gets more accustomed to using call structure.
-	const [pokemon, setPokemon] = useState('pokemon');
 	const { todaySteps, yesterdaySteps } = useHealthData();
 
-	const testGetPokemon = async () => {
-		const dittoInfo = await getPokemonInfo('ditto');
-		if (dittoInfo.data) {
-			console.log(dittoInfo.data);
-			setPokemon(dittoInfo.data.name);
-		}
-	};
+	// TODO: Move to Pokedex screen or create custom hook
+	useEffect(() => {
+		const getAllPokemons = async () => {
+			const pokemons: Pokemon[] = [];
+			// const results = await getPokemons();
+			const results = getPokemonsLocally();
+			if (results) {
+				for (const pokemon of results) {
+					const pokemonInfo = await getPokemonInfo(pokemon.url);
+					if (pokemonInfo.data) {
+						const pokemon: Pokemon = {
+							id: pokemonInfo.data.id,
+							name: pokemonInfo.data.name,
+							weight: pokemonInfo.data.weight,
+							height: pokemonInfo.data.height,
+							types: pokemonInfo.data.types.map((type) => type.type.name),
+							unlocked: false,
+						};
+						pokemons.push(pokemon);
+					}
+				}
+				return pokemons;
+			}
+		};
 
-	const clearPokemon = () => {
-		console.log('CLEAR');
-		setPokemon('');
-	};
-	// can delete this ^ once comfortable
+		// TODO: Add loaded state to make sure user does not get to the pokedex before data is loaded
+		const getData = async () => {
+			const hasLaunched = await getItemForKey(HAS_LAUNCHED);
+			if (!hasLaunched) {
+				const allPokemons = await getAllPokemons();
+				if (allPokemons) {
+					await storeData(POKEMONS, JSON.stringify(allPokemons));
+					console.log('Pokemon data saved to storage...');
+				}
+				await storeData(HAS_LAUNCHED, 'true');
+			}
+		};
+
+		getData().catch((err) => console.log(err));
+	}, []);
 
 	// TODO: Replace all testing code with <Redirect href='/root/tabs' /> once we verify that everything works
 	return (
@@ -34,11 +68,15 @@ const Home = () => {
 			}}
 		>
 			<ProgressRing progress={0.2} />
-			<Text>pokemon is {pokemon}</Text>
-			<Button title='test get ditto' onPress={testGetPokemon} />
-			<Button title='clear pokemon' onPress={clearPokemon} />
 			<Text>today steps: {todaySteps}</Text>
 			<Text>yesterday steps: {yesterdaySteps}</Text>
+			<Button
+				title='clear storage'
+				onPress={async () => {
+					await removeItemForKey(HAS_LAUNCHED);
+					await removeItemForKey(POKEMONS);
+				}}
+			/>
 			<Button
 				title='Go to tabs'
 				onPress={() => router.navigate('/root/tabs')}

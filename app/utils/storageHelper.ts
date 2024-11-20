@@ -18,3 +18,11 @@ export const getItemForKey = async (key: string) => {
 		console.log('Error getting data', error);
 	}
 };
+
+export const removeItemForKey = async (key: string) => {
+	try {
+		await AsyncStorage.removeItem(key);
+	} catch (error) {
+		console.log('Error removing data', error);
+	}
+};
