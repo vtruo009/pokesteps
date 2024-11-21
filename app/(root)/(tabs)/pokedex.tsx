@@ -4,7 +4,7 @@ import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
 import PokemonCard from '@/components/PokemonCard';
 import { getItemForKey } from '@/app/utils/storageHelper';
 import { useEffect, useState } from 'react';
-import { Pokemon } from '@/app/common/interface/pokemon.interface';
+import { Pokemon } from '@/app/common/interface/pokemon.mixin';
 
 const Pokedex = () => {
 	const [pokemons, setPokemons] = useState<Pokemon[]>([]);
