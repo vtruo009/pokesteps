@@ -1,4 +1,4 @@
-import { Pokemon } from '@/app/common/interface/pokemon.interface';
+import { Pokemon } from '@/app/common/interface/pokemon.mixin';
 import { router } from 'expo-router';
 import { Image, TouchableOpacity, Text, View } from 'react-native';
 
