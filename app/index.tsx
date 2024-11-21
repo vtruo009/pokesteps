@@ -3,7 +3,7 @@ import { Text, SafeAreaView, Button } from 'react-native';
 import { getPokemonInfo, getPokemonsLocally } from './common/api/pokemon-calls';
 import useHealthData from '../hooks/useHealthData';
 import ProgressRing from '@/components/ProgressRing';
-import { router } from 'expo-router';
+import { Redirect } from 'expo-router';
 import {
 	getItemForKey,
 	removeItemForKey,
@@ -58,31 +58,7 @@ const Home = () => {
 		getData().catch((err) => console.log(err));
 	}, []);
 
-	// TODO: Replace all testing code with <Redirect href='/root/tabs' /> once we verify that everything works
-	return (
-		<SafeAreaView
-			style={{
-				flex: 1,
-				justifyContent: 'space-evenly',
-				alignItems: 'center',
-			}}
-		>
-			<ProgressRing progress={0.2} />
-			<Text>today steps: {todaySteps}</Text>
-			<Text>yesterday steps: {yesterdaySteps}</Text>
-			<Button
-				title='clear storage'
-				onPress={async () => {
-					await removeItemForKey(HAS_LAUNCHED);
-					await removeItemForKey(POKEMONS);
-				}}
-			/>
-			<Button
-				title='Go to tabs'
-				onPress={() => router.navigate('/root/tabs')}
-			/>
-		</SafeAreaView>
-	);
+	return <Redirect href='/(root)/(tabs)/steps' />;
 };
 
 export default Home;
