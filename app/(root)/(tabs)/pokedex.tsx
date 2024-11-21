@@ -28,7 +28,9 @@ const Pokedex = () => {
 				<GestureHandlerRootView>
 					<FlatList
 						data={pokemons}
-						renderItem={({ item: pokemon }) => <PokemonCard {...pokemon} />}
+						renderItem={({ item: pokemon }) => (
+							<PokemonCard pokemon={pokemon} />
+						)}
 						numColumns={2}
 						initialNumToRender={10}
 						contentContainerStyle={{

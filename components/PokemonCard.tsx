@@ -1,21 +1,34 @@
 import { Pokemon } from '@/app/common/interface/pokemon.interface';
+import { router } from 'expo-router';
 import { Image, TouchableOpacity, Text, View, Dimensions } from 'react-native';
 
-// TODO: Change to open Pokemon details screen
-const handlePress = (pokemon: Pokemon) => {
-	console.log(`${pokemon.name} details`);
-};
+interface PokemonCardProps {
+	pokemon: Pokemon;
+	width?: number;
+	height?: number;
+}
 
 const IMAGE_URL =
 	'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
-const PokemonCard = (pokemon: Pokemon) => {
-	const windowWidth = Dimensions.get('window').width;
+// TODO: Change to open Pokemon details screen
+const handlePress = (pokemon: Pokemon) => {
+	console.log(`${pokemon.name} details`);
+	router.push({
+		pathname: '/(root)/pokemon-details',
+		params: { pokemon: JSON.stringify(pokemon) },
+	});
+};
 
+const PokemonCard = ({
+	pokemon,
+	width = 36,
+	height = 36,
+}: PokemonCardProps) => {
 	return (
-		<View>
+		<View className='flex justify-center items-center'>
 			<TouchableOpacity
-				className='rounded-full mx-[20px] mt-[25px] mb-[10px] p-2 bg-gray-200 w-36 h-36 flex justify-center items-center'
+				className={`rounded-full mx-[20px] mt-[25px] mb-[10px] p-2 bg-gray-200 w-${width} h-${height} flex justify-center items-center`}
 				disabled={!pokemon.unlocked}
 				onPress={() => handlePress(pokemon)}
 			>
@@ -27,7 +40,11 @@ const PokemonCard = (pokemon: Pokemon) => {
 					resizeMode='contain'
 				/>
 			</TouchableOpacity>
-			<Text className='text-center font-PixelifySans capitalize'>
+			<Text
+				className={`text-center font-PixelifySans capitalize ${
+					width == 36 ? '' : 'text-3xl'
+				}`}
+			>
 				{pokemon.unlocked ? pokemon.name : '???'}
 			</Text>
 		</View>
