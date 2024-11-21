@@ -4,6 +4,7 @@ import { Pokemon } from '../common/interface/pokemon.interface';
 import PokemonCard from '@/components/PokemonCard';
 import { useRoute } from '@react-navigation/native';
 import { calculateHeight, calculateWeight } from '../utils/pokemonHelpers';
+import { Rect } from 'react-native-svg';
 
 const PokemonDetails = () => {
 	const pokemon = JSON.parse(useRoute().params?.pokemon) as Pokemon;
@@ -11,7 +12,7 @@ const PokemonDetails = () => {
 	return (
 		<SafeAreaView className='flex-1 justify-around items-center bg-white'>
 			<View className='flex items-center'>
-				<PokemonCard pokemon={pokemon} width={60} height={60} />
+				<PokemonCard pokemon={pokemon} width={60} disabled={true} />
 				<Text className='text-xl text-gray-500 font-PixelifySans'>{`#${pokemon.id
 					?.toString()
 					.padStart(4, '0')}`}</Text>

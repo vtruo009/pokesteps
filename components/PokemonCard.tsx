@@ -1,11 +1,11 @@
 import { Pokemon } from '@/app/common/interface/pokemon.interface';
 import { router } from 'expo-router';
-import { Image, TouchableOpacity, Text, View, Dimensions } from 'react-native';
+import { Image, TouchableOpacity, Text, View } from 'react-native';
 
 interface PokemonCardProps {
 	pokemon: Pokemon;
 	width?: number;
-	height?: number;
+	disabled?: boolean;
 }
 
 const IMAGE_URL =
@@ -23,13 +23,16 @@ const handlePress = (pokemon: Pokemon) => {
 const PokemonCard = ({
 	pokemon,
 	width = 36,
-	height = 36,
+	disabled = false,
 }: PokemonCardProps) => {
 	return (
 		<View className='flex justify-center items-center'>
+			{/*TODO: Determine styling format; TW does not like dynamic classNames like w-${width} */}
 			<TouchableOpacity
-				className={`rounded-full mx-[20px] mt-[25px] mb-[10px] p-2 bg-gray-200 w-${width} h-${height} flex justify-center items-center`}
-				disabled={!pokemon.unlocked}
+				className={`flex justify-center items-center rounded-full mx-[20px] mt-[25px] mb-[10px] p-2 bg-gray-200 ${
+					width == 36 ? 'w-36 h-36' : 'w-60 h-60'
+				}`}
+				disabled={disabled}
 				onPress={() => handlePress(pokemon)}
 			>
 				<Image
