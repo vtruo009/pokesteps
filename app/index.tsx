@@ -24,27 +24,7 @@ const Home = () => {
 	};
 	// can delete this ^ once comfortable
 
-	// TODO: Replace all testing code with <Redirect href='/root/tabs' /> once we verify that everything works
-	return (
-		<SafeAreaView
-			style={{
-				flex: 1,
-				justifyContent: 'space-evenly',
-				alignItems: 'center',
-			}}
-		>
-			<ProgressRing progress={0.2} />
-			<Text>pokemon is {pokemon}</Text>
-			<Button title='test get ditto' onPress={testGetPokemon} />
-			<Button title='clear pokemon' onPress={clearPokemon} />
-			<Text>today steps: {todaySteps}</Text>
-			<Text>yesterday steps: {yesterdaySteps}</Text>
-			<Button
-				title='Go to tabs'
-				onPress={() => router.navigate('/root/tabs')}
-			/>
-		</SafeAreaView>
-	);
+	return <Redirect href='/(root)/(tabs)/steps' />;
 };
 
 export default Home;
