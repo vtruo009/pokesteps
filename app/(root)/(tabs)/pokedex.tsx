@@ -23,9 +23,7 @@ const Pokedex = () => {
 
 	return (
 		<SafeAreaView className='flex-1 w-full h-full justify-between bg-white'>
-			<Text className='text-5xl mx-5 mt-5 mb-3 font-PixelifySans'>
-				My Pokedex
-			</Text>
+			<Text className='text-5xl mx-5 mt-5 mb-3 font-PixelifySans'>Pokedex</Text>
 			<View className='flex flex-1 justify-center items-center'>
 				<GestureHandlerRootView>
 					<FlatList

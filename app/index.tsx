@@ -4,11 +4,7 @@ import { getPokemonInfo, getPokemonsLocally } from './common/api/pokemon-calls';
 import useHealthData from '../hooks/useHealthData';
 import ProgressRing from '@/components/ProgressRing';
 import { Redirect } from 'expo-router';
-import {
-	getItemForKey,
-	removeItemForKey,
-	storeData,
-} from './utils/storageHelper';
+import { getItemForKey, storeData } from './utils/storageHelper';
 import { Pokemon } from './common/interface/pokemon.interface';
 
 const HAS_LAUNCHED = 'HAS_LAUNCHED';
