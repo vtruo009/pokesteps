@@ -1,22 +1,38 @@
-import { Pokemon } from '@/app/common/interface/pokemon.interface';
-import { Image, TouchableOpacity, Text, View, Dimensions } from 'react-native';
+import { Pokemon } from '@/app/common/interface/pokemon.mixin';
+import { router } from 'expo-router';
+import { Image, TouchableOpacity, Text, View } from 'react-native';
 
-// TODO: Change to open Pokemon details screen
-const handlePress = (pokemon: Pokemon) => {
-	console.log(`${pokemon.name} details`);
-};
+interface PokemonCardProps {
+	pokemon: Pokemon;
+	width?: number;
+	disabled?: boolean;
+}
 
 const IMAGE_URL =
 	'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
-const PokemonCard = (pokemon: Pokemon) => {
-	const windowWidth = Dimensions.get('window').width;
+// TODO: Change to open Pokemon details screen
+const handlePress = (pokemon: Pokemon) => {
+	console.log(`${pokemon.name} details`);
+	router.push({
+		pathname: '/(root)/pokemon-details',
+		params: { pokemon: JSON.stringify(pokemon) },
+	});
+};
 
+const PokemonCard = ({
+	pokemon,
+	width = 36,
+	disabled = false,
+}: PokemonCardProps) => {
 	return (
-		<View>
+		<View className='flex justify-center items-center'>
+			{/*TODO: Determine styling format; TW does not like dynamic classNames like w-${width} */}
 			<TouchableOpacity
-				className='rounded-full mx-[20px] mt-[25px] mb-[10px] p-2 bg-gray-200 w-36 h-36 flex justify-center items-center'
-				disabled={!pokemon.unlocked}
+				className={`flex justify-center items-center rounded-full mx-[20px] mt-[25px] mb-[10px] p-2 bg-gray-200 ${
+					width == 36 ? 'w-36 h-36' : 'w-60 h-60'
+				}`}
+				disabled={disabled}
 				onPress={() => handlePress(pokemon)}
 			>
 				<Image
@@ -27,7 +43,11 @@ const PokemonCard = (pokemon: Pokemon) => {
 					resizeMode='contain'
 				/>
 			</TouchableOpacity>
-			<Text className='text-center font-PixelifySans capitalize'>
+			<Text
+				className={`text-center font-PixelifySans capitalize ${
+					width == 36 ? '' : 'text-3xl'
+				}`}
+			>
 				{pokemon.unlocked ? pokemon.name : '???'}
 			</Text>
 		</View>
