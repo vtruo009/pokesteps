@@ -47,10 +47,11 @@ const useHealthData = () => {
 			(error: string, result: HealthValue[]) => {
 				if (error) {
 					// TODO: Throw exception?
-					console.log(error);
+					console.log('Error getting daily step count', error);
 					return;
 				}
 				console.log('daily step count result', result);
+				// TODO: Add check in case there is no data
 				setTodaySteps(result[0].value);
 				setYesterdaySteps(result[1].value);
 			}
