@@ -31,30 +31,38 @@ const useHealthData = () => {
 	useEffect(() => {
 		if (!permission) return;
 
+		const getStepCounts = (
+			date: Date,
+			setStepCount: React.Dispatch<React.SetStateAction<number>>
+		) => {
+			const options: HealthInputOptions = {
+				date: date.toISOString(),
+				includeManuallyAdded: true,
+			};
+
+			appleHealthKit.getStepCount(
+				options,
+				(error: string, result: HealthValue) => {
+					if (error) {
+						// TODO: Throw exception?
+						console.log('Error getting step count', error);
+						return;
+					}
+					console.log(`got ${date}'s step count`, result.value);
+					setStepCount(result.value);
+				}
+			);
+		};
+
 		const today = new Date();
 		const yesterday = new Date(
 			today.getFullYear(),
 			today.getMonth(),
 			today.getDate() - 1
 		);
-		const options: HealthInputOptions = {
-			startDate: yesterday.toISOString(),
-			includeManuallyAdded: true,
-		};
 
-		appleHealthKit.getDailyStepCountSamples(
-			options,
-			(error: string, result: HealthValue[]) => {
-				if (error) {
-					// TODO: Throw exception?
-					console.log(error);
-					return;
-				}
-				console.log('daily step count result', result);
-				setTodaySteps(result[0].value);
-				setYesterdaySteps(result[1].value);
-			}
-		);
+		getStepCounts(today, setTodaySteps);
+		getStepCounts(yesterday, setYesterdaySteps);
 	}, [permission]);
 
 	return {

@@ -29,7 +29,7 @@ const Pokedex = () => {
 					<FlatList
 						data={pokemons}
 						renderItem={({ item: pokemon }) => (
-							<PokemonCard pokemon={pokemon} />
+							<PokemonCard pokemon={pokemon} disabled={!pokemon.unlocked} />
 						)}
 						numColumns={2}
 						initialNumToRender={10}
