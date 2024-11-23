@@ -1,5 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+export enum StorageKeys {
+	HAS_LAUNCHED = 'HAS_LAUNCHED',
+	POKEMONS = 'POKEMONS',
+	STEP_GOAL = 'STEP_GOAL',
+}
+
 export const storeData = async (key: string, value: string) => {
 	try {
 		await AsyncStorage.setItem(key, JSON.stringify(value));
