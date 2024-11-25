@@ -5,13 +5,8 @@ import ProgressRing from '@/components/ProgressRing';
 import { Redirect } from 'expo-router';
 import { getItemForKey, storeData } from './utils/storageHelper';
 import { Pokemon } from './common/interface/pokemon.mixin';
-
-const HAS_LAUNCHED = 'HAS_LAUNCHED';
-const POKEMONS = 'POKEMONS';
-
+import { StorageKeys } from './utils/storageHelper';
 const Home = () => {
-	const { todaySteps, yesterdaySteps } = useHealthData();
-
 	// TODO: Move to Pokedex screen or create custom hook
 	useEffect(() => {
 		const getAllPokemons = async () => {
@@ -39,14 +34,14 @@ const Home = () => {
 
 		// TODO: Add loaded state to make sure user does not get to the pokedex before data is loaded
 		const getData = async () => {
-			const hasLaunched = await getItemForKey(HAS_LAUNCHED);
+			const hasLaunched = await getItemForKey(StorageKeys.HAS_LAUNCHED);
 			if (!hasLaunched) {
 				const allPokemons = await getAllPokemons();
 				if (allPokemons) {
-					await storeData(POKEMONS, JSON.stringify(allPokemons));
+					await storeData(StorageKeys.POKEMONS, JSON.stringify(allPokemons));
 					console.log('Pokemon data saved to storage...');
 				}
-				await storeData(HAS_LAUNCHED, 'true');
+				await storeData(StorageKeys.HAS_LAUNCHED, 'true');
 			}
 		};
 
