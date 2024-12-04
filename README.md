@@ -57,7 +57,7 @@ Press `i` to open app in iOS simulator.
 
 ## :art: Design
 
-[Figma Design](https://www.figma.com/design/NF4VFbFFlSgF2lKkHmrnIH/Pokesteps?node-id=0-1&t=ju9Lg8FPPWWy6UVS-1)
+<a href="https://www.figma.com/design/NF4VFbFFlSgF2lKkHmrnIH/Pokesteps?node-id=0-1&t=ju9Lg8FPPWWy6UVS-1" target="_blank">Figma design</a>
 
 ## :toolbox: Tools
 
