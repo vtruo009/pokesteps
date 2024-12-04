@@ -1,8 +1,18 @@
-# Welcome to your Expo app 👋
+# Pokésteps
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+An iOS step counter application inspired by Ash Ketchum's Pokémon journey, emphasizing that growth and continuous improvement are as important as achieving the goal.
 
-## Get started
+## :memo: Description
+
+Pokésteps is a gamified fitness app designed to make routine activities like walking more enjoyable and engaging. By integrating elements of gaming, it motivates users to stay active while having fun. Users can unlock and collect all 151 original Pokémon by earning experience points, which are accumulated through their daily step counts. The app leverages HealthKit ([react-native-health](https://github.com/agencyenterprise/react-native-health)) to track steps and PokéAPI to deliver a Pokédex-inspired interface for tracking progress and achievements. With features like customizable step goals, the app caters to both beginners looking to ease into a healthier lifestyle and advanced users trying to push their limits.
+
+<img src="./assets/images/screenshots/steps.png" alt="steps" width="200"/>
+<img src="./assets/images/screenshots/pokedex.png" alt="pokedex" width="200"/>
+<img src="./assets/images/screenshots/pokemon-details.png" alt="pokemon details" width="200"/>
+
+## :electric_plug: Get started
+
+> :police_car_revolving_light: `react-native-health` package is not included in Expo Go. Therefore, the app must be opened using development build instead of in Expo Go. Use command 2 below to do do.
 
 1. Install dependencies
 
@@ -10,13 +20,25 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npm install
    ```
 
-2. Start the app
+2. Create an iOS development build
+
+   ```bash
+   npm run ios
+   ```
+
+3. Create an iOS development build on selected device
+
+   ```bash
+   npx expo run:ios -d
+   ```
+
+4. Start the app
 
    ```bash
    npm start
    ```
 
-3. Clear cache and start app
+5. Clear cache and start app
 
    ```bash
    npm start -c
@@ -29,32 +51,16 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Press `i` to open app in iOS simulator.
 
-## Design
+## :art: Design
 
-https://www.figma.com/design/NF4VFbFFlSgF2lKkHmrnIH/Pokesteps?node-id=0-1&t=ju9Lg8FPPWWy6UVS-1
+[Figma Design](https://www.figma.com/design/NF4VFbFFlSgF2lKkHmrnIH/Pokesteps?node-id=0-1&t=ju9Lg8FPPWWy6UVS-1)
 
-## Get a fresh project
+## :toolbox: Tools
 
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- React Native
+- TypeScript
+- Tailwind/NativeWind
+- Expo
+- HealthKit ([react-native-health](https://github.com/agencyenterprise/react-native-health))
