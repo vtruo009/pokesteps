@@ -37,7 +37,7 @@ export default function StepsHomeScreen() {
 		} else {
 			setGoalReached(false);
 		}
-	});
+	}, [todaySteps, stepGoal]);
 
 	const handlePress = () => {
 		console.log('Editing step goal...');
