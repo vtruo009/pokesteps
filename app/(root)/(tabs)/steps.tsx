@@ -1,11 +1,4 @@
-import {
-	Text,
-	TouchableOpacity,
-	View,
-	Image,
-	Alert,
-	Button,
-} from 'react-native';
+import { Text, TouchableOpacity, View, Image, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import useHealthData from '@/hooks/useHealthData';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -16,11 +9,11 @@ import {
 	StorageKeys,
 	storeData,
 } from '@/app/utils/storageHelper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function StepsHomeScreen() {
 	const { todaySteps, yesterdaySteps } = useHealthData();
 	const [stepGoal, setStepGoal] = useState(10000);
+	const [goalReached, setGoalReached] = useState(false);
 	const progress = todaySteps / stepGoal;
 
 	useEffect(() => {
@@ -37,6 +30,14 @@ export default function StepsHomeScreen() {
 
 		getStepGoal().catch((error) => console.log(error));
 	}, []);
+
+	useEffect(() => {
+		if (todaySteps >= stepGoal) {
+			setGoalReached(true);
+		} else {
+			setGoalReached(false);
+		}
+	}, [todaySteps, stepGoal]);
 
 	const handlePress = () => {
 		console.log('Editing step goal...');
@@ -75,7 +76,7 @@ export default function StepsHomeScreen() {
 					style={{ width: 32, height: 32 }}
 				/>
 			</TouchableOpacity>
-			<ProgressRing progress={progress} />
+			<ProgressRing progress={progress} goalReached={goalReached} />
 			<View className='flex justify-center items-center font-PixelifySans'>
 				<Text className='text-6xl font-PixelifySans'>
 					{todaySteps.toLocaleString()}

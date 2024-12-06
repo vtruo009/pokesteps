@@ -1,53 +1,72 @@
 import React from 'react';
-import { View } from 'react-native';
+import { TouchableOpacity, View, Image } from 'react-native';
 import SVG, { Circle } from 'react-native-svg';
 
+const RADIUS = 150;
+const STROKEWIDTH = 35;
+
 interface ProgressRingProps {
-	radius?: number;
-	strokeWidth?: number;
 	progress: number;
+	goalReached: boolean;
 }
 
-const ProgressRing = ({
-	radius = 150,
-	strokeWidth = 35,
-	progress = 0.0,
-}: ProgressRingProps) => {
-	const innerRadius = radius - strokeWidth / 2;
+const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
+	const innerRadius = RADIUS - STROKEWIDTH / 2;
 	const circumference = 2 * Math.PI * innerRadius;
 
 	return (
 		<View
 			style={{
-				width: radius * 2,
-				height: radius * 2,
+				width: RADIUS * 2,
+				height: RADIUS * 2,
 				alignSelf: 'center',
 				justifyContent: 'center',
 				marginTop: '10%',
 			}}
 		>
+			{goalReached && (
+				<TouchableOpacity
+					style={{
+						width: RADIUS * 2,
+						height: RADIUS * 2,
+						borderRadius: RADIUS,
+						justifyContent: 'center',
+						alignItems: 'center',
+						position: 'absolute',
+						zIndex: 1,
+					}}
+					onPress={() => {
+						console.log('Goal reached');
+					}}
+				>
+					<Image
+						source={require('../assets/images/icon.png')}
+						style={{ width: '70%', height: '70%' }}
+					/>
+				</TouchableOpacity>
+			)}
 			<SVG>
 				<Circle
-					cx={radius}
-					cy={radius}
+					cx={RADIUS}
+					cy={RADIUS}
 					r={innerRadius}
 					fill='transparent'
-					strokeWidth={strokeWidth}
+					strokeWidth={STROKEWIDTH}
 					strokeLinecap='round'
 					stroke='black'
 					opacity={0.4}
 				/>
 				<Circle
-					cx={radius}
-					cy={radius}
+					cx={RADIUS}
+					cy={RADIUS}
 					r={innerRadius}
 					fill='transparent'
-					strokeWidth={strokeWidth}
+					strokeWidth={STROKEWIDTH}
 					stroke='#3C5AA6'
 					strokeDasharray={[circumference * progress, circumference]}
 					strokeLinecap='round'
 					rotation='-90'
-					origin={[radius, radius]}
+					origin={[RADIUS, RADIUS]}
 				/>
 			</SVG>
 		</View>

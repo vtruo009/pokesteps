@@ -10,7 +10,7 @@ expo-env.d.ts
 # @end expo-cli
 
 # MacOS
-.DS_Store
+*/**/.DS_Store
 
 # Builds
 ios/
