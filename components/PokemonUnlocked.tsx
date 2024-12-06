@@ -14,18 +14,31 @@ const PokemonUnlocked = ({ visible, setVisible }: PokemonUnlockedProps) => {
 	return (
 		<Overlay
 			isVisible={visible}
-			onBackdropPress={() => setVisible(false)}
 			backdropStyle={{
 				backgroundColor: 'rgba(0, 0, 0, 0.9)',
 			}}
 			overlayStyle={{
 				backgroundColor: 'trasparent',
-				width: 350,
-				height: 600,
+				width: 'auto',
 			}}
 		>
-			<View className='flex-1 justify-evenly items-center w-full h-full bg-gray'>
-				<Text className='text-3xl text-white font-PixelifySans'>
+			<View className='flex-1 justify-center items-center w-full h-full gap-y-24'>
+				<Pressable
+					onPress={() => {
+						console.log('close overlay');
+						setVisible(false);
+					}}
+					className='w-auto h-auto absolute top-20 right-0'
+				>
+					<Icon
+						name='close'
+						type='ionicons'
+						color='white'
+						size={30}
+						className='relative z-10'
+					/>
+				</Pressable>
+				<Text className='text-5xl text-white text-center font-PixelifySans'>
 					POKEMON UNLOCKED!
 				</Text>
 				<Image
