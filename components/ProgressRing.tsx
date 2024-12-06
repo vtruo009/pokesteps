@@ -11,8 +11,8 @@ interface ProgressRingProps {
 }
 
 const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
-	const innerRADIUS = RADIUS - STROKEWIDTH / 2;
-	const circumference = 2 * Math.PI * innerRADIUS;
+	const innerRadius = RADIUS - STROKEWIDTH / 2;
+	const circumference = 2 * Math.PI * innerRadius;
 
 	return (
 		<View
@@ -49,7 +49,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 				<Circle
 					cx={RADIUS}
 					cy={RADIUS}
-					r={innerRADIUS}
+					r={innerRadius}
 					fill='transparent'
 					strokeWidth={STROKEWIDTH}
 					strokeLinecap='round'
@@ -59,7 +59,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 				<Circle
 					cx={RADIUS}
 					cy={RADIUS}
-					r={innerRADIUS}
+					r={innerRadius}
 					fill='transparent'
 					strokeWidth={STROKEWIDTH}
 					stroke='#3C5AA6'
