@@ -1,6 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, View, Image } from 'react-native';
+import { useState } from 'react';
+import { TouchableOpacity, View, Image, Text, Modal } from 'react-native';
+import { FullWindowOverlay } from 'react-native-screens';
 import SVG, { Circle } from 'react-native-svg';
+import PokemonCard from './PokemonCard';
+import PokemonUnlocked from './PokemonUnlocked';
 
 const RADIUS = 150;
 const STROKEWIDTH = 35;
@@ -11,6 +15,7 @@ interface ProgressRingProps {
 }
 
 const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
+	const [visible, setVisible] = useState(false);
 	const innerRadius = RADIUS - STROKEWIDTH / 2;
 	const circumference = 2 * Math.PI * innerRadius;
 
@@ -37,6 +42,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 					}}
 					onPress={() => {
 						console.log('Goal reached');
+						setVisible(true);
 					}}
 				>
 					<Image
@@ -45,6 +51,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 					/>
 				</TouchableOpacity>
 			)}
+			<PokemonUnlocked visible={visible} setVisible={setVisible} />
 			<SVG>
 				<Circle
 					cx={RADIUS}
