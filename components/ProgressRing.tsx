@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { TouchableOpacity, View, Image, Text, Modal } from 'react-native';
-import { FullWindowOverlay } from 'react-native-screens';
+import { TouchableOpacity, View, Image } from 'react-native';
 import SVG, { Circle } from 'react-native-svg';
-import PokemonCard from './PokemonCard';
 import PokemonUnlocked from './PokemonUnlocked';
+import Animated, {
+	useAnimatedProps,
+	useSharedValue,
+	withTiming,
+} from 'react-native-reanimated';
 
 const RADIUS = 150;
 const STROKEWIDTH = 35;
+
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 interface ProgressRingProps {
 	progress: number;
@@ -18,6 +23,15 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 	const [visible, setVisible] = useState(false);
 	const innerRadius = RADIUS - STROKEWIDTH / 2;
 	const circumference = 2 * Math.PI * innerRadius;
+	const fill = useSharedValue(0);
+
+	const animatedProps = useAnimatedProps(() => ({
+		strokeDasharray: [circumference * fill.value, circumference],
+	}));
+
+	useEffect(() => {
+		fill.value = withTiming(progress, { duration: 2000 });
+	}, [progress]);
 
 	return (
 		<View
@@ -63,14 +77,14 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 					stroke='black'
 					opacity={0.4}
 				/>
-				<Circle
+				<AnimatedCircle
 					cx={RADIUS}
 					cy={RADIUS}
 					r={innerRadius}
 					fill='transparent'
 					strokeWidth={STROKEWIDTH}
 					stroke='#3C5AA6'
-					strokeDasharray={[circumference * progress, circumference]}
+					animatedProps={animatedProps}
 					strokeLinecap='round'
 					rotation='-90'
 					origin={[RADIUS, RADIUS]}
