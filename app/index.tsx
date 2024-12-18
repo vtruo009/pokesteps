@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { getPokemonInfo, getPokemonsLocally } from './common/api/pokemon-calls';
-import useHealthData from '../hooks/useHealthData';
-import ProgressRing from '@/components/ProgressRing';
 import { Redirect } from 'expo-router';
 import { getItemForKey, storeData } from './utils/storageHelper';
 import { Pokemon } from './common/interface/pokemon.mixin';
 import { StorageKeys } from './utils/storageHelper';
+import { usePokemonContext } from '@/contexts/PokemonContext';
+
 const Home = () => {
+	const pokemonContext = usePokemonContext();
 	// TODO: Move to Pokedex screen or create custom hook
 	useEffect(() => {
 		const getAllPokemons = async () => {
@@ -38,7 +39,15 @@ const Home = () => {
 			if (!hasLaunched) {
 				const allPokemons = await getAllPokemons();
 				if (allPokemons) {
+					console.log('Saving pokemon data to storage...');
 					await storeData(StorageKeys.POKEMONS, JSON.stringify(allPokemons));
+					pokemonContext.dispatch({
+						type: 'add_pokemons',
+						payload: {
+							randomId: 0,
+							pokemons: allPokemons,
+						},
+					});
 					console.log('Pokemon data saved to storage...');
 				}
 				await storeData(StorageKeys.HAS_LAUNCHED, 'true');
