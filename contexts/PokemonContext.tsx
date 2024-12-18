@@ -32,8 +32,8 @@ function pokemonReducer(state: PokemonType, action: Action): PokemonType {
 		case 'add_pokemons':
 			return { ...state, pokemons: [...payload.pokemons] };
 		case 'unlock_pokemon':
-			state.pokemons[payload.randomId + 1].unlocked = true;
-			return { ...state, pokemons: [...state.pokemons] };
+			state.pokemons[payload.randomId].unlocked = true;
+			return { ...state, randomId: payload.randomId };
 		default:
 			return state;
 	}
