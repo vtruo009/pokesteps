@@ -27,7 +27,6 @@ const PokemonContext = React.createContext<{
 
 function pokemonReducer(state: PokemonType, action: Action): PokemonType {
 	const { type, payload } = action;
-	console.log('payload', payload);
 
 	switch (type) {
 		case 'add_pokemons':

@@ -8,9 +8,9 @@ import { usePokemonContext } from '@/contexts/PokemonContext';
 
 const Home = () => {
 	const pokemonContext = usePokemonContext();
-	// TODO: Move to Pokedex screen or create custom hook
+
 	useEffect(() => {
-		const getAllPokemons = async () => {
+		const getAllPokemons = async (): Promise<Pokemon[]> => {
 			const pokemons: Pokemon[] = [];
 			// const results = await getPokemons();
 			const results = getPokemonsLocally();
@@ -29,29 +29,37 @@ const Home = () => {
 						pokemons.push(pokemon);
 					}
 				}
-				return pokemons;
 			}
+			return pokemons;
 		};
 
 		// TODO: Add loaded state to make sure user does not get to the pokedex before data is loaded
 		const getData = async () => {
 			const hasLaunched = await getItemForKey(StorageKeys.HAS_LAUNCHED);
+			let allPokemons: Pokemon[] = [];
+
 			if (!hasLaunched) {
-				const allPokemons = await getAllPokemons();
+				allPokemons = await getAllPokemons();
 				if (allPokemons) {
 					console.log('Saving pokemon data to storage...');
 					await storeData(StorageKeys.POKEMONS, JSON.stringify(allPokemons));
-					pokemonContext.dispatch({
-						type: 'add_pokemons',
-						payload: {
-							randomId: 0,
-							pokemons: allPokemons,
-						},
-					});
 					console.log('Pokemon data saved to storage...');
 				}
 				await storeData(StorageKeys.HAS_LAUNCHED, 'true');
+			} else {
+				const data = await getItemForKey(StorageKeys.POKEMONS);
+				if (data) {
+					allPokemons = JSON.parse(data);
+				}
 			}
+
+			pokemonContext.dispatch({
+				type: 'add_pokemons',
+				payload: {
+					randomId: 0,
+					pokemons: allPokemons,
+				},
+			});
 		};
 
 		getData().catch((err) => console.log(err));
