@@ -1,4 +1,5 @@
 import { Pokemon } from '@/app/common/interface/pokemon.mixin';
+import { StorageKeys, storeData } from '@/app/utils/storageHelper';
 import PokemonType from '@/components/PokemonType';
 import React from 'react';
 
@@ -33,7 +34,13 @@ function pokemonReducer(state: PokemonType, action: Action): PokemonType {
 			return { ...state, pokemons: [...payload.pokemons] };
 		case 'unlock_pokemon':
 			state.pokemons[payload.randomId].unlocked = true;
-			return { ...state, randomId: payload.randomId };
+			storeData(StorageKeys.POKEMONS, JSON.stringify(state.pokemons)).catch(
+				(error) => console.log('Error saving data', error)
+			);
+			return {
+				randomId: payload.randomId,
+				pokemons: [...payload.pokemons],
+			};
 		default:
 			return state;
 	}
