@@ -8,6 +8,7 @@ import Animated, {
 	useSharedValue,
 	withTiming,
 } from 'react-native-reanimated';
+import { usePokemonContext } from '@/contexts/PokemonContext';
 
 const RADIUS = 150;
 const STROKEWIDTH = 35;
@@ -20,7 +21,8 @@ interface ProgressRingProps {
 }
 
 const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
-	const [visible, setVisible] = useState(false);
+	const { state, dispatch } = usePokemonContext();
+	const [overlayVisible, setOverlayVisible] = useState(false);
 	const innerRadius = RADIUS - STROKEWIDTH / 2;
 	const circumference = 2 * Math.PI * innerRadius;
 	const fill = useSharedValue(0);
@@ -32,6 +34,17 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 	useEffect(() => {
 		fill.value = withTiming(progress, { duration: 2000 });
 	}, [progress]);
+
+	const handlePress = () => {
+		const randomId = Math.ceil(Math.random() * 151);
+
+		dispatch({
+			type: 'unlock_pokemon',
+			payload: { ...state, randomId },
+		});
+
+		setOverlayVisible(true);
+	};
 
 	return (
 		<View
@@ -54,10 +67,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 						position: 'absolute',
 						zIndex: 1,
 					}}
-					onPress={() => {
-						console.log('Goal reached');
-						setVisible(true);
-					}}
+					onPress={handlePress}
 				>
 					<Image
 						source={require('../assets/images/icon.png')}
@@ -65,7 +75,10 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 					/>
 				</TouchableOpacity>
 			)}
-			<PokemonUnlocked visible={visible} setVisible={setVisible} />
+			<PokemonUnlocked
+				visible={overlayVisible}
+				setVisible={setOverlayVisible}
+			/>
 			<SVG>
 				<Circle
 					cx={RADIUS}

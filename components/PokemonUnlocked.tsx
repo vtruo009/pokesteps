@@ -1,9 +1,8 @@
 import { router } from 'expo-router';
-import { useState } from 'react';
-import { Button, Pressable, Text, View, Image } from 'react-native';
+import { Pressable, Text, View, Image } from 'react-native';
 import { Icon, Overlay } from 'react-native-elements';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import PokemonCard from './PokemonCard';
+import { usePokemonContext } from '@/contexts/PokemonContext';
+import { Pokemon } from '@/app/common/interface/pokemon.mixin';
 
 interface PokemonUnlockedProps {
 	visible: boolean;
@@ -11,6 +10,9 @@ interface PokemonUnlockedProps {
 }
 
 const PokemonUnlocked = ({ visible, setVisible }: PokemonUnlockedProps) => {
+	const { state } = usePokemonContext();
+	const newPokemon: Pokemon = state.pokemons[state.randomId];
+
 	return (
 		<Overlay
 			isVisible={visible}
@@ -39,11 +41,11 @@ const PokemonUnlocked = ({ visible, setVisible }: PokemonUnlockedProps) => {
 					/>
 				</Pressable>
 				<Text className='text-5xl text-white text-center font-PixelifySans'>
-					POKEMON UNLOCKED!
+					{`${newPokemon?.name.toUpperCase()} UNLOCKED!`}
 				</Text>
 				<Image
 					source={{
-						uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png`,
+						uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${newPokemon?.id}.png`,
 					}}
 					alt='pokemon'
 					className='w-[200px] h-[200px] bg-gray-50 rounded-full'
