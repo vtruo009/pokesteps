@@ -1,19 +1,53 @@
 import { Tabs } from 'expo-router';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import Entypo from '@expo/vector-icons/Entypo';
+import { View, Image, ImageSourcePropType } from 'react-native';
 
-export default function TabLayout() {
+const TabIcon = ({
+	source,
+	focused,
+}: {
+	source: ImageSourcePropType;
+	focused: boolean;
+}) => {
+	return (
+		<View
+			className={`flex flex-row justify-center items-center w-full h-full ${
+				focused ? 'bg-gray-300' : ''
+			}`}
+		>
+			<View
+				className={`rounded-[55px] w-14 h-12 items-center justify-center ${
+					focused ? 'bg-white' : ''
+				}`}
+			>
+				<Image
+					source={source}
+					tintColor={focused ? 'black' : 'white'}
+					resizeMode='contain'
+					className='w-7 h-7'
+				/>
+			</View>
+		</View>
+	);
+};
+
+function TabLayout() {
 	return (
 		<Tabs
+			initialRouteName='index'
 			screenOptions={{
-				tabBarActiveTintColor: '#000',
-				headerStyle: {
-					backgroundColor: '#fff',
-				},
-				headerShadowVisible: false,
-				headerTintColor: '#000',
+				tabBarShowLabel: false,
 				tabBarStyle: {
-					backgroundColor: '#fff',
+					backgroundColor: '#FFCB05',
+					borderRadius: 50,
+					paddingBottom: 0,
+					marginBottom: 25,
+					marginHorizontal: 120,
+					height: 65,
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'space-around',
+					flexDirection: 'row',
+					position: 'absolute',
 				},
 			}}
 		>
@@ -22,8 +56,11 @@ export default function TabLayout() {
 				options={{
 					title: 'Steps',
 					headerShown: false,
-					tabBarIcon: ({ color, focused }) => (
-						<Ionicons name='footsteps' size={24} color='#0000FF' />
+					tabBarIcon: ({ focused }) => (
+						<TabIcon
+							focused={focused}
+							source={require('../../../assets/icons/footstep.png')}
+						/>
 					),
 				}}
 			/>
@@ -32,11 +69,16 @@ export default function TabLayout() {
 				options={{
 					title: 'Pokedex',
 					headerShown: false,
-					tabBarIcon: ({ color, focused }) => (
-						<Entypo name='star' size={24} color='#0000FF' />
+					tabBarIcon: ({ focused }) => (
+						<TabIcon
+							focused={focused}
+							source={require('../../../assets/icons/pokedex.png')}
+						/>
 					),
 				}}
 			/>
 		</Tabs>
 	);
 }
+
+export default TabLayout;
