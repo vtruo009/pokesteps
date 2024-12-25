@@ -9,8 +9,13 @@ import Animated, {
 	withTiming,
 } from 'react-native-reanimated';
 import { usePokemonContext } from '@/contexts/PokemonContext';
+import {
+	widthPercentageToDP as wp,
+	heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
-const RADIUS = 150;
+// const RADIUS = 150;
+const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);

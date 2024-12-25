@@ -9,6 +9,17 @@ import {
 	StorageKeys,
 	storeData,
 } from '@/app/utils/storageHelper';
+import {
+	widthPercentageToDP as wp,
+	heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
+const textSizes = {
+	xl: hp('1.5%'),
+	'2xl': hp('2%'),
+	'4xl': hp('5%'),
+	'6xl': hp('7%'),
+};
 
 export default function StepsHomeScreen() {
 	const { todaySteps, yesterdaySteps } = useHealthData();
@@ -65,10 +76,10 @@ export default function StepsHomeScreen() {
 	};
 
 	return (
-		<SafeAreaView className='relative flex-1 justify-around items-center bg-white'>
+		<SafeAreaView className='relative flex-1 justify-around items-center bg-white pb-20'>
 			<StatusBar style='dark' />
 			<TouchableOpacity
-				className='absolute top-20 right-10'
+				style={{ position: 'absolute', top: hp('10%'), right: wp('10%') }}
 				onPress={handlePress}
 			>
 				<Image
@@ -78,16 +89,29 @@ export default function StepsHomeScreen() {
 			</TouchableOpacity>
 			<ProgressRing progress={progress} goalReached={goalReached} />
 			<View className='flex justify-center items-center font-PixelifySans'>
-				<Text className='text-6xl font-PixelifySans'>
+				<Text
+					className='font-PixelifySans'
+					style={{ fontSize: textSizes['6xl'] }}
+				>
 					{todaySteps.toLocaleString()}
 				</Text>
-				<Text className='text-2xl font-PixelifySans'>steps</Text>
+				<Text
+					className='font-PixelifySans'
+					style={{ fontSize: textSizes['2xl'] }}
+				>
+					steps
+				</Text>
 			</View>
 			<View className='flex justify-center items-center font-PixelifySans'>
-				<Text className='text-4xl font-PixelifySans'>
+				<Text
+					className='font-PixelifySans'
+					style={{ fontSize: textSizes['4xl'] }}
+				>
 					{yesterdaySteps.toLocaleString()}
 				</Text>
-				<Text className='text-xl font-PixelifySans'>yesterday</Text>
+				<Text className='font-PixelifySans' style={{ fontSize: textSizes.xl }}>
+					yesterday
+				</Text>
 			</View>
 		</SafeAreaView>
 	);

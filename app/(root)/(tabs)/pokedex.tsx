@@ -7,6 +7,10 @@ import { SearchBar } from '@rneui/themed';
 import { Icon } from 'react-native-elements';
 import { useState } from 'react';
 import { Pokemon } from '@/app/common/interface/pokemon.mixin';
+import {
+	widthPercentageToDP as wp,
+	heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const filterPokemons = (pokemons: Pokemon[], searchText: string) => {
 	return pokemons.filter((pokemon) => {
@@ -54,10 +58,18 @@ const Pokedex = () => {
 						numColumns={2}
 						initialNumToRender={10}
 						columnWrapperStyle={{
-							gap: 15,
+							gap: wp('5%'),
 						}}
 						contentContainerStyle={{
-							paddingBottom: `${55}%`,
+							paddingBottom: wp('70%'),
+							paddingHorizontal: wp('5%'),
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+						}}
+						style={{
+							width: '100%',
+							margin: 'auto',
 						}}
 					/>
 				</View>
