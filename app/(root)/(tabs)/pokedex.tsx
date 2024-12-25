@@ -28,9 +28,7 @@ const Pokedex = () => {
 	return (
 		<GestureHandlerRootView>
 			<SafeAreaView className='flex-1 justify-between bg-white'>
-				<Text className='text-5xl mx-5 mt-5 mb-3 font-PixelifySans'>
-					Pokedex
-				</Text>
+				<Text className='text-5xl mx-5 mt-5 font-PixelifySans'>Pokedex</Text>
 				<SearchBar
 					placeholder='Search...'
 					onChangeText={handleOnChangeText}
