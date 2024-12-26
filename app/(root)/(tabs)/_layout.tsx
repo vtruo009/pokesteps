@@ -1,5 +1,9 @@
 import { Tabs } from 'expo-router';
 import { View, Image, ImageSourcePropType } from 'react-native';
+import {
+	widthPercentageToDP as wp,
+	heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const TabIcon = ({
 	source,
@@ -40,8 +44,8 @@ function TabLayout() {
 					backgroundColor: '#FFCB05',
 					borderRadius: 50,
 					paddingBottom: 0,
-					marginBottom: 25,
-					marginHorizontal: 120,
+					marginBottom: hp('3%'),
+					marginHorizontal: wp('30%'),
 					height: 65,
 					display: 'flex',
 					alignItems: 'center',
