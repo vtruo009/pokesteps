@@ -2,8 +2,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Text, View, FlatList } from 'react-native';
 import PokemonCard from '@/components/PokemonCard';
 import { usePokemonContext } from '@/contexts/PokemonContext';
-import { SearchBar } from '@rneui/themed';
-import { Icon } from 'react-native-elements';
+import { SearchBar, Icon } from '@rneui/themed';
 import { useState } from 'react';
 import { Pokemon } from '@/app/common/interface/pokemon.mixin';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -40,7 +39,7 @@ const Pokedex = () => {
 					marginHorizontal: 10,
 				}}
 			/>
-			<View className='w-full items-center'>
+			<View className='w-full h-full items-center'>
 				<FlatList
 					data={
 						searchText

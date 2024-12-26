@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { Pressable, Text, View, Image } from 'react-native';
-import { Icon, Overlay } from 'react-native-elements';
+import { Overlay, Icon } from '@rneui/themed';
 import { usePokemonContext } from '@/contexts/PokemonContext';
 import { Pokemon } from '@/app/common/interface/pokemon.mixin';
 
@@ -27,7 +27,6 @@ const PokemonUnlocked = ({ visible, setVisible }: PokemonUnlockedProps) => {
 			<View className='flex-1 justify-center items-center w-full h-full gap-y-24'>
 				<Pressable
 					onPress={() => {
-						console.log('close overlay');
 						setVisible(false);
 					}}
 					className='w-auto h-auto absolute top-20 right-0'
