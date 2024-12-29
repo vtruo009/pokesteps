@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { getPokemonInfo, getPokemonsLocally } from './common/api/pokemon-calls';
 import { Redirect } from 'expo-router';
-import { getItemForKey, storeData } from './utils/storageHelper';
+import { getItemForKey, storeData } from './utils/storageHelpers';
 import { Pokemon } from './common/interface/pokemon.mixin';
-import { StorageKeys } from './utils/storageHelper';
+import { StorageKeys } from './utils/storageHelpers';
 import { usePokemonContext } from '@/contexts/PokemonContext';
 
 const Home = () => {
