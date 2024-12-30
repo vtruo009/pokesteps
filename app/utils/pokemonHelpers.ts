@@ -14,7 +14,6 @@ export function calculateWeight(weight: number) {
 
 export function calculateHeight(height: number) {
 	const feet = height * DM_TO_FT;
-	console.log(feet);
 	const wholeFeet = Math.floor(feet);
 	const remainingFeet = feet - wholeFeet;
 	const inches = Math.round(remainingFeet * INCH_IN_FT);
