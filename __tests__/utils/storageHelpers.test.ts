@@ -1,7 +1,10 @@
-import { StorageKeys } from '../storageHelpers';
+import { getItemForKey, StorageKeys } from '@/app/utils/storageHelpers';
 
 describe('Storage Helpers', () => {
-	it.todo('should get item from storage');
+	it('should get item from storage', async () => {
+		const hasLaunched = await getItemForKey(StorageKeys.HAS_LAUNCHED);
+		expect(hasLaunched).toBeUndefined();
+	});
 	// it.each([
 	// 	[StorageKeys.HAS_LAUNCHED, 'true'],
 	// 	[StorageKeys.POKEMONS, '[]'],
