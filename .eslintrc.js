@@ -1,7 +1,7 @@
 module.exports = {
-	extends: ["expo", "prettier"],
-	plugins: ["prettier"],
+	extends: ['expo', 'prettier', 'plugin:testing-library/react'],
+	plugins: ['prettier'],
 	rules: {
-		"prettier/prettier": "warn",
+		'prettier/prettier': 'warn',
 	},
 };
