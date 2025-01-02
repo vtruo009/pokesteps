@@ -11,7 +11,6 @@ import Animated, {
 import { usePokemonContext } from '@/contexts/PokemonContext';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
-// const RADIUS = 150;
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
 
@@ -25,7 +24,7 @@ interface ProgressRingProps {
 const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 	const { state, dispatch } = usePokemonContext();
 	const [overlayVisible, setOverlayVisible] = useState(false);
-	const [disable, setDisabel] = useState(false);
+	const [disable, setDisable] = useState(false);
 	const innerRadius = RADIUS - STROKEWIDTH / 2;
 	const circumference = 2 * Math.PI * innerRadius;
 	const fill = useSharedValue(0);
@@ -46,7 +45,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 			payload: { ...state, randomId },
 		});
 
-		setDisabel(true);
+		setDisable(true);
 		setOverlayVisible(true);
 	};
 
@@ -62,6 +61,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 		>
 			{goalReached && (
 				<TouchableOpacity
+					testID='pokeball-button'
 					style={{
 						width: RADIUS * 2,
 						height: RADIUS * 2,
