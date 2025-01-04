@@ -17,13 +17,13 @@ describe('Storage Helpers', () => {
 		expect(await getItemForKey(StorageKeys.HAS_LAUNCHED)).toBe('true');
 	});
 
-	it('should get item from storage and return undefined', async () => {
+	it('should get nonexistent item from storage and return undefined', async () => {
 		const hasLaunched = await getItemForKey(StorageKeys.HAS_LAUNCHED);
 		expect(hasLaunched).toBeUndefined();
 		expect(AsyncStorage.getItem).toHaveBeenCalledWith(StorageKeys.HAS_LAUNCHED);
 	});
 
-	it('should get item from storage and return a value', async () => {
+	it('should get existing item from storage and return stored value', async () => {
 		const expectedHasLaunched = 'true';
 		await storeData(StorageKeys.HAS_LAUNCHED, expectedHasLaunched);
 		const hasLaunched = await getItemForKey(StorageKeys.HAS_LAUNCHED);
