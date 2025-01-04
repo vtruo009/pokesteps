@@ -29,7 +29,10 @@ const useHealthData = () => {
 	});
 
 	useEffect(() => {
-		if (!permission) return;
+		if (!permission) {
+			console.log('Permission not granted');
+			return;
+		}
 
 		const getStepCounts = (
 			date: Date,
