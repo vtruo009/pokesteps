@@ -1,11 +1,14 @@
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, View, FlatList } from 'react-native';
 import PokemonCard from '@/components/PokemonCard';
 import { usePokemonContext } from '@/contexts/PokemonContext';
 import { SearchBar, Icon } from '@rneui/themed';
 import { useState } from 'react';
 import { Pokemon } from '@/app/common/interface/pokemon.mixin';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {
+	widthPercentageToDP as wp,
+	heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const filterPokemons = (pokemons: Pokemon[], searchText: string) => {
 	return pokemons.filter((pokemon) => {
@@ -17,6 +20,7 @@ const filterPokemons = (pokemons: Pokemon[], searchText: string) => {
 };
 
 const Pokedex = () => {
+	const insets = useSafeAreaInsets();
 	const { state } = usePokemonContext();
 	const [searchText, setSearchText] = useState('');
 
@@ -25,7 +29,14 @@ const Pokedex = () => {
 	};
 
 	return (
-		<SafeAreaView className='flex-1 justify-between bg-white'>
+		<View
+			className='flex-1 justify-between bg-white'
+			style={{
+				paddingTop: insets.top,
+				paddingRight: insets.right,
+				paddingLeft: insets.left,
+			}}
+		>
 			<Text className='text-5xl mx-5 mt-5 font-PixelifySans'>Pokedex</Text>
 			<SearchBar
 				placeholder='Search...'
@@ -39,7 +50,7 @@ const Pokedex = () => {
 					marginHorizontal: 10,
 				}}
 			/>
-			<View className='w-full h-full items-center'>
+			<View className='flex-1 w-full h-full items-center'>
 				<FlatList
 					data={
 						searchText
@@ -52,13 +63,13 @@ const Pokedex = () => {
 					numColumns={2}
 					initialNumToRender={10}
 					contentContainerStyle={{
-						paddingBottom: wp('65%'),
+						paddingBottom: wp('25%'),
 						paddingHorizontal: 0,
 						marginHorizontal: 0,
 					}}
 				/>
 			</View>
-		</SafeAreaView>
+		</View>
 	);
 };
 
