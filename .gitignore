@@ -14,3 +14,6 @@ expo-env.d.ts
 
 # Builds
 ios/
+
+# Testing
+/coverage/

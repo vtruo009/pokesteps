@@ -11,7 +11,6 @@ interface PokemonCardProps {
 const IMAGE_URL =
 	'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
-// TODO: Change to open Pokemon details screen
 const handlePress = (pokemon: Pokemon) => {
 	console.log(`${pokemon.name} details`);
 	router.push({
@@ -29,11 +28,13 @@ const PokemonCard = ({
 		<View className='flex justify-center items-center'>
 			{/*TODO: Determine styling format; TW does not like dynamic classNames like w-${width} */}
 			<TouchableOpacity
+				testID={`${pokemon.name}-card`}
 				className={`flex justify-center items-center rounded-full mx-[20px] mt-[25px] mb-[10px] p-2 bg-gray-200 ${
 					width == 36 ? 'w-36 h-36' : 'w-60 h-60'
 				}`}
 				disabled={disabled}
 				onPress={() => handlePress(pokemon)}
+				accessibilityRole='button'
 			>
 				<Image
 					source={{
@@ -41,6 +42,8 @@ const PokemonCard = ({
 					}}
 					className='w-full h-full rounded-full'
 					resizeMode='contain'
+					alt='pokemon image'
+					accessibilityRole='image'
 				/>
 			</TouchableOpacity>
 			<Text

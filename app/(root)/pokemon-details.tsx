@@ -4,7 +4,6 @@ import { Pokemon } from '../common/interface/pokemon.mixin';
 import PokemonCard from '@/components/PokemonCard';
 import { useRoute } from '@react-navigation/native';
 import { calculateHeight, calculateWeight } from '../utils/pokemonHelpers';
-import { Rect } from 'react-native-svg';
 import PokemonType from '@/components/PokemonType';
 
 const PokemonDetails = () => {
@@ -14,9 +13,9 @@ const PokemonDetails = () => {
 		<SafeAreaView className='flex-1 justify-evenly items-center bg-white'>
 			<View className='flex items-center'>
 				<PokemonCard pokemon={pokemon} width={60} disabled={true} />
-				<Text className='text-xl text-gray-500 font-PixelifySans'>{`#${pokemon.id
-					?.toString()
-					.padStart(4, '0')}`}</Text>
+				<Text className='text-xl text-gray-500 font-PixelifySans'>
+					{`#${pokemon.id?.toString().padStart(4, '0')}`}
+				</Text>
 			</View>
 			<View className='flex flex-row'>
 				{pokemon.types.map((type, index) => (

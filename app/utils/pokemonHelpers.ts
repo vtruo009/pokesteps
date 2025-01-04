@@ -1,6 +1,6 @@
 // PokeAPI returns weight in hectogram and height in decimeter
-const DM_TO_IN = 3.937;
-const IN_IN_FT = 12;
+const DM_TO_FT = 0.328084;
+const INCH_IN_FT = 12;
 const KG_MULTIPLIER = 0.1;
 const KG_TO_POUND = 2.2;
 
@@ -13,8 +13,14 @@ export function calculateWeight(weight: number) {
 }
 
 export function calculateHeight(height: number) {
-	const heightInInches = height * DM_TO_IN;
-	const heightInFeet = Math.round(heightInInches / IN_IN_FT).toString();
-	const remainingInches = Math.round(heightInInches % IN_IN_FT).toString();
-	return `${heightInFeet}' ${remainingInches.padStart(2, '0')}"`;
+	const feet = height * DM_TO_FT;
+	const wholeFeet = Math.floor(feet);
+	const remainingFeet = feet - wholeFeet;
+	const inches = Math.round(remainingFeet * INCH_IN_FT);
+
+	return `${wholeFeet > 1 ? `${wholeFeet}\' ` : ''}${
+		wholeFeet === 0 && inches < 10
+			? `${inches}`
+			: inches.toString().padStart(2, '0')
+	}"`;
 }
