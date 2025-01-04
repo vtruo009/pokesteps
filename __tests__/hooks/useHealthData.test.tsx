@@ -15,6 +15,10 @@ jest.mock('react-native-health', () => ({
 }));
 
 describe('useHealthData', () => {
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
 	it('should initalize appleHealthKit and get step count', () => {
 		jest
 			.spyOn(React, 'useState')

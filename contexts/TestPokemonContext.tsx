@@ -1,35 +1,9 @@
+import { TEST_POKEMONS } from '@/app/utils/constants';
 import PokemonCard from '@/components/PokemonCard';
 import { usePokemonContext } from '@/contexts/PokemonContext';
 import React from 'react';
 import { useEffect } from 'react';
 import { FlatList, Button } from 'react-native';
-
-export const TEST_POKEMONS = [
-	{
-		id: 1,
-		name: 'bulbasaur',
-		unlocked: false,
-		weight: 69,
-		height: 7,
-		types: ['grass', 'poison'],
-	},
-	{
-		id: 2,
-		name: 'ivysaur',
-		unlocked: false,
-		weight: 130,
-		height: 10,
-		types: ['grass', 'poison'],
-	},
-	{
-		id: 3,
-		name: 'venusaur',
-		unlocked: false,
-		weight: 1000,
-		height: 20,
-		types: ['grass', 'poison'],
-	},
-];
 
 const TestPokemonContext = () => {
 	const { state, dispatch } = usePokemonContext();

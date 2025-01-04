@@ -22,7 +22,7 @@ interface getPokemonsResponse {
 export const getPokemonInfo = async (
 	url: string
 ): Promise<ApiResponse<getPokemonInfoResponse>> => {
-	const response = await pokemonAPI({ method: 'GET', url });
+	const response = await pokemonAPI({ url, config: { method: 'GET' } });
 	if (response?.status === HttpStatusCode.Ok) {
 		return {
 			data: {
@@ -43,7 +43,7 @@ export const getPokemons = async (): Promise<
 	ApiResponse<getPokemonsResponse[]>
 > => {
 	const url = 'pokemon?limit=151';
-	const response = await pokemonAPI({ method: 'GET', url });
+	const response = await pokemonAPI({ url, config: { method: 'GET' } });
 	if (response?.status === HttpStatusCode.Ok) {
 		return { data: response.data.results };
 	} else {

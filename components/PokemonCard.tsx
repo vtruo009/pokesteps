@@ -29,7 +29,6 @@ const PokemonCard = ({
 			{/*TODO: Determine styling format; TW does not like dynamic classNames like w-${width} */}
 			<TouchableOpacity
 				testID={`${pokemon.name}-card`}
-				key={pokemon.name}
 				className={`flex justify-center items-center rounded-full mx-[20px] mt-[25px] mb-[10px] p-2 bg-gray-200 ${
 					width == 36 ? 'w-36 h-36' : 'w-60 h-60'
 				}`}
