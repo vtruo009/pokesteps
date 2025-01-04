@@ -11,7 +11,6 @@ interface PokemonCardProps {
 const IMAGE_URL =
 	'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
-// TODO: Change to open Pokemon details screen
 const handlePress = (pokemon: Pokemon) => {
 	console.log(`${pokemon.name} details`);
 	router.push({
@@ -36,6 +35,7 @@ const PokemonCard = ({
 				}`}
 				disabled={disabled}
 				onPress={() => handlePress(pokemon)}
+				accessibilityRole='button'
 			>
 				<Image
 					source={{
@@ -43,6 +43,8 @@ const PokemonCard = ({
 					}}
 					className='w-full h-full rounded-full'
 					resizeMode='contain'
+					alt='pokemon image'
+					accessibilityRole='image'
 				/>
 			</TouchableOpacity>
 			<Text

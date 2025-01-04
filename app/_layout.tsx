@@ -1,4 +1,5 @@
 import { PokemonProvider } from '@/contexts/PokemonContext';
+import { ThemeProvider } from '@rneui/themed';
 import { useFonts } from 'expo-font';
 import { Stack, Tabs } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -27,12 +28,14 @@ export default function RootLayout() {
 	}
 
 	return (
-		<PokemonProvider>
-			<Stack>
-				<Stack.Screen name='index' options={{ headerShown: false }} />
-				<Stack.Screen name='(root)' options={{ headerShown: false }} />
-				<Stack.Screen name='+not-found' />
-			</Stack>
-		</PokemonProvider>
+		<ThemeProvider>
+			<PokemonProvider>
+				<Stack>
+					<Stack.Screen name='index' options={{ headerShown: false }} />
+					<Stack.Screen name='(root)' options={{ headerShown: false }} />
+					<Stack.Screen name='+not-found' />
+				</Stack>
+			</PokemonProvider>
+		</ThemeProvider>
 	);
 }
