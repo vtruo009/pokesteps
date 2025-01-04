@@ -24,7 +24,6 @@ describe('useHealthData', () => {
 			.spyOn(React, 'useState')
 			.mockImplementationOnce(() => [true, jest.fn()]);
 		jest.spyOn(React, 'useState').mockImplementationOnce(() => [0, jest.fn()]);
-		jest.spyOn(React, 'useState').mockImplementationOnce(() => [0, jest.fn()]);
 
 		renderHook(useHealthData);
 
