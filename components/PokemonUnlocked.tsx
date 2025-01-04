@@ -15,7 +15,6 @@ const PokemonUnlocked = ({ visible, setVisible }: PokemonUnlockedProps) => {
 
 	return (
 		<Overlay
-			testID='pokemon-unlocked-overlay'
 			isVisible={visible}
 			backdropStyle={{
 				backgroundColor: 'rgba(0, 0, 0, 0.9)',
