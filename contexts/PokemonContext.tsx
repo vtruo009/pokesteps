@@ -1,5 +1,5 @@
 import { Pokemon } from '@/app/common/interface/pokemon.mixin';
-import { StorageKeys, storeData } from '@/app/utils/storageHelper';
+import { StorageKeys, storeData } from '@/app/utils/storageHelpers';
 import PokemonType from '@/components/PokemonType';
 import React from 'react';
 
