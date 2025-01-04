@@ -1,9 +1,9 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import PokemonCard from '@/components/PokemonCard';
 import { usePokemonContext } from '@/contexts/PokemonContext';
 import { SearchBar, Icon } from '@rneui/themed';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pokemon } from '@/app/common/interface/pokemon.mixin';
 import {
 	widthPercentageToDP as wp,
@@ -23,6 +23,13 @@ const Pokedex = () => {
 	const insets = useSafeAreaInsets();
 	const { state } = usePokemonContext();
 	const [searchText, setSearchText] = useState('');
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		if (state.pokemons.length > 0) {
+			setLoading(false);
+		}
+	}, []);
 
 	const handleOnChangeText = (text: string) => {
 		setSearchText(text);
@@ -50,25 +57,29 @@ const Pokedex = () => {
 					marginHorizontal: 10,
 				}}
 			/>
-			<View className='flex-1 w-full h-full items-center'>
-				<FlatList
-					data={
-						searchText
-							? filterPokemons(state.pokemons, searchText)
-							: state.pokemons
-					}
-					renderItem={({ item: pokemon }) => (
-						<PokemonCard pokemon={pokemon} disabled={!pokemon.unlocked} />
-					)}
-					numColumns={2}
-					initialNumToRender={10}
-					contentContainerStyle={{
-						paddingBottom: wp('25%'),
-						paddingHorizontal: 0,
-						marginHorizontal: 0,
-					}}
-				/>
-			</View>
+			{loading ? (
+				<ActivityIndicator size='large' style={{ flex: 1 }} />
+			) : (
+				<View className='flex-1 w-full h-full items-center'>
+					<FlatList
+						data={
+							searchText
+								? filterPokemons(state.pokemons, searchText)
+								: state.pokemons
+						}
+						renderItem={({ item: pokemon }) => (
+							<PokemonCard pokemon={pokemon} disabled={!pokemon.unlocked} />
+						)}
+						numColumns={2}
+						initialNumToRender={10}
+						contentContainerStyle={{
+							paddingBottom: wp('25%'),
+							paddingHorizontal: 0,
+							marginHorizontal: 0,
+						}}
+					/>
+				</View>
+			)}
 		</View>
 	);
 };
