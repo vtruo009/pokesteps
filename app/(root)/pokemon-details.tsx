@@ -13,7 +13,7 @@ const PokemonDetails = () => {
 		<SafeAreaView className='flex-1 justify-evenly items-center bg-white'>
 			<View className='flex items-center'>
 				<PokemonCard pokemon={pokemon} width={60} disabled={true} />
-				<Text className='text-xl text-gray-500 font-PixelifySans'>
+				<Text className='text-xl text-gray-500 font-JetBrainsMono'>
 					{`#${pokemon.id?.toString().padStart(4, '0')}`}
 				</Text>
 			</View>
@@ -23,10 +23,10 @@ const PokemonDetails = () => {
 				))}
 			</View>
 			<View>
-				<Text className='text-xl font-PixelifySans'>{`Height: ${calculateHeight(
+				<Text className='text-xl font-JetBrainsMono'>{`Height: ${calculateHeight(
 					pokemon.height!
 				)}`}</Text>
-				<Text className='text-xl font-PixelifySans'>{`Weight: ${calculateWeight(
+				<Text className='text-xl font-JetBrainsMono'>{`Weight: ${calculateWeight(
 					pokemon.weight!
 				)}`}</Text>
 			</View>

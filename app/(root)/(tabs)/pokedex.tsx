@@ -44,7 +44,7 @@ const Pokedex = () => {
 				paddingLeft: insets.left,
 			}}
 		>
-			<Text className='text-5xl mx-5 mt-5 font-PixelifySans'>Pokedex</Text>
+			<Text className='text-5xl mx-5 mt-5 font-JetBrainsMono'>Pokedex</Text>
 			<SearchBar
 				placeholder='Search...'
 				onChangeText={handleOnChangeText}

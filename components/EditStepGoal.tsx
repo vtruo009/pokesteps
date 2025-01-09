@@ -51,17 +51,21 @@ const EditStepGoal = ({
 			animationOutTiming={600}
 		>
 			<View className='m-10 bg-white rounded-lg items-center justify-center p-5'>
-				<Text className='text-3xl m-1'>Edit Step Goal</Text>
-				<Text className='text-lg m-1'>Current: {currentStepGoal}</Text>
+				<Text className='text-3xl m-1 font-JetBrainsMonoBold'>
+					Edit Step Goal
+				</Text>
+				<Text className='text-lg m-1 font-JetBrainsMonoMedium'>
+					Current: {currentStepGoal}
+				</Text>
 				{valid ? null : (
 					<Text className='text-md m-1 text-red-500'>
 						Must be at least 3000 steps
 					</Text>
 				)}
 				<TextInput
-					placeholder='Enter your new step goal'
+					placeholder='Enter new step goal'
 					keyboardType='number-pad'
-					className='border border-gray-300 rounded-md px-3 py-2 m-1'
+					className='border border-gray-300 rounded-md px-3 py-2 m-1  font-JetBrainsMonoExtraLight'
 					autoFocus
 					clearButtonMode='while-editing'
 					style={{ width: wp('50%'), height: 'auto' }}
@@ -72,13 +76,15 @@ const EditStepGoal = ({
 						className='w-2/5 border border-gray-300 rounded-xl px-3 py-2 m-1'
 						onPress={() => setVisible(false)}
 					>
-						<Text className='text-center'>Cancel</Text>
+						<Text className='text-center font-JetBrainsMonoSemiBold'>
+							Cancel
+						</Text>
 					</TouchableOpacity>
 					<Pressable
 						className='w-2/5 rounded-xl bg-[#FFCB05] px-3 py-2 m-1'
 						onPress={handlePress}
 					>
-						<Text className='text-center'>Save</Text>
+						<Text className='text-center font-JetBrainsMonoSemiBold'>Save</Text>
 					</Pressable>
 				</View>
 			</View>

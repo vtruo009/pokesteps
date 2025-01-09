@@ -54,7 +54,7 @@ const PokemonUnlocked = ({ visible, setVisible }: PokemonUnlockedProps) => {
 					/>
 				</Pressable>
 				<Text
-					className=' text-white text-center font-PixelifySans'
+					className=' text-white text-center font-JetBrainsMono'
 					style={{ fontSize: wp('10%') }}
 				>
 					{`${newPokemon?.name.toUpperCase()} UNLOCKED!`}
@@ -75,7 +75,7 @@ const PokemonUnlocked = ({ visible, setVisible }: PokemonUnlockedProps) => {
 					className='bg-[#FFCB05] p-2 w-auto h-auto text-center justify-center rounded-lg'
 				>
 					<Text
-						className='text-black font-PixelifySans uppercase'
+						className='text-black font-JetBrainsMonoBold uppercase'
 						style={{ fontSize: wp('4%') }}
 					>
 						View in Pokedex

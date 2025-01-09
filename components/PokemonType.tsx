@@ -18,7 +18,7 @@ const PokemonType = ({ type }: { type: string }) => {
 				marginHorizontal: 6,
 			}}
 		>
-			<Text className='font-PixelifySans text-lg uppercase'>{type}</Text>
+			<Text className='font-JetBrainsMono text-lg uppercase'>{type}</Text>
 		</View>
 	);
 };

@@ -47,7 +47,7 @@ const PokemonCard = ({
 				/>
 			</TouchableOpacity>
 			<Text
-				className={`text-center font-PixelifySans capitalize ${
+				className={`text-center font-JetBrainsMono capitalize ${
 					width == 36 ? '' : 'text-3xl'
 				}`}
 			>
