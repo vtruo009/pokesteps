@@ -75,7 +75,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 					onPress={handlePress}
 				>
 					<Image
-						source={require('../assets/images/icon.png')}
+						source={require('../assets/images/pokeball.png')}
 						style={{ width: '70%', height: '70%' }}
 					/>
 				</TouchableOpacity>

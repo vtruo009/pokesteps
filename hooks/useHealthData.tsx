@@ -29,10 +29,7 @@ const useHealthData = () => {
 	});
 
 	useEffect(() => {
-		if (!permission) {
-			console.log('Permission not granted');
-			return;
-		}
+		if (!permission) return;
 
 		const getStepCounts = (
 			date: Date,
@@ -51,7 +48,7 @@ const useHealthData = () => {
 						console.log('Error getting step count', error);
 						return;
 					}
-					console.log(`got ${date}'s step count`, result.value);
+					console.log(`${date.toDateString()} step count:`, result.value);
 					setStepCount(result.value);
 				}
 			);
