@@ -74,28 +74,28 @@ export default function StepsHomeScreen() {
 				setStepGoal={setStepGoal}
 			/>
 			<ProgressRing progress={progress} goalReached={goalReached} />
-			<View className='flex justify-center items-center font-PixelifySans'>
+			<View className='flex justify-center items-center font-JetBrainsMono'>
 				<Text
-					className='font-PixelifySans'
+					className='font-JetBrainsMono'
 					style={{ fontSize: textSizes['6xl'] }}
 				>
 					{todaySteps.toLocaleString()}
 				</Text>
 				<Text
-					className='font-PixelifySans'
+					className='font-JetBrainsMono'
 					style={{ fontSize: textSizes['2xl'] }}
 				>
 					steps
 				</Text>
 			</View>
-			<View className='flex justify-center items-center font-PixelifySans'>
+			<View className='flex justify-center items-center font-JetBrainsMono'>
 				<Text
-					className='font-PixelifySans'
+					className='font-JetBrainsMono'
 					style={{ fontSize: textSizes['4xl'] }}
 				>
 					{yesterdaySteps.toLocaleString()}
 				</Text>
-				<Text className='font-PixelifySans' style={{ fontSize: textSizes.xl }}>
+				<Text className='font-JetBrainsMono' style={{ fontSize: textSizes.xl }}>
 					yesterday
 				</Text>
 			</View>

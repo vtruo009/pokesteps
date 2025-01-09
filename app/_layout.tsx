@@ -11,10 +11,11 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 	const [loaded] = useFonts({
-		PixelifySans: require('../assets/fonts/PixelifySans-Regular.ttf'),
-		'PixelifySans-Medium': require('../assets/fonts/PixelifySans-Medium.ttf'),
-		'PixelifySans-SemiBold': require('../assets/fonts/PixelifySans-SemiBold.ttf'),
-		'PixelifySans-Bold': require('../assets/fonts/PixelifySans-Bold.ttf'),
+		JetBrainsMonoExtraLight: require('../assets/fonts/JetBrainsMono-ExtraLight.ttf'),
+		JetBrainsMono: require('../assets/fonts/JetBrainsMono-Regular.ttf'),
+		JetBrainsMonoMedium: require('../assets/fonts/JetBrainsMono-Medium.ttf'),
+		JetBrainsMonoSemiBold: require('../assets/fonts/JetBrainsMono-SemiBold.ttf'),
+		JetBrainsMonoBold: require('../assets/fonts/JetBrainsMono-Bold.ttf'),
 	});
 
 	useEffect(() => {
