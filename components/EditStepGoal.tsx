@@ -7,11 +7,8 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import Modal from 'react-native-modal';
-
-import {
-	widthPercentageToDP as wp,
-	heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import ErrorMessage from './ErrorMessage';
 
 interface EditStepGoalsProps {
 	currentStepGoal: number;
@@ -27,12 +24,19 @@ const EditStepGoal = ({
 	setStepGoal,
 }: EditStepGoalsProps) => {
 	const [value, setValue] = useState('');
-	const [valid, setValid] = useState(true);
+	const [errorType, setErrorType] = useState('');
 
-	const handlePress = async () => {
+	const onCancel = () => {
+		setErrorType('');
+		setVisible(false);
+	};
+
+	const onSave = async () => {
 		const newGoal = parseInt(value);
-		if (newGoal < 3000) {
-			setValid(false);
+		if (Number.isNaN(newGoal)) {
+			setErrorType('blank');
+		} else if (newGoal < 3000) {
+			setErrorType('invalid');
 		} else {
 			setStepGoal(newGoal);
 			setVisible(false);
@@ -54,14 +58,10 @@ const EditStepGoal = ({
 				<Text className='text-3xl m-1 font-JetBrainsMonoBold'>
 					Edit Step Goal
 				</Text>
-				<Text className='text-lg m-1 font-JetBrainsMonoMedium'>
+				<Text className='text-lg m-1 font-JetBrainsMonoBold'>
 					Current: {currentStepGoal}
 				</Text>
-				{valid ? null : (
-					<Text className='text-md m-1 text-red-500'>
-						Must be at least 3000 steps
-					</Text>
-				)}
+				{errorType === '' ? null : <ErrorMessage errorType={errorType} />}
 				<TextInput
 					placeholder='Enter new step goal'
 					keyboardType='number-pad'
@@ -74,7 +74,7 @@ const EditStepGoal = ({
 				<View className='flex flex-row justify-evenly items-center pt-2 px-4 w-full'>
 					<TouchableOpacity
 						className='w-2/5 border border-gray-300 rounded-xl px-3 py-2 m-1'
-						onPress={() => setVisible(false)}
+						onPress={onCancel}
 					>
 						<Text className='text-center font-JetBrainsMonoSemiBold'>
 							Cancel
@@ -82,7 +82,7 @@ const EditStepGoal = ({
 					</TouchableOpacity>
 					<Pressable
 						className='w-2/5 rounded-xl bg-[#FFCB05] px-3 py-2 m-1'
-						onPress={handlePress}
+						onPress={onSave}
 					>
 						<Text className='text-center font-JetBrainsMonoSemiBold'>Save</Text>
 					</Pressable>
