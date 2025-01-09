@@ -1,45 +1,31 @@
 {
-  "expo": {
-    "name": "pokesteps",
-    "slug": "pokesteps",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.pokesteps"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
-    "plugins": [
-      "expo-router",
-      "react-native-health"
-    ],
-    "experiments": {
-      "typedRoutes": true
-    },
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "d1a5bf92-3bd1-4c3a-a12e-9d189dd9d28d"
-      }
-    }
-  }
+	"expo": {
+		"name": "Pokesteps",
+		"slug": "Pokesteps",
+		"version": "1.0.1",
+		"orientation": "portrait",
+		"icon": "assets/images/appstore/appstore.png",
+		"scheme": "myapp",
+		"userInterfaceStyle": "automatic",
+		"splash": {
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"ios": {
+			"supportsTablet": true,
+			"bundleIdentifier": "com.vantruong.Pokesteps"
+		},
+		"plugins": ["expo-router", "react-native-health"],
+		"experiments": {
+			"typedRoutes": true
+		},
+		"extra": {
+			"router": {
+				"origin": false
+			},
+			"eas": {
+				"projectId": "1164e768-406f-4500-b7aa-056842cbfdc3"
+			}
+		}
+	}
 }

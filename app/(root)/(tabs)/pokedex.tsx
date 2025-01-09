@@ -29,7 +29,7 @@ const Pokedex = () => {
 		if (state.pokemons.length > 0) {
 			setLoading(false);
 		}
-	}, []);
+	}, [state.pokemons]);
 
 	const handleOnChangeText = (text: string) => {
 		setSearchText(text);

@@ -13,6 +13,7 @@ import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import EditStepGoal from '@/components/EditStepGoal';
 
 const textSizes = {
 	xl: hp('1.5%'),
@@ -23,8 +24,9 @@ const textSizes = {
 
 export default function StepsHomeScreen() {
 	const { todaySteps, yesterdaySteps } = useHealthData();
-	const [stepGoal, setStepGoal] = useState(10000);
+	const [stepGoal, setStepGoal] = useState(3000);
 	const [goalReached, setGoalReached] = useState(false);
+	const [visible, setVisible] = useState(false);
 	const progress = todaySteps / stepGoal;
 
 	useEffect(() => {
@@ -48,45 +50,29 @@ export default function StepsHomeScreen() {
 		} else {
 			setGoalReached(false);
 		}
-	}, [todaySteps, stepGoal]);
-
-	const handlePress = () => {
-		console.log('Editing step goal...');
-		Alert.prompt(
-			'Edit Step Goal',
-			`Current step goal: ${stepGoal}\nEnter your new step goal`,
-			[
-				{
-					text: 'Cancel',
-					onPress: () => console.log('Cancel pressed'),
-					style: 'cancel',
-				},
-				{
-					text: 'Save',
-					onPress: async (newGoal) => {
-						console.log('New goal saved:', newGoal);
-						if (newGoal) {
-							setStepGoal(parseInt(newGoal));
-							await storeData(StorageKeys.STEP_GOAL, newGoal);
-						}
-					},
-				},
-			]
+		storeData(StorageKeys.STEP_GOAL, JSON.stringify(stepGoal)).catch((error) =>
+			console.log(error)
 		);
-	};
+	}, [todaySteps, stepGoal]);
 
 	return (
 		<SafeAreaView className='relative flex-1 justify-around items-center bg-white pb-20'>
 			<StatusBar style='dark' />
 			<TouchableOpacity
 				style={{ position: 'absolute', top: hp('10%'), right: wp('10%') }}
-				onPress={handlePress}
+				onPress={() => setVisible(true)}
 			>
 				<Image
 					source={require('../../../assets/icons/edit-button.png')}
 					style={{ width: 32, height: 32 }}
 				/>
 			</TouchableOpacity>
+			<EditStepGoal
+				visible={visible}
+				setVisible={setVisible}
+				currentStepGoal={stepGoal}
+				setStepGoal={setStepGoal}
+			/>
 			<ProgressRing progress={progress} goalReached={goalReached} />
 			<View className='flex justify-center items-center font-PixelifySans'>
 				<Text
