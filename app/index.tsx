@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { getPokemonInfo, getPokemonsLocally } from './common/api/pokemon-calls';
 import { Redirect } from 'expo-router';
-import { getItemForKey, storeData } from './utils/storageHelpers';
+import { getItemForKey, setItemForKey } from './utils/storageHelpers';
 import { Pokemon } from './common/interface/pokemon.mixin';
 import { StorageKeys } from './utils/storageHelpers';
 import { usePokemonContext } from '@/contexts/PokemonContext';
@@ -37,19 +37,36 @@ const Home = () => {
 		const getData = async () => {
 			const hasLaunched = await getItemForKey(StorageKeys.HAS_LAUNCHED);
 			let allPokemons: Pokemon[] = [];
+			let lockedPokemonIds: Set<number> = new Set();
 
 			if (!hasLaunched) {
 				allPokemons = await getAllPokemons();
+				lockedPokemonIds = new Set(allPokemons.map((pokemon) => pokemon.id));
 				if (allPokemons) {
 					console.log('Saving pokemon data to storage...');
-					await storeData(StorageKeys.POKEMONS, JSON.stringify(allPokemons));
+					await setItemForKey(
+						StorageKeys.POKEMONS,
+						JSON.stringify(allPokemons)
+					);
+					await setItemForKey(
+						StorageKeys.LOCKED_POKEMON_IDS,
+						[...lockedPokemonIds].join(',')
+					);
 					console.log('Pokemon data saved to storage...');
 				}
-				await storeData(StorageKeys.HAS_LAUNCHED, 'true');
+				await setItemForKey(StorageKeys.HAS_LAUNCHED, 'true');
 			} else {
-				const data = await getItemForKey(StorageKeys.POKEMONS);
-				if (data) {
-					allPokemons = JSON.parse(data);
+				const pokemonsData = await getItemForKey(StorageKeys.POKEMONS);
+				const lockedPokemonIdsData = await getItemForKey(
+					StorageKeys.LOCKED_POKEMON_IDS
+				);
+				if (pokemonsData) {
+					allPokemons = JSON.parse(pokemonsData);
+				}
+				if (lockedPokemonIdsData) {
+					lockedPokemonIds = new Set(
+						lockedPokemonIdsData.split(',').map(Number)
+					);
 				}
 			}
 
@@ -58,6 +75,7 @@ const Home = () => {
 				payload: {
 					randomId: 0,
 					pokemons: allPokemons,
+					lockedPokemonIds,
 				},
 			});
 		};

@@ -1,11 +1,13 @@
 import { Pokemon } from '@/app/common/interface/pokemon.mixin';
-import { StorageKeys, storeData } from '@/app/utils/storageHelpers';
+import { StorageKeys, setItemForKey } from '@/app/utils/storageHelpers';
 import PokemonType from '@/components/PokemonType';
+import { store } from 'expo-router/build/global-state/router-store';
 import React from 'react';
 
 interface PokemonType {
 	randomId: number;
 	pokemons: Pokemon[];
+	lockedPokemonIds: Set<number>;
 }
 
 interface Action {
@@ -16,6 +18,7 @@ interface Action {
 const DEFAULT_STATE: PokemonType = {
 	randomId: 0,
 	pokemons: [],
+	lockedPokemonIds: new Set(),
 };
 
 const PokemonContext = React.createContext<{
@@ -31,15 +34,25 @@ function pokemonReducer(state: PokemonType, action: Action): PokemonType {
 
 	switch (type) {
 		case 'add_pokemons':
-			return { ...state, pokemons: [...payload.pokemons] };
+			return {
+				...state,
+				pokemons: [...payload.pokemons],
+				lockedPokemonIds: payload.lockedPokemonIds,
+			};
 		case 'unlock_pokemon':
 			state.pokemons[payload.randomId].unlocked = true;
-			storeData(StorageKeys.POKEMONS, JSON.stringify(state.pokemons)).catch(
-				(error) => console.log('Error saving data', error)
+			state.lockedPokemonIds.delete(payload.randomId);
+			setItemForKey(StorageKeys.POKEMONS, JSON.stringify(state.pokemons)).catch(
+				(error) => console.log('Error saving Pokémons', error)
 			);
+			setItemForKey(
+				StorageKeys.LOCKED_POKEMON_IDS,
+				[...state.lockedPokemonIds].join(',')
+			).catch((error) => console.log('Error saving locked Pokémon IDs', error));
 			return {
 				randomId: payload.randomId,
 				pokemons: [...payload.pokemons],
+				lockedPokemonIds: state.lockedPokemonIds,
 			};
 		default:
 			return state;

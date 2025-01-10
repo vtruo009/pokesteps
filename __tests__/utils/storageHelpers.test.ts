@@ -2,7 +2,7 @@ import {
 	getItemForKey,
 	removeItemForKey,
 	StorageKeys,
-	storeData,
+	setItemForKey,
 } from '@/app/utils/storageHelpers';
 import AsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 
@@ -14,7 +14,7 @@ describe('Storage Helpers', () => {
 	it('should store item in storage', async () => {
 		expect(await getItemForKey(StorageKeys.HAS_LAUNCHED)).toBeUndefined();
 
-		await storeData(StorageKeys.HAS_LAUNCHED, 'true');
+		await setItemForKey(StorageKeys.HAS_LAUNCHED, 'true');
 
 		expect(await getItemForKey(StorageKeys.HAS_LAUNCHED)).toBe('true');
 	});
@@ -30,7 +30,7 @@ describe('Storage Helpers', () => {
 	it('should get existing item from storage and return stored value', async () => {
 		const expectedHasLaunched = 'true';
 
-		await storeData(StorageKeys.HAS_LAUNCHED, expectedHasLaunched);
+		await setItemForKey(StorageKeys.HAS_LAUNCHED, expectedHasLaunched);
 		const hasLaunched = await getItemForKey(StorageKeys.HAS_LAUNCHED);
 
 		expect(hasLaunched).toBeDefined();

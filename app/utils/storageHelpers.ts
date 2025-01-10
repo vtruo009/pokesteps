@@ -4,9 +4,10 @@ export enum StorageKeys {
 	HAS_LAUNCHED = 'HAS_LAUNCHED',
 	POKEMONS = 'POKEMONS',
 	STEP_GOAL = 'STEP_GOAL',
+	LOCKED_POKEMON_IDS = 'LOCKED_POKEMON_IDS',
 }
 
-export const storeData = async (key: string, value: string) => {
+export const setItemForKey = async (key: string, value: string) => {
 	try {
 		await AsyncStorage.setItem(key, JSON.stringify(value));
 	} catch (error) {
