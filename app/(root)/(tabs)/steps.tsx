@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import {
 	getItemForKey,
 	StorageKeys,
-	storeData,
+	setItemForKey,
 } from '@/app/utils/storageHelpers';
 import {
 	widthPercentageToDP as wp,
@@ -37,7 +37,7 @@ export default function StepsHomeScreen() {
 				setStepGoal(JSON.parse(data));
 			} else {
 				console.log('Step goal not found in storage...');
-				storeData(StorageKeys.STEP_GOAL, '10000');
+				setItemForKey(StorageKeys.STEP_GOAL, '10000');
 			}
 		};
 
@@ -50,8 +50,8 @@ export default function StepsHomeScreen() {
 		} else {
 			setGoalReached(false);
 		}
-		storeData(StorageKeys.STEP_GOAL, JSON.stringify(stepGoal)).catch((error) =>
-			console.log(error)
+		setItemForKey(StorageKeys.STEP_GOAL, JSON.stringify(stepGoal)).catch(
+			(error) => console.log(error)
 		);
 	}, [todaySteps, stepGoal]);
 

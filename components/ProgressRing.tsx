@@ -38,7 +38,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 	}, [progress]);
 
 	const handlePress = () => {
-		const randomId = Math.ceil(Math.random() * 151);
+		const randomId = Math.ceil(Math.random() * state.lockedPokemonIds.size);
 
 		dispatch({
 			type: 'unlock_pokemon',
