@@ -23,7 +23,7 @@ describe('PokemonContext', () => {
 		await userEvent.press(unlockButton);
 
 		const name = screen.getByText('venusaur');
-		const pokemonCard = screen.getByTestId(`${expectedPokemon.name}-card`, {});
+		const pokemonCard = screen.getByTestId(`${expectedPokemon.name}-card`);
 
 		await waitFor(() => {
 			expect(name.children[0]).toBe(expectedPokemon.name);

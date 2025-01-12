@@ -19,7 +19,7 @@ describe('<EditStepGoal />', () => {
 			/>
 		);
 
-		const input = screen.getByPlaceholderText('Enter your new step goal');
+		const input = screen.getByPlaceholderText('Enter new step goal');
 		await userEvent.type(input, '5000');
 		await userEvent.press(screen.getByText('Save'));
 
@@ -44,7 +44,7 @@ describe('<EditStepGoal />', () => {
 				/>
 			);
 
-			const input = screen.getByPlaceholderText('Enter your new step goal');
+			const input = screen.getByPlaceholderText('Enter new step goal');
 			await userEvent.type(input, userInput);
 			await userEvent.press(screen.getByText('Save'));
 			const errorMessage = screen.getByText(errorMsg);
