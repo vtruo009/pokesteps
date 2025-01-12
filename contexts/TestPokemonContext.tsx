@@ -14,6 +14,7 @@ const TestPokemonContext = () => {
 			payload: {
 				randomId: 0,
 				pokemons: TEST_POKEMONS,
+				lockedPokemonIds: new Set([1, 2, 3]),
 			},
 		});
 	}, []);
@@ -24,6 +25,7 @@ const TestPokemonContext = () => {
 			payload: {
 				randomId: 2,
 				pokemons: TEST_POKEMONS,
+				lockedPokemonIds: new Set([1, 2, 3]),
 			},
 		});
 	};
