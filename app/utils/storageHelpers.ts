@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Pokemon } from '../common/interface/pokemon.mixin';
 
 export enum StorageKeys {
 	HAS_LAUNCHED = 'HAS_LAUNCHED',
@@ -31,5 +32,41 @@ export const removeItemForKey = async (key: string) => {
 		await AsyncStorage.removeItem(key);
 	} catch (error) {
 		console.log('Error removing data', error);
+	}
+};
+
+export const initializeData = async (
+	allPokemons: Pokemon[],
+	lockedPokemonIds: Set<number>
+) => {
+	try {
+		await setItemForKey(StorageKeys.POKEMONS, JSON.stringify(allPokemons));
+		await setItemForKey(
+			StorageKeys.LOCKED_POKEMON_IDS,
+			[...lockedPokemonIds].join(',')
+		);
+		await AsyncStorage.setItem(StorageKeys.HAS_LAUNCHED, 'true');
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const loadData = async (): Promise<
+	{ pokemons: Pokemon[]; lockedIds: Set<number> } | undefined
+> => {
+	try {
+		const pokemons = await getItemForKey(StorageKeys.POKEMONS);
+		const lockedPokemonIds = await getItemForKey(
+			StorageKeys.LOCKED_POKEMON_IDS
+		);
+
+		if (pokemons && lockedPokemonIds) {
+			return {
+				pokemons: JSON.parse(pokemons),
+				lockedIds: new Set(lockedPokemonIds.split(',').map(Number)),
+			};
+		}
+	} catch (error) {
+		throw error;
 	}
 };

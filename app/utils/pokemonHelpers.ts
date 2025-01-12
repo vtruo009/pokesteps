@@ -1,3 +1,6 @@
+import { getPokemonDetails } from '../common/api/pokemon-calls';
+import { Pokemon } from '../common/interface/pokemon.mixin';
+
 // PokeAPI returns weight in hectogram and height in decimeter
 const DM_TO_FT = 0.328084;
 const INCH_IN_FT = 12;
@@ -23,4 +26,31 @@ export function calculateHeight(height: number) {
 			? `${inches}`
 			: inches.toString().padStart(2, '0')
 	}"`;
+}
+
+export async function transformPokemonDetails(
+	results: any
+): Promise<Pokemon[]> {
+	const transformedPokemons = [];
+
+	try {
+		for (const pokemon of results) {
+			const pokemonInfo = await getPokemonDetails(pokemon.url);
+			if (pokemonInfo.data) {
+				const pokemon: Pokemon = {
+					id: pokemonInfo.data.id,
+					name: pokemonInfo.data.name,
+					weight: pokemonInfo.data.weight,
+					height: pokemonInfo.data.height,
+					types: pokemonInfo.data.types.map((type) => type.type.name),
+					unlocked: false,
+				};
+				transformedPokemons.push(pokemon);
+			}
+		}
+	} catch (error) {
+		throw new Error('Error transforming pokemon data');
+	}
+
+	return transformedPokemons;
 }
