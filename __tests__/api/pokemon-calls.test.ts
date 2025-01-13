@@ -1,4 +1,4 @@
-import { getPokemonInfo } from '@/app/common/api/pokemon-calls';
+import { getPokemonDetails } from '@/app/common/api/pokemon-calls';
 import {
 	GET_POKEMON_INFO_RESPONSE,
 	TEST_POKEMONS,
@@ -42,7 +42,7 @@ describe('Pokemon Calls', () => {
 			},
 		});
 
-		const response = await getPokemonInfo(req.url);
+		const response = await getPokemonDetails(req.url);
 
 		expect(axios.get).toHaveBeenCalledTimes(1);
 		expect(axios.get).toHaveBeenCalledWith(req.url, req.config);

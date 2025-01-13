@@ -19,7 +19,7 @@ interface getPokemonsResponse {
 	url: string;
 }
 
-export const getPokemonInfo = async (
+export const getPokemonDetails = async (
 	url: string
 ): Promise<ApiResponse<getPokemonInfoResponse>> => {
 	const response = await pokemonAPI({ url, config: { method: 'GET' } });

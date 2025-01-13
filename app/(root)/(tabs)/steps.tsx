@@ -23,7 +23,9 @@ const textSizes = {
 };
 
 export default function StepsHomeScreen() {
-	const { todaySteps, yesterdaySteps } = useHealthData();
+	// const { todaySteps, yesterdaySteps } = useHealthData();
+	const todaySteps = 10000;
+	const yesterdaySteps = 5000;
 	const [stepGoal, setStepGoal] = useState(3000);
 	const [goalReached, setGoalReached] = useState(false);
 	const [visible, setVisible] = useState(false);
