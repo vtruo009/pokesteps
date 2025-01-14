@@ -51,7 +51,7 @@ function pokemonReducer(state: PokemonType, action: Action): PokemonType {
 			).catch((error) => console.log('Error saving locked Pokémon IDs', error));
 			return {
 				randomId: payload.randomId,
-				pokemons: [...payload.pokemons],
+				pokemons: [...state.pokemons],
 				lockedPokemonIds: state.lockedPokemonIds,
 			};
 		default:
