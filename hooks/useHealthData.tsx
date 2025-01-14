@@ -49,7 +49,7 @@ const useHealthData = () => {
 						return;
 					}
 					console.log(`${date.toDateString()} step count:`, result.value);
-					setStepCount(result.value);
+					setStepCount(Math.round(result.value));
 				}
 			);
 		};

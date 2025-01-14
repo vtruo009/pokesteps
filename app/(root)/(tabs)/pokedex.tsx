@@ -44,7 +44,9 @@ const Pokedex = () => {
 				paddingLeft: insets.left,
 			}}
 		>
-			<Text className='text-5xl mx-5 mt-5 font-JetBrainsMono'>Pokedex</Text>
+			<Text className='mx-5 font-JetBrainsMono' style={{ fontSize: wp('10%') }}>
+				Pokedex
+			</Text>
 			<SearchBar
 				placeholder='Search...'
 				onChangeText={handleOnChangeText}

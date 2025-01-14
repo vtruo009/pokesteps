@@ -53,8 +53,12 @@ const EditStepGoal = ({
 			animationInTiming={600}
 			animationOut='zoomOut'
 			animationOutTiming={600}
+			style={{ justifyContent: 'center', alignItems: 'center' }}
 		>
-			<View className='m-10 bg-white rounded-lg items-center justify-center p-5'>
+			<View
+				className='m-10 bg-white rounded-lg items-center justify-center'
+				style={{ width: wp('80%'), height: 'auto', padding: wp('5%') }}
+			>
 				<Text className='text-3xl m-1 font-JetBrainsMonoBold'>
 					Edit Step Goal
 				</Text>
