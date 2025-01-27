@@ -1,11 +1,4 @@
-import {
-	Text,
-	TouchableOpacity,
-	View,
-	Image,
-	Alert,
-	Button,
-} from 'react-native';
+import { Text, TouchableOpacity, View, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import useHealthData from '@/hooks/useHealthData';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,14 +8,12 @@ import {
 	getItemForKey,
 	StorageKeys,
 	setItemForKey,
-	removeItemForKey,
 } from '@/app/utils/storageHelpers';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import EditStepGoal from '@/components/EditStepGoal';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const textSizes = {
 	xl: hp('1.5%'),
@@ -35,7 +26,6 @@ export default function StepsHomeScreen() {
 	const { todaySteps, yesterdaySteps } = useHealthData();
 	const [stepGoal, setStepGoal] = useState(3000);
 	const [goalMet, setGoalMet] = useState(false);
-	const [disabled, setDisabled] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const progress = todaySteps / stepGoal;
 
