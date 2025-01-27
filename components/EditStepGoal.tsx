@@ -9,6 +9,7 @@ import {
 import Modal from 'react-native-modal';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import ErrorMessage from './ErrorMessage';
+import { APP_COLOR } from '@/app/utils/constants';
 
 interface EditStepGoalsProps {
 	currentStepGoal: number;
@@ -85,7 +86,10 @@ const EditStepGoal = ({
 						</Text>
 					</TouchableOpacity>
 					<Pressable
-						className='w-2/5 rounded-xl bg-[#FFCB05] px-3 py-2 m-1'
+						className='w-2/5 rounded-xl px-3 py-2 m-1'
+						style={{
+							backgroundColor: APP_COLOR.yellow,
+						}}
 						onPress={onSave}
 					>
 						<Text className='text-center font-JetBrainsMonoSemiBold'>Save</Text>

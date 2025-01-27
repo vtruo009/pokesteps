@@ -9,7 +9,7 @@ jest.mock('@rneui/themed', () => ({
 
 describe('<ProgressRing />', () => {
 	it('should render the progress ring without Pokéball button when goal is not reached', () => {
-		const screen = render(<ProgressRing progress={0.5} goalReached={false} />);
+		const screen = render(<ProgressRing progress={0.5} goalMet={false} />);
 
 		const pokeball = screen.queryByRole('button');
 
@@ -17,7 +17,7 @@ describe('<ProgressRing />', () => {
 	});
 
 	it('should render the progress ring with Pokéball button when goal is reached', () => {
-		const screen = render(<ProgressRing progress={1} goalReached={true} />);
+		const screen = render(<ProgressRing progress={1} goalMet={true} />);
 
 		const pokeball = screen.getByTestId('pokeball-button');
 
@@ -26,7 +26,7 @@ describe('<ProgressRing />', () => {
 	});
 
 	it('should disable the Pokéball button and display overlay when it is pressed once', async () => {
-		const screen = render(<ProgressRing progress={1} goalReached={true} />);
+		const screen = render(<ProgressRing progress={1} goalMet={true} />);
 
 		const pokeball = screen.getByTestId('pokeball-button');
 		await userEvent.press(pokeball);

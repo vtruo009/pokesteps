@@ -1,4 +1,11 @@
-import { Text, TouchableOpacity, View, Image, Alert } from 'react-native';
+import {
+	Text,
+	TouchableOpacity,
+	View,
+	Image,
+	Alert,
+	Button,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import useHealthData from '@/hooks/useHealthData';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,12 +15,14 @@ import {
 	getItemForKey,
 	StorageKeys,
 	setItemForKey,
+	removeItemForKey,
 } from '@/app/utils/storageHelpers';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import EditStepGoal from '@/components/EditStepGoal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const textSizes = {
 	xl: hp('1.5%'),
@@ -25,7 +34,8 @@ const textSizes = {
 export default function StepsHomeScreen() {
 	const { todaySteps, yesterdaySteps } = useHealthData();
 	const [stepGoal, setStepGoal] = useState(3000);
-	const [goalReached, setGoalReached] = useState(false);
+	const [goalMet, setGoalMet] = useState(false);
+	const [disabled, setDisabled] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const progress = todaySteps / stepGoal;
 
@@ -46,9 +56,9 @@ export default function StepsHomeScreen() {
 
 	useEffect(() => {
 		if (todaySteps >= stepGoal) {
-			setGoalReached(true);
+			setGoalMet(true);
 		} else {
-			setGoalReached(false);
+			setGoalMet(false);
 		}
 		setItemForKey(StorageKeys.STEP_GOAL, JSON.stringify(stepGoal)).catch(
 			(error) => console.log(error)
@@ -73,7 +83,7 @@ export default function StepsHomeScreen() {
 				currentStepGoal={stepGoal}
 				setStepGoal={setStepGoal}
 			/>
-			<ProgressRing progress={progress} goalReached={goalReached} />
+			<ProgressRing progress={progress} goalMet={goalMet} />
 			<View className='flex justify-center items-center font-JetBrainsMono'>
 				<Text
 					className='font-JetBrainsMono'

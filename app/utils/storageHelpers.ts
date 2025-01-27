@@ -3,9 +3,15 @@ import { Pokemon } from '../common/interface/pokemon.mixin';
 
 export enum StorageKeys {
 	HAS_LAUNCHED = 'HAS_LAUNCHED',
+	HAS_UNLOCKED = 'HAS_UNLOCKED',
 	POKEMONS = 'POKEMONS',
 	STEP_GOAL = 'STEP_GOAL',
 	LOCKED_POKEMON_IDS = 'LOCKED_POKEMON_IDS',
+}
+
+interface LoadDataResponse {
+	pokemons: Pokemon[];
+	lockedIds: Set<number>;
 }
 
 export const setItemForKey = async (key: string, value: string) => {
@@ -45,15 +51,14 @@ export const initializeData = async (
 			StorageKeys.LOCKED_POKEMON_IDS,
 			[...lockedPokemonIds].join(',')
 		);
-		await AsyncStorage.setItem(StorageKeys.HAS_LAUNCHED, 'true');
+		await setItemForKey(StorageKeys.HAS_LAUNCHED, 'true');
+		await setItemForKey(StorageKeys.HAS_UNLOCKED, 'false');
 	} catch (error) {
 		throw error;
 	}
 };
 
-export const loadData = async (): Promise<
-	{ pokemons: Pokemon[]; lockedIds: Set<number> } | undefined
-> => {
+export const loadData = async (): Promise<LoadDataResponse | undefined> => {
 	try {
 		const pokemons = await getItemForKey(StorageKeys.POKEMONS);
 		const lockedPokemonIds = await getItemForKey(

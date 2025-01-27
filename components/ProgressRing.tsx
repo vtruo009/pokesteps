@@ -10,6 +10,12 @@ import Animated, {
 } from 'react-native-reanimated';
 import { usePokemonContext } from '@/contexts/PokemonContext';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { APP_COLOR } from '@/app/utils/constants';
+import {
+	getItemForKey,
+	setItemForKey,
+	StorageKeys,
+} from '@/app/utils/storageHelpers';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
@@ -18,13 +24,25 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 interface ProgressRingProps {
 	progress: number;
-	goalReached: boolean;
+	goalMet: boolean;
 }
 
-const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
+const resetPress = () => {
+	const reset = new Date();
+	reset.setHours(24, 0, 0, 0);
+	const timeToMidnight = reset.getTime() - Date.now();
+	console.log('timeToMidnight:', timeToMidnight);
+	setTimeout(async () => {
+		console.log('Resetting press...');
+		await setItemForKey(StorageKeys.HAS_UNLOCKED, 'false');
+		resetPress();
+	}, timeToMidnight);
+};
+
+const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 	const { state, dispatch } = usePokemonContext();
 	const [overlayVisible, setOverlayVisible] = useState(false);
-	const [disable, setDisable] = useState(false);
+	const [disabled, setDisabled] = useState(false);
 	const innerRadius = RADIUS - STROKEWIDTH / 2;
 	const circumference = 2 * Math.PI * innerRadius;
 	const fill = useSharedValue(0);
@@ -33,11 +51,28 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 		strokeDasharray: [circumference * fill.value, circumference],
 	}));
 
+	// useEffect(() => {
+	// 	const interval = setInterval(() => {
+	// 		console.log('Check if it is time to reset...');
+	// 		resetPress();
+	// 	}, 60000);
+	// 	return () => clearInterval(interval);
+	// }, []);
+
 	useEffect(() => {
 		fill.value = withTiming(progress, { duration: 2000 });
 	}, [progress]);
 
-	const handlePress = () => {
+	useEffect(() => {
+		const getHasUnlocked = async () => {
+			const hasUnlocked = await getItemForKey(StorageKeys.HAS_UNLOCKED);
+			setDisabled(hasUnlocked === 'true');
+		};
+
+		getHasUnlocked().catch((error) => console.log(error));
+	});
+
+	const handlePress = async () => {
 		const randomId = Math.ceil(Math.random() * state.lockedPokemonIds.size);
 
 		dispatch({
@@ -45,7 +80,8 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 			payload: { ...state, randomId },
 		});
 
-		setDisable(true);
+		setDisabled(true);
+		await setItemForKey(StorageKeys.HAS_UNLOCKED, 'true');
 		setOverlayVisible(true);
 	};
 
@@ -59,7 +95,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 				marginTop: '10%',
 			}}
 		>
-			{goalReached && (
+			{goalMet && (
 				<TouchableOpacity
 					testID='pokeball-button'
 					style={{
@@ -71,7 +107,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 						position: 'absolute',
 						zIndex: 1,
 					}}
-					disabled={disable}
+					disabled={disabled}
 					onPress={handlePress}
 				>
 					<Image
@@ -101,7 +137,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 					r={innerRadius}
 					fill='transparent'
 					strokeWidth={STROKEWIDTH}
-					stroke='#3C5AA6'
+					stroke={`${goalMet ? APP_COLOR.yellow : APP_COLOR.blue}`}
 					animatedProps={animatedProps}
 					strokeLinecap='round'
 					rotation='-90'
