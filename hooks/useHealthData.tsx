@@ -61,8 +61,12 @@ const useHealthData = () => {
 			today.getDate() - 1
 		);
 
-		getStepCounts(today, setTodaySteps);
 		getStepCounts(yesterday, setYesterdaySteps);
+		const interval = setInterval(() => {
+			getStepCounts(today, setTodaySteps);
+			console.log('A minute has passed. Updating step count...', today);
+		}, 60000);
+		return () => clearInterval(interval);
 	}, [permission]);
 
 	return {
