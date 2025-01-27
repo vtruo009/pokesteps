@@ -26,7 +26,6 @@ export default function StepsHomeScreen() {
 	const { todaySteps, yesterdaySteps } = useHealthData();
 	const [stepGoal, setStepGoal] = useState(3000);
 	const [goalMet, setGoalMet] = useState(false);
-	const [disabled, setDisabled] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const progress = todaySteps / stepGoal;
 
