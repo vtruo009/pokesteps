@@ -1,4 +1,4 @@
-import { TEST_POKEMONS } from '@/app/utils/constants';
+import { TEST_POKEMONS } from '@/app/lib/constants';
 import PokemonCard from '@/components/PokemonCard';
 import { usePokemonContext } from '@/contexts/PokemonContext';
 import React from 'react';

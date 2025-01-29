@@ -1,19 +1,14 @@
 import { useEffect } from 'react';
-import {
-	getPokemonDetails,
-	getPokemonsLocally,
-} from './common/api/pokemon-calls';
 import { Redirect } from 'expo-router';
 import {
 	getItemForKey,
 	loadData,
-	setItemForKey,
 	initializeData,
-} from './utils/storageHelpers';
+} from './lib/utils/storageHelpers';
 import { Pokemon } from './common/interface/pokemon.mixin';
-import { StorageKeys } from './utils/storageHelpers';
+import { StorageKeys } from './lib/utils/storageHelpers';
 import { usePokemonContext } from '@/contexts/PokemonContext';
-import { transformPokemonDetails } from './utils/pokemonHelpers';
+import { fetchAPI } from './lib/fetch';
 
 const Home = () => {
 	const pokemonContext = usePokemonContext();
@@ -26,12 +21,14 @@ const Home = () => {
 			let lockedPokemonIds: Set<number> = new Set<number>();
 
 			if (!hasLaunched) {
-				// const results = await getPokemons();
-				const results = getPokemonsLocally();
 				try {
-					allPokemons = await transformPokemonDetails(results);
-					lockedPokemonIds = new Set(allPokemons.map((pokemon) => pokemon.id));
-					await initializeData(allPokemons, lockedPokemonIds);
+					const { data: allPokemons } = await fetchAPI('/(api)/pokemons', {
+						method: 'GET',
+					});
+					lockedPokemonIds = new Set(
+						allPokemons.map((pokemon: Pokemon) => pokemon.id)
+					);
+					await initializeData(lockedPokemonIds);
 				} catch (error) {
 					console.log('Error initializing data:', error);
 				}

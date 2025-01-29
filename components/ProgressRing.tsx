@@ -10,12 +10,12 @@ import Animated, {
 } from 'react-native-reanimated';
 import { usePokemonContext } from '@/contexts/PokemonContext';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { APP_COLOR } from '@/app/utils/constants';
+import { APP_COLOR } from '@/app/lib/constants';
 import {
 	getItemForKey,
 	setItemForKey,
 	StorageKeys,
-} from '@/app/utils/storageHelpers';
+} from '@/app/lib/utils/storageHelpers';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { ApiRequestPrameters } from '../interface/api.interface';
+import { ApiRequestPrameters } from '../common/interface/api.interface';
 
 // TODO: we should try not to use any types as it is not safe. Need to do more research on how to type this
 export const pokemonAPI = async ({

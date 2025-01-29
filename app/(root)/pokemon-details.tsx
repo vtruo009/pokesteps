@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { Pokemon } from '../common/interface/pokemon.mixin';
 import PokemonCard from '@/components/PokemonCard';
 import { useRoute } from '@react-navigation/native';
-import { calculateHeight, calculateWeight } from '../utils/pokemonHelpers';
+import { calculateHeight, calculateWeight } from '../lib/utils/pokemonHelpers';
 import PokemonType from '@/components/PokemonType';
 
 const PokemonDetails = () => {

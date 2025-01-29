@@ -9,7 +9,7 @@ import {
 import Modal from 'react-native-modal';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import ErrorMessage from './ErrorMessage';
-import { APP_COLOR } from '@/app/utils/constants';
+import { APP_COLOR } from '@/app/lib/constants';
 
 interface EditStepGoalsProps {
 	currentStepGoal: number;

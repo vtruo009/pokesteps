@@ -1,6 +1,6 @@
 import { HttpStatusCode } from 'axios';
 import { pokemonAPI } from './api';
-import { ApiResponse } from '../interface/api.interface';
+import { ApiResponse } from '../common/interface/api.interface';
 
 interface getPokemonInfoResponse {
 	id: number;
@@ -53,6 +53,6 @@ export const getPokemons = async (): Promise<
 
 // TODO: Remove when database is ready
 export const getPokemonsLocally = () => {
-	const data = require('../../data/pokemons.json');
+	const data = require('../data/pokemons.json');
 	return data.results;
 };

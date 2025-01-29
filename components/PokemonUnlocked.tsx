@@ -7,7 +7,7 @@ import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { APP_COLOR } from '@/app/utils/constants';
+import { APP_COLOR } from '@/app/lib/constants';
 
 interface PokemonUnlockedProps {
 	visible: boolean;

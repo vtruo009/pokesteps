@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Pokemon } from '../common/interface/pokemon.mixin';
+import { Pokemon } from '../../common/interface/pokemon.mixin';
 
 export enum StorageKeys {
 	HAS_LAUNCHED = 'HAS_LAUNCHED',
@@ -41,12 +41,8 @@ export const removeItemForKey = async (key: string) => {
 	}
 };
 
-export const initializeData = async (
-	allPokemons: Pokemon[],
-	lockedPokemonIds: Set<number>
-) => {
+export const initializeData = async (lockedPokemonIds: Set<number>) => {
 	try {
-		await setItemForKey(StorageKeys.POKEMONS, JSON.stringify(allPokemons));
 		await setItemForKey(
 			StorageKeys.LOCKED_POKEMON_IDS,
 			[...lockedPokemonIds].join(',')

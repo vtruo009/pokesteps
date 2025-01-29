@@ -8,12 +8,14 @@ import {
 	getItemForKey,
 	StorageKeys,
 	setItemForKey,
-} from '@/app/utils/storageHelpers';
+} from '@/app/lib/utils/storageHelpers';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import EditStepGoal from '@/components/EditStepGoal';
+import { Button } from '@rneui/themed/dist/Button';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const textSizes = {
 	xl: hp('1.5%'),
@@ -58,6 +60,7 @@ export default function StepsHomeScreen() {
 	return (
 		<SafeAreaView className='relative flex-1 justify-around items-center bg-white pb-20'>
 			<StatusBar style='dark' />
+			<Button title='clear' onPress={() => AsyncStorage.clear()} />
 			<TouchableOpacity
 				style={{ position: 'absolute', top: hp('10%'), right: wp('10%') }}
 				onPress={() => setVisible(true)}

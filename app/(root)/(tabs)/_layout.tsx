@@ -1,4 +1,4 @@
-import { APP_COLOR } from '@/app/utils/constants';
+import { APP_COLOR } from '@/app/lib/constants';
 import { Tabs } from 'expo-router';
 import { View, Image, ImageSourcePropType } from 'react-native';
 import {
