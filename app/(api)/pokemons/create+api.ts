@@ -39,20 +39,3 @@ export async function POST(request: Request) {
 		);
 	}
 }
-
-export async function GET() {
-	try {
-		const sql = neon(`${process.env.DATABASE_URL || ''}`);
-
-		const response = await sql`
-			SELECT * FROM pokemons
-		`;
-
-		return new Response(JSON.stringify({ data: response }), { status: 200 });
-	} catch (error) {
-		return Response.json(
-			{ error: `GET request failed: ${error}` },
-			{ status: 500 }
-		);
-	}
-}

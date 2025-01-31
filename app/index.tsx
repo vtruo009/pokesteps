@@ -41,7 +41,7 @@ const Home = () => {
 		const getPokemonData = async () => {
 			try {
 				console.log('Fetching pokemon data...');
-				const response = await fetchAPI(`/(api)/pokemons`, {
+				const response = await fetchAPI(`/(api)/pokemons/load`, {
 					method: 'GET',
 				});
 

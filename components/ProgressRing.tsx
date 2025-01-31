@@ -16,6 +16,7 @@ import {
 	setItemForKey,
 	StorageKeys,
 } from '@/app/lib/utils/storageHelpers';
+import { fetchAPI } from '@/app/lib/fetch';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
@@ -73,7 +74,6 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 	});
 
 	const handlePress = async () => {
-		// TODO: Set value of has_unlocked and insert row to third table
 		const randomId = Math.ceil(Math.random() * state.lockedPokemonIds.size);
 
 		dispatch({

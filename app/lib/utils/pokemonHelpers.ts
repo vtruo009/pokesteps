@@ -1,4 +1,4 @@
-import { getPokemonDetails } from '@/app/(api)/pokemon-calls';
+// import { getPokemonDetails } from '@/app/(api)/pokemon-calls';
 import { Pokemon } from '@/app/common/interface/pokemon.mixin';
 
 // PokeAPI returns weight in hectogram and height in decimeter
