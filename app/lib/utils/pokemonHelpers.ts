@@ -1,5 +1,5 @@
-import { getPokemonDetails } from '../(api)/pokemon-calls';
-import { Pokemon } from '../common/interface/pokemon.mixin';
+import { getPokemonDetails } from '@/app/(api)/pokemon-calls';
+import { Pokemon } from '@/app/common/interface/pokemon.mixin';
 
 // PokeAPI returns weight in hectogram and height in decimeter
 const DM_TO_FT = 0.328084;
@@ -28,42 +28,27 @@ export function calculateHeight(height: number) {
 	}"`;
 }
 
-// export async function transformPokemonDetails(
-// 	results: any
-// ): Promise<Pokemon[]> {
-// 	const transformedPokemons = [];
-
+// export async function transformPokemonDetails(results: any): Promise<void> {
 // 	try {
 // 		for (const pokemon of results) {
 // 			const pokemonInfo = await getPokemonDetails(pokemon.url);
 // 			if (pokemonInfo.data) {
-// 				// const pokemon: Pokemon = {
-// 				// 	id: pokemonInfo.data.id,
-// 				// 	name: pokemonInfo.data.name,
-// 				// 	weight: pokemonInfo.data.weight,
-// 				// 	height: pokemonInfo.data.height,
-// 				// 	types: pokemonInfo.data.types.map((type) => type.type.name),
-// 				// 	unlocked: false,
-// 				// };
 // 				const response = await fetch('/(api)/pokemons', {
 // 					method: 'POST',
 // 					body: JSON.stringify({
 // 						id: pokemonInfo.data.id,
 // 						name: pokemonInfo.data.name,
-// 						types: pokemon.types.join(','),
-// 						weight: pokemon.weight,
-// 						height: pokemon.height,
+// 						types: pokemonInfo.data.types.map((type) => type.type.name),
+// 						weight: pokemonInfo.data.weight,
+// 						height: pokemonInfo.data.height,
 // 					}),
 // 				});
 // 				if (!response.ok) {
 // 					new Error(`HTTP error! status: ${response.status}`);
 // 				}
-// 				transformedPokemons.push(pokemon);
 // 			}
 // 		}
 // 	} catch (error) {
 // 		throw new Error(`Error transforming pokemon data: ${error}`);
 // 	}
-
-// 	return transformedPokemons;
 // }

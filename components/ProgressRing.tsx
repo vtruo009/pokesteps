@@ -73,6 +73,7 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 	});
 
 	const handlePress = async () => {
+		// TODO: Set value of has_unlocked and insert row to third table
 		const randomId = Math.ceil(Math.random() * state.lockedPokemonIds.size);
 
 		dispatch({

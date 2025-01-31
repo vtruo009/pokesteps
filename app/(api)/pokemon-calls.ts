@@ -52,7 +52,7 @@ export const getPokemons = async (): Promise<
 };
 
 // TODO: Remove when database is ready
-export const getPokemonsLocally = () => {
-	const data = require('../data/pokemons.json');
-	return data.results;
-};
+// export const getPokemonsLocally = () => {
+// 	const data = require('../data/pokemons.json');
+// 	return data.results;
+// };
