@@ -1,5 +1,5 @@
 import { View, TouchableOpacity, Text, Alert } from 'react-native';
-import { createUser } from '../lib/appwrite';
+import { getCurrentUser } from '../lib/appwrite';
 import { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
@@ -9,9 +9,10 @@ import {
 import { APP_COLOR } from '../lib/constants';
 import FormField from '@/components/FormField';
 import { Link, router } from 'expo-router';
+import { signIn } from '../lib/appwrite';
 import { useGlobalContext } from '@/contexts/GlobalContext';
 
-const SignUp = () => {
+const SignIn = () => {
 	const { setCurrentUser, setIsLoggedIn } = useGlobalContext();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [form, setForm] = useState({
@@ -19,16 +20,17 @@ const SignUp = () => {
 		password: '',
 	});
 
-	const handleSignUp = async () => {
+	const handleSignIn = async () => {
 		if (!form.email || !form.password)
-			Alert.alert('Error', 'Please fill in all the fields');
+			Alert.alert('Error', 'Missing required field(s)');
 
 		setIsSubmitting(true);
 
 		try {
-			const result = await createUser(form.email, form.password);
+			await signIn(form.email, form.password);
+			const user = await getCurrentUser();
 
-			setCurrentUser(result);
+			setCurrentUser(user);
 			setIsLoggedIn(true);
 
 			router.replace('/(root)/(tabs)/steps');
@@ -44,14 +46,12 @@ const SignUp = () => {
 			className='bg-white flex-1 text-start'
 			style={{ paddingHorizontal: wp('10%'), paddingTop: hp('5%') }}
 		>
-			<Text className='text-4xl font-JetBrainsMono'>Sign Up</Text>
+			<Text className='text-4xl font-JetBrainsMono'>Sign In</Text>
 			<View className='flex flex-col justify-center items-center w-full mt-14'>
 				<FormField
 					label='Email'
 					value={form.email}
 					handleChangeText={(text: string) => setForm({ ...form, email: text })}
-					textContentType='emailAddress'
-					keyboardType='email-address'
 					autoCapitalize='none'
 					otherStyles='mb-5'
 				/>
@@ -66,8 +66,8 @@ const SignUp = () => {
 					otherStyles='mb-7'
 				/>
 				<TouchableOpacity
-					onPress={handleSignUp}
-					className={`rounded-md mt-5 ${isSubmitting ? 'opacity-50' : ''}`}
+					onPress={handleSignIn}
+					className='rounded-md mt-5'
 					style={{
 						width: wp('50%'),
 						height: hp('5%'),
@@ -78,19 +78,19 @@ const SignUp = () => {
 					disabled={isSubmitting}
 				>
 					<Text className='text-md font-JetBrainsMono text-center my-2'>
-						Sign Up
+						Sign In
 					</Text>
 				</TouchableOpacity>
 				<View className='flex flex-row gap-x-1 justify-center items-center mt-2'>
 					<Text className='font-JetBrainsMono text-sm'>
-						Already have an account?
+						Don't have an account?
 					</Text>
 					<Link
-						href='./sign-in'
+						href='./sign-up'
 						className='font-JetBrainsMonoExtraBold text-sm'
 						style={{ color: APP_COLOR.blue }}
 					>
-						Sign in
+						Sign up
 					</Link>
 				</View>
 			</View>
@@ -98,4 +98,4 @@ const SignUp = () => {
 	);
 };
 
-export default SignUp;
+export default SignIn;

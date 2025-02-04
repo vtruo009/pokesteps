@@ -4,9 +4,10 @@ export async function POST(request: Request) {
 	const sql = neon(`${process.env.DATABASE_URL || ''}`);
 
 	try {
-		const { deviceId } = await request.json();
+		const { userId, email, password } = await request.json();
+		console.log(userId, email, password);
 
-		if (!deviceId) {
+		if (!email || !password) {
 			return Response.json(
 				{ error: 'Missing required field(s)' },
 				{ status: 400 }
@@ -14,12 +15,15 @@ export async function POST(request: Request) {
 		}
 
 		const response = await sql`
-		    INSERT INTO users (
-		        id
-		    )
-			OVERRIDING SYSTEM VALUE
+			INSERT INTO users (
+				user_id,
+				email,
+				password
+			)
 		    VALUES (
-		        ${deviceId}
+				${userId},
+		        ${email},
+		        ${password}
 		    )
 		`;
 
