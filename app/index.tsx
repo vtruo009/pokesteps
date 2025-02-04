@@ -4,6 +4,7 @@ import { Pokemon } from './common/interface/pokemon.mixin';
 import { usePokemonContext } from '@/contexts/PokemonContext';
 import { fetchAPI } from './lib/fetch';
 import DeviceInfo from 'react-native-device-info';
+import 'react-native-url-polyfill/auto';
 
 const Home = () => {
 	const pokemonContext = usePokemonContext();
@@ -63,12 +64,11 @@ const Home = () => {
 			}
 		};
 
-		createUser().catch((err) => console.log(err));
 		getUserData().catch((err) => console.log(err));
 		getPokemonData().catch((err) => console.log(err));
 	}, []);
 
-	return <Redirect href='/(root)/(tabs)/steps' />;
+	return <Redirect href='/(auth)/sign-up' />;
 };
 
 export default Home;

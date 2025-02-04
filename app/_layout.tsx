@@ -16,6 +16,7 @@ export default function RootLayout() {
 		JetBrainsMonoMedium: require('../assets/fonts/JetBrainsMono-Medium.ttf'),
 		JetBrainsMonoSemiBold: require('../assets/fonts/JetBrainsMono-SemiBold.ttf'),
 		JetBrainsMonoBold: require('../assets/fonts/JetBrainsMono-Bold.ttf'),
+		JetBrainsMonoExtraBold: require('../assets/fonts/JetBrainsMono-ExtraBold.ttf'),
 	});
 
 	useEffect(() => {
@@ -34,6 +35,7 @@ export default function RootLayout() {
 				<Stack>
 					<Stack.Screen name='index' options={{ headerShown: false }} />
 					<Stack.Screen name='(root)' options={{ headerShown: false }} />
+					<Stack.Screen name='(auth)' options={{ headerShown: false }} />
 					<Stack.Screen name='+not-found' />
 				</Stack>
 			</PokemonProvider>
