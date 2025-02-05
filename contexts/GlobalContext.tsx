@@ -24,7 +24,15 @@ interface GlobalContextType {
 	isLoading: boolean;
 }
 
-const GlobalContext = createContext<GlobalContextType>({});
+const DEFAULT_STATE: GlobalContextType = {
+	isLoggedIn: false,
+	setIsLoggedIn: () => null,
+	currentUser: null,
+	setCurrentUser: () => null,
+	isLoading: true,
+};
+
+const GlobalContext = createContext<GlobalContextType>(DEFAULT_STATE);
 
 const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
