@@ -1,5 +1,6 @@
 // import { getPokemonDetails } from '@/app/(api)/pokemon-calls';
 import { Pokemon } from '@/app/common/interface/pokemon.mixin';
+import { fetchAPI } from '../fetch';
 
 // PokeAPI returns weight in hectogram and height in decimeter
 const DM_TO_FT = 0.328084;
@@ -27,6 +28,29 @@ export function calculateHeight(height: number) {
 			: inches.toString().padStart(2, '0')
 	}"`;
 }
+
+export const getRandomPokemonId = async (userId: string | undefined) => {
+	try {
+		if (!userId) {
+			throw new Error('User ID not found');
+		}
+
+		const response = await fetchAPI(
+			`/(api)/pokemons/get-locked-pokemons/${userId}`,
+			{
+				method: 'GET',
+			}
+		);
+
+		if (response.error) {
+			throw new Error(response.error);
+		}
+
+		return Math.ceil(Math.random() * response.data.length);
+	} catch (error) {
+		throw new Error(`Error getting random pokemon id: ${error}`);
+	}
+};
 
 // export async function transformPokemonDetails(results: any): Promise<void> {
 // 	try {

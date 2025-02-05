@@ -43,7 +43,6 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 		getCurrentUser()
 			.then((res) => {
 				if (res) {
-					console.log('Current user:', res);
 					setIsLoggedIn(true);
 					setCurrentUser(res);
 				} else {

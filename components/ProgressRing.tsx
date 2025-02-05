@@ -17,6 +17,8 @@ import {
 	StorageKeys,
 } from '@/app/lib/utils/storageHelpers';
 import { fetchAPI } from '@/app/lib/fetch';
+import { useGlobalContext } from '@/contexts/GlobalContext';
+import { getRandomPokemonId } from '@/app/lib/utils/pokemonHelpers';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
@@ -42,6 +44,7 @@ const resetPress = () => {
 
 const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 	const { state, dispatch } = usePokemonContext();
+	const { currentUser } = useGlobalContext();
 	const [overlayVisible, setOverlayVisible] = useState(false);
 	const [disabled, setDisabled] = useState(false);
 	const innerRadius = RADIUS - STROKEWIDTH / 2;
@@ -74,16 +77,24 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 	});
 
 	const handlePress = async () => {
-		const randomId = Math.ceil(Math.random() * state.lockedPokemonIds.size);
-
-		dispatch({
-			type: 'unlock_pokemon',
-			payload: { ...state, randomId },
-		});
-
-		setDisabled(true);
-		await setItemForKey(StorageKeys.HAS_UNLOCKED, 'true');
-		setOverlayVisible(true);
+		try {
+			const randomId = await getRandomPokemonId(currentUser?.user_id);
+			await fetchAPI('/(api)/pokemons/unlock', {
+				method: 'POST',
+				body: JSON.stringify({
+					userId: currentUser?.user_id,
+					randomId,
+				}),
+			});
+			setDisabled(true);
+			setOverlayVisible(true);
+		} catch (error) {
+			console.log(error);
+		}
+		// dispatch({
+		// 	type: 'unlock_pokemon',
+		// 	payload: { ...state, randomId },
+		// });
 	};
 
 	return (
@@ -108,7 +119,7 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 						position: 'absolute',
 						zIndex: 1,
 					}}
-					disabled={disabled}
+					disabled={currentUser?.has_unlocked_today}
 					onPress={handlePress}
 				>
 					<Image
