@@ -1,7 +1,6 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import PokemonCard from '@/components/PokemonCard';
-import { usePokemonContext } from '@/contexts/PokemonContext';
 import { SearchBar, Icon } from '@rneui/themed';
 import { useEffect, useState } from 'react';
 import { Pokemon } from '@/app/common/interface/pokemon.mixin';
@@ -9,27 +8,28 @@ import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { useGlobalContext } from '@/contexts/GlobalContext';
 
 const filterPokemons = (pokemons: Pokemon[], searchText: string) => {
 	return pokemons.filter((pokemon) => {
 		return (
 			pokemon.name.toLowerCase().includes(searchText.toLowerCase()) &&
-			pokemon.unlocked
+			pokemon.user_id != null
 		);
 	});
 };
 
 const Pokedex = () => {
 	const insets = useSafeAreaInsets();
-	const { state } = usePokemonContext();
+	const { pokemons } = useGlobalContext();
 	const [searchText, setSearchText] = useState('');
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		if (state.pokemons.length > 0) {
+		if (pokemons.length > 0) {
 			setLoading(false);
 		}
-	}, [state.pokemons]);
+	}, [pokemons]);
 
 	const handleOnChangeText = (text: string) => {
 		setSearchText(text);
@@ -64,13 +64,12 @@ const Pokedex = () => {
 			) : (
 				<View className='flex-1 w-full h-full items-center'>
 					<FlatList
-						data={
-							searchText
-								? filterPokemons(state.pokemons, searchText)
-								: state.pokemons
-						}
+						data={searchText ? filterPokemons(pokemons, searchText) : pokemons}
 						renderItem={({ item: pokemon }) => (
-							<PokemonCard pokemon={pokemon} disabled={!pokemon.unlocked} />
+							<PokemonCard
+								pokemon={pokemon}
+								disabled={pokemon.user_id == null}
+							/>
 						)}
 						numColumns={2}
 						initialNumToRender={10}

@@ -38,7 +38,9 @@ const PokemonCard = ({
 			>
 				<Image
 					source={{
-						uri: `${IMAGE_URL}${pokemon.unlocked ? pokemon.id : '0'}.png`,
+						uri: `${IMAGE_URL}${
+							pokemon.user_id != null ? pokemon.id : '0'
+						}.png`,
 					}}
 					className='w-full h-full rounded-full'
 					resizeMode='contain'
@@ -51,7 +53,7 @@ const PokemonCard = ({
 					width == 36 ? '' : 'text-3xl'
 				}`}
 			>
-				{pokemon.unlocked ? pokemon.name : '???'}
+				{pokemon.user_id != null ? pokemon.name : '???'}
 			</Text>
 		</View>
 	);

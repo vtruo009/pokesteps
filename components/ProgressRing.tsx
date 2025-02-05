@@ -8,7 +8,6 @@ import Animated, {
 	useSharedValue,
 	withTiming,
 } from 'react-native-reanimated';
-import { usePokemonContext } from '@/contexts/PokemonContext';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { APP_COLOR } from '@/app/lib/constants';
 import {
@@ -18,7 +17,7 @@ import {
 } from '@/app/lib/utils/storageHelpers';
 import { fetchAPI } from '@/app/lib/fetch';
 import { useGlobalContext } from '@/contexts/GlobalContext';
-import { getRandomPokemonId } from '@/app/lib/utils/pokemonHelpers';
+import { getRandomPokemonId } from '@/app/lib/database';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
@@ -43,7 +42,6 @@ const resetPress = () => {
 };
 
 const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
-	const { state, dispatch } = usePokemonContext();
 	const { currentUser } = useGlobalContext();
 	const [overlayVisible, setOverlayVisible] = useState(false);
 	const [disabled, setDisabled] = useState(false);
@@ -91,10 +89,6 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 		} catch (error) {
 			console.log(error);
 		}
-		// dispatch({
-		// 	type: 'unlock_pokemon',
-		// 	payload: { ...state, randomId },
-		// });
 	};
 
 	return (

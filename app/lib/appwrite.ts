@@ -1,5 +1,5 @@
 import { Account, Client, ID } from 'react-native-appwrite';
-import { fetchAPI } from './fetch';
+import { createUserInDatabase, getUser } from './database';
 
 export const config = {
 	endpoint: 'https://cloud.appwrite.io/v1',
@@ -16,25 +16,6 @@ client
 	.setPlatform(config.platform);
 
 const account = new Account(client);
-
-const createUserInDatabase = async (
-	id: string,
-	email: string,
-	password: string
-) => {
-	try {
-		console.log('Creating user...');
-		const response = await fetchAPI(`/(api)/users/create`, {
-			method: 'POST',
-			body: JSON.stringify({ userId: id, email, password }),
-		});
-
-		return response.data[0];
-	} catch (error) {
-		console.log('Error inserting user into database:', error);
-		throw error;
-	}
-};
 
 export const createUser = async (email: string, password: string) => {
 	try {
@@ -80,16 +61,13 @@ export const getCurrentUser = async () => {
 
 		if (!currentAccount) throw Error;
 
-		console.log('Fetching user data...');
-		const currentUser = await fetchAPI(`/(api)/users/${currentAccount.$id}`, {
-			method: 'GET',
-		});
+		const currentUser = await getUser(currentAccount.$id);
 
 		if (!currentUser) throw Error;
 
-		return currentUser.data[0];
+		return currentUser;
 	} catch (error) {
-		console.log('Error getting user:', error);
+		console.log('Error getting current user:', error);
 		throw error;
 	}
 };

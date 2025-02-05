@@ -4,7 +4,7 @@ export interface Pokemon {
 	weight: number;
 	height: number;
 	types: string[];
-	unlocked: boolean;
+	user_id: string;
 }
 
 export enum PokemonTypeColors {
