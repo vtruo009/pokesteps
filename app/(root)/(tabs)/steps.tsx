@@ -14,14 +14,26 @@ import {
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import EditStepGoal from '@/components/EditStepGoal';
-import { Button } from '@rneui/themed/dist/Button';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signOut } from '@/app/lib/appwrite';
+import { router } from 'expo-router';
 
 const textSizes = {
 	xl: hp('1.5%'),
 	'2xl': hp('2%'),
 	'4xl': hp('5%'),
 	'6xl': hp('7%'),
+};
+
+const handleSignOut = async () => {
+	try {
+		const session = await signOut();
+		if (session) {
+			console.log('Signed out successfully');
+			router.replace('/(auth)/sign-in');
+		}
+	} catch (error) {
+		console.log('Error signing out:', error);
+	}
 };
 
 export default function StepsHomeScreen() {
@@ -60,13 +72,21 @@ export default function StepsHomeScreen() {
 	return (
 		<SafeAreaView className='relative flex-1 justify-around items-center bg-white pb-20'>
 			<StatusBar style='dark' />
-			<Button title='clear' onPress={() => AsyncStorage.clear()} />
 			<TouchableOpacity
-				style={{ position: 'absolute', top: hp('10%'), right: wp('10%') }}
+				style={{ position: 'absolute', top: hp('10%'), left: wp('10%') }}
 				onPress={() => setVisible(true)}
 			>
 				<Image
 					source={require('../../../assets/icons/edit-button.png')}
+					style={{ width: 32, height: 32 }}
+				/>
+			</TouchableOpacity>
+			<TouchableOpacity
+				style={{ position: 'absolute', top: hp('10%'), right: wp('10%') }}
+				onPress={handleSignOut}
+			>
+				<Image
+					source={require('../../../assets/icons/logout.png')}
 					style={{ width: 32, height: 32 }}
 				/>
 			</TouchableOpacity>

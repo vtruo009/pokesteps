@@ -13,7 +13,8 @@
 		},
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "com.vantruong.Pokesteps"
+			"bundleIdentifier": "com.vantruong.Pokesteps",
+			"package": "com.vantruong.Pokesteps"
 		},
 		"web": {
 			"bundler": "metro",
