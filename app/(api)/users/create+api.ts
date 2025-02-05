@@ -5,7 +5,6 @@ export async function POST(request: Request) {
 
 	try {
 		const { userId, email, password } = await request.json();
-		console.log(userId, email, password);
 
 		if (!email || !password) {
 			return Response.json(
