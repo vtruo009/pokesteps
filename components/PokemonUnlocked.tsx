@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import { Pressable, Text, View, Image } from 'react-native';
 import { Overlay, Icon } from '@rneui/themed';
 import { usePokemonContext } from '@/contexts/PokemonContext';
-import { Pokemon } from '@/app/common/interface/pokemon.mixin';
+import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,

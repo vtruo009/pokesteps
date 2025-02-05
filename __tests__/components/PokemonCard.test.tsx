@@ -1,4 +1,4 @@
-import { Pokemon } from '@/app/common/interface/pokemon.mixin';
+import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
 import PokemonCard from '@/components/PokemonCard';
 import {
 	render,

@@ -1,4 +1,4 @@
-import { Pokemon } from '@/app/common/interface/pokemon.mixin';
+import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
 import { fetchAPI } from '@/app/lib/fetch';
 import { getUserPokemons } from '@/app/lib/utils/pokemonHelpers';
 import { StorageKeys, setItemForKey } from '@/app/lib/utils/storageHelpers';

@@ -1,4 +1,3 @@
-// turn this into create
 import { neon } from '@neondatabase/serverless';
 
 export async function POST(request: Request) {

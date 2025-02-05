@@ -1,4 +1,5 @@
 import { fetchAPI } from './fetch';
+
 /********************* USERS TABLE *********************/
 export const createUserInDatabase = async (
 	id: string,

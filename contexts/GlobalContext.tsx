@@ -6,7 +6,7 @@ import {
 	useState,
 } from 'react';
 import { getCurrentUser } from '@/app/lib/appwrite';
-import { Pokemon } from '@/app/common/interface/pokemon.mixin';
+import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
 import { getUserPokemons } from '@/app/lib/database';
 
 interface UserType {

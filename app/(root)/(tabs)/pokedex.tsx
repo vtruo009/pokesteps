@@ -3,7 +3,7 @@ import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import PokemonCard from '@/components/PokemonCard';
 import { SearchBar, Icon } from '@rneui/themed';
 import { useEffect, useState } from 'react';
-import { Pokemon } from '@/app/common/interface/pokemon.mixin';
+import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
