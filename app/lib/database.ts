@@ -33,6 +33,24 @@ export const getUser = async (userId: string) => {
 	}
 };
 
+export const updateStepGoal = async (
+	userId: string | undefined,
+	newStepGoal: number
+) => {
+	try {
+		console.log('Updating step goal...');
+		fetchAPI('/(api)/users/update-step-goal', {
+			method: 'POST',
+			body: JSON.stringify({
+				newStepGoal,
+				userId,
+			}),
+		});
+	} catch (error) {
+		throw new Error(`Error updating step goal: ${error}`);
+	}
+};
+
 /********************* POKEMONS TABLE *********************/
 export const getUserPokemons = async (userId: string) => {
 	try {

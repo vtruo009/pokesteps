@@ -16,6 +16,8 @@ import {
 import EditStepGoal from '@/components/EditStepGoal';
 import { signOut } from '@/app/lib/appwrite';
 import { router } from 'expo-router';
+import { useGlobalContext } from '@/contexts/GlobalContext';
+import { updateStepGoal } from '@/app/lib/database';
 
 const textSizes = {
 	xl: hp('1.5%'),
@@ -38,25 +40,11 @@ const handleSignOut = async () => {
 
 export default function StepsHomeScreen() {
 	const { todaySteps, yesterdaySteps } = useHealthData();
-	const [stepGoal, setStepGoal] = useState(3000);
+	const { currentUser } = useGlobalContext();
+	const [stepGoal, setStepGoal] = useState(currentUser?.step_goal || 3000);
 	const [goalReached, setGoalReached] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const progress = todaySteps / stepGoal;
-
-	useEffect(() => {
-		const getStepGoal = async () => {
-			const data = await getItemForKey('STEP_GOAL');
-			if (data) {
-				console.log('Retrieved step goal from storage...', data);
-				setStepGoal(JSON.parse(data));
-			} else {
-				console.log('Step goal not found in storage...');
-				setItemForKey(StorageKeys.STEP_GOAL, '10000');
-			}
-		};
-
-		getStepGoal().catch((error) => console.log(error));
-	}, []);
 
 	useEffect(() => {
 		if (todaySteps >= stepGoal) {
@@ -64,8 +52,8 @@ export default function StepsHomeScreen() {
 		} else {
 			setGoalReached(false);
 		}
-		setItemForKey(StorageKeys.STEP_GOAL, JSON.stringify(stepGoal)).catch(
-			(error) => console.log(error)
+		updateStepGoal(currentUser?.user_id, stepGoal).catch((error) =>
+			console.log(error)
 		);
 	}, [todaySteps, stepGoal]);
 

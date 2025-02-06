@@ -1,5 +1,4 @@
 import { GlobalProvider } from '@/contexts/GlobalContext';
-import { PokemonProvider } from '@/contexts/PokemonContext';
 import { ThemeProvider } from '@rneui/themed';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -33,14 +32,12 @@ export default function RootLayout() {
 	return (
 		<GlobalProvider>
 			<ThemeProvider>
-				<PokemonProvider>
-					<Stack>
-						<Stack.Screen name='index' options={{ headerShown: false }} />
-						<Stack.Screen name='(root)' options={{ headerShown: false }} />
-						<Stack.Screen name='(auth)' options={{ headerShown: false }} />
-						<Stack.Screen name='+not-found' />
-					</Stack>
-				</PokemonProvider>
+				<Stack>
+					<Stack.Screen name='index' options={{ headerShown: false }} />
+					<Stack.Screen name='(root)' options={{ headerShown: false }} />
+					<Stack.Screen name='(auth)' options={{ headerShown: false }} />
+					<Stack.Screen name='+not-found' />
+				</Stack>
 			</ThemeProvider>
 		</GlobalProvider>
 	);
