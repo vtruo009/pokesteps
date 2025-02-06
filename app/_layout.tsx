@@ -2,7 +2,7 @@ import { GlobalProvider } from '@/contexts/GlobalContext';
 import { PokemonProvider } from '@/contexts/PokemonContext';
 import { ThemeProvider } from '@rneui/themed';
 import { useFonts } from 'expo-font';
-import { Stack, Tabs } from 'expo-router';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
