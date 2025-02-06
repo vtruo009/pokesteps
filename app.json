@@ -2,7 +2,7 @@
 	"expo": {
 		"name": "Pokesteps",
 		"slug": "Pokesteps",
-		"version": "1.0.1",
+		"version": "1.0.2",
 		"orientation": "portrait",
 		"icon": "assets/images/appstore/appstore.png",
 		"scheme": "myapp",
@@ -13,9 +13,18 @@
 		},
 		"ios": {
 			"supportsTablet": true,
-			"bundleIdentifier": "com.vantruong.Pokesteps"
+			"bundleIdentifier": "com.vantruong.Pokesteps",
+			"package": "com.vantruong.Pokesteps"
 		},
-		"plugins": ["expo-router", "react-native-health"],
+		"web": {
+			"bundler": "metro",
+			"output": "server",
+			"favicon": "./assets/images/favicon.png"
+		},
+		"plugins": [
+			["expo-router", { "origin": "https://pokemon.com/" }],
+			"react-native-health"
+		],
 		"experiments": {
 			"typedRoutes": true
 		},
