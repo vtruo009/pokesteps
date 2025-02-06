@@ -1,19 +1,19 @@
 import { View, TouchableOpacity, Text, Alert } from 'react-native';
+import { createUser } from '../lib/appwrite';
 import { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { APP_COLOR } from '../lib/constants';
 import FormField from '@/components/FormField';
 import { Link, router } from 'expo-router';
-import { createUser } from '../lib/appwrite';
-import { APP_COLOR } from '../lib/constants';
 import { useGlobalContext } from '@/contexts/GlobalContext';
 
 const SignUp = () => {
-	const [isSubmitting, setIsSubmitting] = useState(false);
 	const { setCurrentUser, setIsLoggedIn } = useGlobalContext();
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [form, setForm] = useState({
 		email: '',
 		password: '',

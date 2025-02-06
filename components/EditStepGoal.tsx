@@ -70,7 +70,7 @@ const EditStepGoal = ({
 				<TextInput
 					placeholder='Enter new step goal'
 					keyboardType='number-pad'
-					className='border border-gray-300 rounded-md px-3 py-2 m-1 font-JetBrainsMonoExtraLight'
+					className='w-full border-2 border-black-200 rounded-lg px-4 py-2 m-1 font-JetBrainsMonoExtraLight'
 					autoFocus
 					clearButtonMode='while-editing'
 					style={{ width: wp('50%'), height: 'auto' }}
@@ -88,7 +88,9 @@ const EditStepGoal = ({
 					<Pressable
 						className='w-2/5 rounded-xl px-3 py-2 m-1'
 						onPress={onSave}
-						style={{ backgroundColor: APP_COLOR.yellow }}
+						style={{
+							backgroundColor: APP_COLOR.yellow,
+						}}
 					>
 						<Text className='text-center font-JetBrainsMonoSemiBold'>Save</Text>
 					</Pressable>

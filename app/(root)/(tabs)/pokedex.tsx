@@ -1,7 +1,6 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import PokemonCard from '@/components/PokemonCard';
-import { usePokemonContext } from '@/contexts/PokemonContext';
 import { SearchBar, Icon } from '@rneui/themed';
 import { useEffect, useState } from 'react';
 import { UserPokemon } from '@/app/lib/interface/pokemon.mixin';
@@ -15,7 +14,7 @@ const filterPokemons = (pokemons: UserPokemon[], searchText: string) => {
 	return pokemons.filter((pokemon) => {
 		return (
 			pokemon.name.toLowerCase().includes(searchText.toLowerCase()) &&
-			pokemon.user_id !== null
+			pokemon.user_id != null
 		);
 	});
 };
@@ -23,7 +22,6 @@ const filterPokemons = (pokemons: UserPokemon[], searchText: string) => {
 const Pokedex = () => {
 	const { pokemons } = useGlobalContext();
 	const insets = useSafeAreaInsets();
-	const { state } = usePokemonContext();
 	const [searchText, setSearchText] = useState('');
 	const [loading, setLoading] = useState(true);
 

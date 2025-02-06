@@ -4,7 +4,11 @@ export interface Pokemon {
 	weight: number;
 	height: number;
 	types: string[];
-	unlocked: boolean;
+}
+
+export interface UserPokemon extends Pokemon {
+	user_id: string;
+	pokemon_id: number;
 }
 
 export interface UserPokemon extends Pokemon {
