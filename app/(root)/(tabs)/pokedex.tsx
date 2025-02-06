@@ -20,8 +20,8 @@ const filterPokemons = (pokemons: UserPokemon[], searchText: string) => {
 };
 
 const Pokedex = () => {
-	const insets = useSafeAreaInsets();
 	const { pokemons } = useGlobalContext();
+	const insets = useSafeAreaInsets();
 	const [searchText, setSearchText] = useState('');
 	const [loading, setLoading] = useState(true);
 
