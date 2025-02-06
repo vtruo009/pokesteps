@@ -8,8 +8,9 @@ import Animated, {
 	useSharedValue,
 	withTiming,
 } from 'react-native-reanimated';
-import { usePokemonContext } from '@/contexts/PokemonContext';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { useGlobalContext } from '@/contexts/GlobalContext';
+import { unlockPokemon } from '@/app/lib/database';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
@@ -22,9 +23,10 @@ interface ProgressRingProps {
 }
 
 const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
-	const { state, dispatch } = usePokemonContext();
+	const { currentUser, pokemons } = useGlobalContext();
+	const [newPokemonId, setNewPokemonId] = useState(0);
 	const [overlayVisible, setOverlayVisible] = useState(false);
-	const [disable, setDisable] = useState(false);
+	const [disabled, setDisabled] = useState(false);
 	const innerRadius = RADIUS - STROKEWIDTH / 2;
 	const circumference = 2 * Math.PI * innerRadius;
 	const fill = useSharedValue(0);
@@ -37,16 +39,16 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 		fill.value = withTiming(progress, { duration: 2000 });
 	}, [progress]);
 
-	const handlePress = () => {
-		const randomId = Math.ceil(Math.random() * state.lockedPokemonIds.size);
+	const handlePress = async () => {
+		try {
+			const randomPokemonId = await unlockPokemon(currentUser?.user_id);
 
-		dispatch({
-			type: 'unlock_pokemon',
-			payload: { ...state, randomId },
-		});
-
-		setDisable(true);
-		setOverlayVisible(true);
+			setNewPokemonId(randomPokemonId);
+			setDisabled(true);
+			setOverlayVisible(true);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -71,7 +73,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 						position: 'absolute',
 						zIndex: 1,
 					}}
-					disabled={disable}
+					disabled={disabled || currentUser?.has_unlocked_today}
 					onPress={handlePress}
 				>
 					<Image
@@ -80,10 +82,13 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 					/>
 				</TouchableOpacity>
 			)}
-			<PokemonUnlocked
-				visible={overlayVisible}
-				setVisible={setOverlayVisible}
-			/>
+			{overlayVisible && (
+				<PokemonUnlocked
+					newPokemon={pokemons[newPokemonId]}
+					visible={overlayVisible}
+					setVisible={setOverlayVisible}
+				/>
+			)}
 			<SVG>
 				<Circle
 					cx={RADIUS}
