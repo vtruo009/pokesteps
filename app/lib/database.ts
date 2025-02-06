@@ -39,7 +39,7 @@ export const updateStepGoal = async (
 ) => {
 	try {
 		console.log('Updating step goal...');
-		fetchAPI('/(api)/users/update-step-goal', {
+		await fetchAPI('/(api)/users/update-step-goal', {
 			method: 'POST',
 			body: JSON.stringify({
 				newStepGoal,
@@ -48,6 +48,17 @@ export const updateStepGoal = async (
 		});
 	} catch (error) {
 		throw new Error(`Error updating step goal: ${error}`);
+	}
+};
+
+export const updateHasUnlockedToday = async (userId: string | undefined) => {
+	try {
+		await fetchAPI('/(api)/users/update-unlocked-status', {
+			method: 'PATCH',
+			body: JSON.stringify({ userId }),
+		});
+	} catch (error) {
+		throw new Error(`Error updating has_unlocked_today: ${error}`);
 	}
 };
 

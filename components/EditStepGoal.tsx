@@ -10,6 +10,8 @@ import Modal from 'react-native-modal';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import ErrorMessage from './ErrorMessage';
 import { APP_COLOR } from '@/app/lib/constants';
+import { updateStepGoal } from '@/app/lib/database';
+import { useGlobalContext } from '@/contexts/GlobalContext';
 
 interface EditStepGoalsProps {
 	currentStepGoal: number | undefined;
@@ -24,6 +26,7 @@ const EditStepGoal = ({
 	setVisible,
 	setStepGoal,
 }: EditStepGoalsProps) => {
+	const { currentUser } = useGlobalContext();
 	const [value, setValue] = useState('');
 	const [errorType, setErrorType] = useState('');
 
@@ -39,6 +42,9 @@ const EditStepGoal = ({
 		} else if (newGoal < 3000) {
 			setErrorType('invalid');
 		} else {
+			updateStepGoal(currentUser?.user_id, newGoal).catch((error) =>
+				console.log(error)
+			);
 			setStepGoal(newGoal);
 			setVisible(false);
 		}

@@ -5,11 +5,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ProgressRing from '@/components/ProgressRing';
 import { StatusBar } from 'expo-status-bar';
 import {
-	getItemForKey,
-	StorageKeys,
-	setItemForKey,
-} from '@/app/lib/utils/storageHelpers';
-import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
@@ -17,7 +12,7 @@ import EditStepGoal from '@/components/EditStepGoal';
 import { signOut } from '@/app/lib/appwrite';
 import { router } from 'expo-router';
 import { useGlobalContext } from '@/contexts/GlobalContext';
-import { updateStepGoal } from '@/app/lib/database';
+import { updateHasUnlockedToday } from '@/app/lib/database';
 
 const textSizes = {
 	xl: hp('1.5%'),
@@ -52,10 +47,15 @@ export default function StepsHomeScreen() {
 		} else {
 			setGoalReached(false);
 		}
-		updateStepGoal(currentUser?.user_id, stepGoal).catch((error) =>
-			console.log(error)
-		);
 	}, [todaySteps, stepGoal]);
+
+	useEffect(() => {
+		if (todaySteps == 0) {
+			updateHasUnlockedToday(currentUser?.user_id).catch((error) =>
+				console.log(error)
+			);
+		}
+	}, [todaySteps]);
 
 	return (
 		<SafeAreaView className='relative flex-1 justify-around items-center bg-white pb-20'>
