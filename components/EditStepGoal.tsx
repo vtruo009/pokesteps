@@ -12,7 +12,7 @@ import ErrorMessage from './ErrorMessage';
 import { APP_COLOR } from '@/app/lib/constants';
 
 interface EditStepGoalsProps {
-	currentStepGoal: number;
+	currentStepGoal: number | undefined;
 	visible: boolean;
 	setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 	setStepGoal: React.Dispatch<React.SetStateAction<number>>;
