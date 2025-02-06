@@ -8,7 +8,7 @@ import {
 	getItemForKey,
 	StorageKeys,
 	setItemForKey,
-} from '@/app/utils/storageHelpers';
+} from '@/app/lib/utils/storageHelpers';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,

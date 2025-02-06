@@ -1,5 +1,5 @@
-import { Pokemon } from '@/app/common/interface/pokemon.mixin';
-import { StorageKeys, setItemForKey } from '@/app/utils/storageHelpers';
+import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
+import { StorageKeys, setItemForKey } from '@/app/lib/utils/storageHelpers';
 import PokemonType from '@/components/PokemonType';
 import { store } from 'expo-router/build/global-state/router-store';
 import React from 'react';

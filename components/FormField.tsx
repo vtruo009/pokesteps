@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
-import { icons } from '@/app/utils/constants';
+import { icons } from '@/app/lib/constants';
 
 const FormField = ({
 	label,
