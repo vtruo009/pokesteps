@@ -63,7 +63,7 @@ export const updateHasUnlockedToday = async (userId: string | undefined) => {
 };
 
 /********************* POKEMONS TABLE *********************/
-export const getUserPokemons = async (userId: string) => {
+export const getUserPokemons = async (userId: string | undefined) => {
 	try {
 		console.log('Fetching pokemon data...');
 		const response = await fetchAPI(`/(api)/pokemons/load/${userId}`, {

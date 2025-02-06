@@ -10,7 +10,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useGlobalContext } from '@/contexts/GlobalContext';
-import { unlockPokemon } from '@/app/lib/database';
+import { getUserPokemons, unlockPokemon } from '@/app/lib/database';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
@@ -46,6 +46,8 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 			setNewPokemonId(randomPokemonId);
 			setDisabled(true);
 			setOverlayVisible(true);
+
+			await getUserPokemons(currentUser?.user_id);
 		} catch (error) {
 			console.log(error);
 		}
