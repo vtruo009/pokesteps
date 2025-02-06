@@ -50,9 +50,3 @@ export const getPokemons = async (): Promise<
 		return { error: 'Error getting all Pokemons' };
 	}
 };
-
-// TODO: Remove when database is ready
-export const getPokemonsLocally = () => {
-	const data = require('../../data/pokemons.json');
-	return data.results;
-};

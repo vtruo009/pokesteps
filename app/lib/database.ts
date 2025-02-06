@@ -19,3 +19,16 @@ export const createUserInDatabase = async (
 		throw error;
 	}
 };
+
+export const getUser = async (userId: string) => {
+	try {
+		console.log('Fetching user data...');
+		const user = await fetchAPI(`/(api)/users/${userId}`, {
+			method: 'GET',
+		});
+
+		return user.data[0];
+	} catch (error) {
+		throw new Error(`Error getting user from database: ${error}`);
+	}
+};
