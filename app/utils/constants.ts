@@ -56,3 +56,8 @@ export const GET_POKEMONS_RESPONSE = {
 	types: ['grass', 'poison'],
 	unlocked: false,
 };
+
+export const icons = {
+	eye: require('../../assets/icons/eye.png'),
+	eyeHide: require('../../assets/icons/eye-hide.png'),
+};
