@@ -10,6 +10,7 @@ module.exports = {
 				JetBrainsMonoMedium: ['JetBrainsMono-Medium', 'monospace'],
 				JetBrainsMonoSemiBold: ['JetBrainsMono-SemiBold', 'monospace'],
 				JetBrainsMonoBold: ['JetBrainsMono-Bold', 'monospace'],
+				JetBrainsMonoExtraBold: ['JetBrainsMono-ExtraBold', 'monospace'],
 			},
 		},
 	},
