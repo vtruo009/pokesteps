@@ -23,7 +23,7 @@ interface ProgressRingProps {
 }
 
 const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
-	const { currentUser, pokemons } = useGlobalContext();
+	const { currentUser, pokemons, setPokemons } = useGlobalContext();
 	const [newPokemonId, setNewPokemonId] = useState(0);
 	const [overlayVisible, setOverlayVisible] = useState(false);
 	const [disabled, setDisabled] = useState(false);
@@ -41,13 +41,13 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 
 	const handlePress = async () => {
 		try {
-			const randomPokemonId = await unlockPokemon(currentUser?.user_id);
-
-			setNewPokemonId(randomPokemonId);
 			setDisabled(true);
 			setOverlayVisible(true);
 
-			await getUserPokemons(currentUser?.user_id);
+			const randomPokemonId = await unlockPokemon(currentUser?.user_id);
+			setNewPokemonId(randomPokemonId - 1);
+
+			setPokemons(await getUserPokemons(currentUser?.user_id));
 		} catch (error) {
 			console.log(error);
 		}

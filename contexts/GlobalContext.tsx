@@ -19,6 +19,7 @@ interface GlobalContextType {
 	setCurrentUser: React.Dispatch<React.SetStateAction<UserType | null>>;
 	isLoading: boolean;
 	pokemons: UserPokemon[];
+	setPokemons: React.Dispatch<React.SetStateAction<UserPokemon[]>>;
 }
 
 const DEFAULT_STATE: GlobalContextType = {
@@ -28,6 +29,7 @@ const DEFAULT_STATE: GlobalContextType = {
 	setCurrentUser: () => null,
 	isLoading: true,
 	pokemons: [],
+	setPokemons: () => null,
 };
 
 const GlobalContext = createContext<GlobalContextType>(DEFAULT_STATE);
@@ -69,6 +71,7 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 				setCurrentUser,
 				isLoading,
 				pokemons,
+				setPokemons,
 			}}
 		>
 			{children}
