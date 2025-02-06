@@ -50,12 +50,18 @@ export default function StepsHomeScreen() {
 	}, [todaySteps, stepGoal]);
 
 	useEffect(() => {
-		if (todaySteps == 0) {
-			updateHasUnlockedToday(currentUser?.user_id).catch((error) =>
-				console.log(error)
-			);
-		}
-	}, [todaySteps]);
+		const resetPress = () => {
+			const reset = new Date();
+			reset.setHours(24, 0, 0, 0);
+			const timeToMidnight = reset.getTime() - Date.now();
+			setTimeout(async () => {
+				console.log('Resetting press...');
+				await updateHasUnlockedToday(currentUser?.user_id);
+			}, timeToMidnight);
+		};
+
+		resetPress();
+	}, []);
 
 	return (
 		<SafeAreaView className='relative flex-1 justify-around items-center bg-white pb-20'>
