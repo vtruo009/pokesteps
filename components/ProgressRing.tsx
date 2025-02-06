@@ -11,6 +11,7 @@ import Animated, {
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import { getUserPokemons, unlockPokemon } from '@/app/lib/database';
+import { APP_COLOR } from '@/app/lib/constants';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
@@ -19,10 +20,10 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 interface ProgressRingProps {
 	progress: number;
-	goalReached: boolean;
+	goalMet: boolean;
 }
 
-const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
+const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 	const { currentUser, pokemons, setPokemons } = useGlobalContext();
 	const [newPokemonId, setNewPokemonId] = useState(0);
 	const [overlayVisible, setOverlayVisible] = useState(false);
@@ -63,7 +64,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 				marginTop: '10%',
 			}}
 		>
-			{goalReached && (
+			{goalMet && (
 				<TouchableOpacity
 					testID='pokeball-button'
 					style={{
@@ -108,7 +109,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 					r={innerRadius}
 					fill='transparent'
 					strokeWidth={STROKEWIDTH}
-					stroke='#3C5AA6'
+					stroke={goalMet ? APP_COLOR.yellow : APP_COLOR.blue}
 					animatedProps={animatedProps}
 					strokeLinecap='round'
 					rotation='-90'

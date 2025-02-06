@@ -1,4 +1,4 @@
-import { APP_COLOR } from '@/app/lib/constants';
+import { APP_COLOR, icons } from '@/app/lib/constants';
 import { Tabs } from 'expo-router';
 import { View, Image, ImageSourcePropType } from 'react-native';
 import {
@@ -62,10 +62,7 @@ function TabLayout() {
 					title: 'Steps',
 					headerShown: false,
 					tabBarIcon: ({ focused }) => (
-						<TabIcon
-							focused={focused}
-							source={require('../../../assets/icons/footstep.png')}
-						/>
+						<TabIcon focused={focused} source={icons.sneaker} />
 					),
 				}}
 			/>
@@ -75,10 +72,7 @@ function TabLayout() {
 					title: 'Pokedex',
 					headerShown: false,
 					tabBarIcon: ({ focused }) => (
-						<TabIcon
-							focused={focused}
-							source={require('../../../assets/icons/pokedex.png')}
-						/>
+						<TabIcon focused={focused} source={icons.trophy} />
 					),
 				}}
 			/>

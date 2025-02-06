@@ -13,6 +13,7 @@ import { signOut } from '@/app/lib/appwrite';
 import { router } from 'expo-router';
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import { updateHasUnlockedToday } from '@/app/lib/database';
+import { icons } from '@/app/lib/constants';
 
 const textSizes = {
 	xl: hp('1.5%'),
@@ -37,15 +38,15 @@ export default function StepsHomeScreen() {
 	const { todaySteps, yesterdaySteps } = useHealthData();
 	const { currentUser } = useGlobalContext();
 	const [stepGoal, setStepGoal] = useState(currentUser?.step_goal || 3000);
-	const [goalReached, setGoalReached] = useState(false);
+	const [goalMet, setGoalMet] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const progress = todaySteps / stepGoal;
 
 	useEffect(() => {
 		if (todaySteps >= stepGoal) {
-			setGoalReached(true);
+			setGoalMet(true);
 		} else {
-			setGoalReached(false);
+			setGoalMet(false);
 		}
 	}, [todaySteps, stepGoal]);
 
@@ -68,21 +69,15 @@ export default function StepsHomeScreen() {
 			<StatusBar style='dark' />
 			<TouchableOpacity
 				style={{ position: 'absolute', top: hp('10%'), left: wp('10%') }}
-				onPress={() => setVisible(true)}
+				onPress={handleSignOut}
 			>
-				<Image
-					source={require('../../../assets/icons/edit-button.png')}
-					style={{ width: 32, height: 32 }}
-				/>
+				<Image source={icons.logout} style={{ width: 32, height: 32 }} />
 			</TouchableOpacity>
 			<TouchableOpacity
 				style={{ position: 'absolute', top: hp('10%'), right: wp('10%') }}
-				onPress={handleSignOut}
+				onPress={() => setVisible(true)}
 			>
-				<Image
-					source={require('../../../assets/icons/logout.png')}
-					style={{ width: 32, height: 32 }}
-				/>
+				<Image source={icons.editButton} style={{ width: 32, height: 32 }} />
 			</TouchableOpacity>
 			<EditStepGoal
 				visible={visible}
@@ -90,7 +85,7 @@ export default function StepsHomeScreen() {
 				currentStepGoal={stepGoal}
 				setStepGoal={setStepGoal}
 			/>
-			<ProgressRing progress={progress} goalReached={goalReached} />
+			<ProgressRing progress={progress} goalMet={goalMet} />
 			<View className='flex justify-center items-center font-JetBrainsMono'>
 				<Text
 					className='font-JetBrainsMono'
