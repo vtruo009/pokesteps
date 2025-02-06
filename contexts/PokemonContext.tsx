@@ -1,7 +1,7 @@
 import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
 import { StorageKeys, setItemForKey } from '@/app/lib/utils/storageHelpers';
 import PokemonType from '@/components/PokemonType';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface PokemonType {
 	randomId: number;
