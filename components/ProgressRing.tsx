@@ -9,8 +9,6 @@ import Animated, {
 	withTiming,
 } from 'react-native-reanimated';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { APP_COLOR } from '@/app/lib/constants';
-import { setItemForKey, StorageKeys } from '@/app/lib/utils/storageHelpers';
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import { unlockPokemon } from '@/app/lib/database';
 
@@ -21,22 +19,10 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 interface ProgressRingProps {
 	progress: number;
-	goalMet: boolean;
+	goalReached: boolean;
 }
 
-const resetPress = () => {
-	const reset = new Date();
-	reset.setHours(24, 0, 0, 0);
-	const timeToMidnight = reset.getTime() - Date.now();
-	console.log('timeToMidnight:', timeToMidnight);
-	setTimeout(async () => {
-		console.log('Resetting press...');
-		await setItemForKey(StorageKeys.HAS_UNLOCKED, 'false');
-		resetPress();
-	}, timeToMidnight);
-};
-
-const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
+const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 	const { currentUser, pokemons } = useGlobalContext();
 	const [newPokemonId, setNewPokemonId] = useState(0);
 	const [overlayVisible, setOverlayVisible] = useState(false);
@@ -48,14 +34,6 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 	const animatedProps = useAnimatedProps(() => ({
 		strokeDasharray: [circumference * fill.value, circumference],
 	}));
-
-	// useEffect(() => {
-	// 	const interval = setInterval(() => {
-	// 		console.log('Check if it is time to reset...');
-	// 		resetPress();
-	// 	}, 60000);
-	// 	return () => clearInterval(interval);
-	// }, []);
 
 	useEffect(() => {
 		fill.value = withTiming(progress, { duration: 2000 });
@@ -83,7 +61,7 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 				marginTop: '10%',
 			}}
 		>
-			{goalMet && (
+			{goalReached && (
 				<TouchableOpacity
 					testID='pokeball-button'
 					style={{
@@ -128,7 +106,7 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 					r={innerRadius}
 					fill='transparent'
 					strokeWidth={STROKEWIDTH}
-					stroke={`${goalMet ? APP_COLOR.yellow : APP_COLOR.blue}`}
+					stroke='bg-[#FFCB05] p-2 w-auto h-auto text-center justify-center rounded-lg'
 					animatedProps={animatedProps}
 					strokeLinecap='round'
 					rotation='-90'

@@ -39,7 +39,7 @@ const handleSignOut = async () => {
 export default function StepsHomeScreen() {
 	const { todaySteps, yesterdaySteps } = useHealthData();
 	const [stepGoal, setStepGoal] = useState(3000);
-	const [goalMet, setGoalMet] = useState(false);
+	const [goalReached, setgoalReached] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const progress = todaySteps / stepGoal;
 
@@ -60,9 +60,9 @@ export default function StepsHomeScreen() {
 
 	useEffect(() => {
 		if (todaySteps >= stepGoal) {
-			setGoalMet(true);
+			setgoalReached(true);
 		} else {
-			setGoalMet(false);
+			setgoalReached(false);
 		}
 		setItemForKey(StorageKeys.STEP_GOAL, JSON.stringify(stepGoal)).catch(
 			(error) => console.log(error)
@@ -96,7 +96,7 @@ export default function StepsHomeScreen() {
 				currentStepGoal={stepGoal}
 				setStepGoal={setStepGoal}
 			/>
-			<ProgressRing progress={progress} goalMet={goalMet} />
+			<ProgressRing progress={progress} goalReached={goalReached} />
 			<View className='flex justify-center items-center font-JetBrainsMono'>
 				<Text
 					className='font-JetBrainsMono'

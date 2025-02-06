@@ -1,4 +1,3 @@
-import { APP_COLOR } from '@/app/lib/constants';
 import { Tabs } from 'expo-router';
 import { View, Image, ImageSourcePropType } from 'react-native';
 import {
@@ -42,7 +41,7 @@ function TabLayout() {
 			screenOptions={{
 				tabBarShowLabel: false,
 				tabBarStyle: {
-					backgroundColor: APP_COLOR.yellow,
+					backgroundColor: '#FFCB05',
 					borderRadius: 50,
 					paddingBottom: 0,
 					marginBottom: hp('3%'),
