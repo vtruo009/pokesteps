@@ -3,7 +3,7 @@ import {
 	removeItemForKey,
 	StorageKeys,
 	setItemForKey,
-} from '@/app/utils/storageHelpers';
+} from '@/app/lib/utils/storageHelpers';
 import AsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 
 describe('Storage Helpers', () => {

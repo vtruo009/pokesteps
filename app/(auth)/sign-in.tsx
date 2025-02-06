@@ -6,7 +6,7 @@ import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { APP_COLOR } from '../utils/constants';
+import { APP_COLOR } from '../lib/constants';
 import FormField from '@/components/FormField';
 import { Link, router } from 'expo-router';
 import { signIn } from '../lib/appwrite';

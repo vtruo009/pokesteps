@@ -8,7 +8,7 @@ import {
 import FormField from '@/components/FormField';
 import { Link, router } from 'expo-router';
 import { createUser } from '../lib/appwrite';
-import { APP_COLOR } from '../utils/constants';
+import { APP_COLOR } from '../lib/constants';
 import { useGlobalContext } from '@/contexts/GlobalContext';
 
 const SignUp = () => {

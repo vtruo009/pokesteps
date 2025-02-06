@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native';
-import { PokemonTypeColors } from '@/app/common/interface/pokemon.mixin';
+import { PokemonTypeColors } from '@/app/lib/interface/pokemon.mixin';
 
 const PokemonType = ({ type }: { type: string }) => {
 	return (

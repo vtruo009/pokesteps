@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Pokemon } from '../common/interface/pokemon.mixin';
+import { Pokemon } from '../interface/pokemon.mixin';
 
 export enum StorageKeys {
 	HAS_LAUNCHED = 'HAS_LAUNCHED',
