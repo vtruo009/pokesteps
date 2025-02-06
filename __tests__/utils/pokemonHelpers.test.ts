@@ -1,4 +1,7 @@
-import { calculateWeight, calculateHeight } from '@/app/utils/pokemonHelpers';
+import {
+	calculateWeight,
+	calculateHeight,
+} from '@/app/lib/utils/pokemonHelpers';
 
 describe('Pokemon Helpers', () => {
 	it.each([

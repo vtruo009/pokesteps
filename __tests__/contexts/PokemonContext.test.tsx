@@ -2,7 +2,7 @@ import React from 'react';
 import { render, userEvent, waitFor } from '@testing-library/react-native';
 import { PokemonProvider } from '@/contexts/PokemonContext';
 import TestPokemonContext from '@/contexts/TestPokemonContext';
-import { TEST_POKEMONS } from '@/app/utils/constants';
+import { TEST_POKEMONS } from '@/app/lib/constants';
 
 describe('PokemonContext', () => {
 	it('renders correct number of Pokémons in Pokedex', () => {

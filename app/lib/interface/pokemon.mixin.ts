@@ -11,6 +11,11 @@ export interface UserPokemon extends Pokemon {
 	pokemon_id: number;
 }
 
+export interface UserPokemon extends Pokemon {
+	user_id: string;
+	pokemon_id: number;
+}
+
 export enum PokemonTypeColors {
 	NORMAL = '#A8A77A',
 	FIRE = '#EE8130',
