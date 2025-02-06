@@ -87,10 +87,10 @@ const EditStepGoal = ({
 					</TouchableOpacity>
 					<Pressable
 						className='w-2/5 rounded-xl px-3 py-2 m-1'
+						onPress={onSave}
 						style={{
 							backgroundColor: APP_COLOR.yellow,
 						}}
-						onPress={onSave}
 					>
 						<Text className='text-center font-JetBrainsMonoSemiBold'>Save</Text>
 					</Pressable>

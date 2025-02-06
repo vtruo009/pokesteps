@@ -5,26 +5,6 @@ import appleHealthKit, {
 	HealthValue,
 } from 'react-native-health';
 
-const getStepCounts = (
-	date: Date,
-	setStepCount: React.Dispatch<React.SetStateAction<number>>
-) => {
-	const options: HealthInputOptions = {
-		date: date.toISOString(),
-		includeManuallyAdded: true,
-	};
-
-	appleHealthKit.getStepCount(options, (error: string, result: HealthValue) => {
-		if (error) {
-			// TODO: Throw exception?
-			console.log('Error getting step count', error);
-			return;
-		}
-		console.log(`${date.toDateString()} step count:`, result.value);
-		setStepCount(Math.round(result.value));
-	});
-};
-
 const useHealthData = () => {
 	const [permission, setPermission] = useState(false);
 	const [todaySteps, setTodaySteps] = useState(0);
@@ -51,6 +31,29 @@ const useHealthData = () => {
 	useEffect(() => {
 		if (!permission) return;
 
+		const getStepCounts = (
+			date: Date,
+			setStepCount: React.Dispatch<React.SetStateAction<number>>
+		) => {
+			const options: HealthInputOptions = {
+				date: date.toISOString(),
+				includeManuallyAdded: true,
+			};
+
+			appleHealthKit.getStepCount(
+				options,
+				(error: string, result: HealthValue) => {
+					if (error) {
+						// TODO: Throw exception?
+						console.log('Error getting step count', error);
+						return;
+					}
+					console.log(`${date.toDateString()} step count:`, result.value);
+					setStepCount(Math.round(result.value));
+				}
+			);
+		};
+
 		const today = new Date();
 		const yesterday = new Date(
 			today.getFullYear(),
@@ -58,17 +61,9 @@ const useHealthData = () => {
 			today.getDate() - 1
 		);
 
-		getStepCounts(yesterday, setYesterdaySteps);
 		getStepCounts(today, setTodaySteps);
+		getStepCounts(yesterday, setYesterdaySteps);
 	}, [permission]);
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			console.log('A minute has passed... Updating step count!');
-			getStepCounts(new Date(), setTodaySteps);
-		}, 60000);
-		return () => clearInterval(interval);
-	}, []);
 
 	return {
 		todaySteps,

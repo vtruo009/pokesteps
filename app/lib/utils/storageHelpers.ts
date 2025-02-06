@@ -3,15 +3,9 @@ import { Pokemon } from '../interface/pokemon.mixin';
 
 export enum StorageKeys {
 	HAS_LAUNCHED = 'HAS_LAUNCHED',
-	HAS_UNLOCKED = 'HAS_UNLOCKED',
 	POKEMONS = 'POKEMONS',
 	STEP_GOAL = 'STEP_GOAL',
 	LOCKED_POKEMON_IDS = 'LOCKED_POKEMON_IDS',
-}
-
-interface LoadDataResponse {
-	pokemons: Pokemon[];
-	lockedIds: Set<number>;
 }
 
 export const setItemForKey = async (key: string, value: string) => {
@@ -41,20 +35,25 @@ export const removeItemForKey = async (key: string) => {
 	}
 };
 
-export const initializeData = async (lockedPokemonIds: Set<number>) => {
+export const initializeData = async (
+	allPokemons: Pokemon[],
+	lockedPokemonIds: Set<number>
+) => {
 	try {
+		await setItemForKey(StorageKeys.POKEMONS, JSON.stringify(allPokemons));
 		await setItemForKey(
 			StorageKeys.LOCKED_POKEMON_IDS,
 			[...lockedPokemonIds].join(',')
 		);
-		await setItemForKey(StorageKeys.HAS_LAUNCHED, 'true');
-		await setItemForKey(StorageKeys.HAS_UNLOCKED, 'false');
+		await AsyncStorage.setItem(StorageKeys.HAS_LAUNCHED, 'true');
 	} catch (error) {
 		throw error;
 	}
 };
 
-export const loadData = async (): Promise<LoadDataResponse | undefined> => {
+export const loadData = async (): Promise<
+	{ pokemons: Pokemon[]; lockedIds: Set<number> } | undefined
+> => {
 	try {
 		const pokemons = await getItemForKey(StorageKeys.POKEMONS);
 		const lockedPokemonIds = await getItemForKey(

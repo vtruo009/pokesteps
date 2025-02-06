@@ -1,6 +1,4 @@
 import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
-import { fetchAPI } from '@/app/lib/fetch';
-import { getUserPokemons } from '@/app/lib/utils/pokemonHelpers';
 import { StorageKeys, setItemForKey } from '@/app/lib/utils/storageHelpers';
 import PokemonType from '@/components/PokemonType';
 import React, { useEffect } from 'react';
@@ -12,7 +10,7 @@ interface PokemonType {
 }
 
 interface Action {
-	type: 'load_pokemons' | 'unlock_pokemon';
+	type: 'add_pokemons' | 'unlock_pokemon';
 	payload: PokemonType;
 }
 
@@ -34,8 +32,7 @@ function pokemonReducer(state: PokemonType, action: Action): PokemonType {
 	const { type, payload } = action;
 
 	switch (type) {
-		case 'load_pokemons':
-			// payload.userId;
+		case 'add_pokemons':
 			return {
 				...state,
 				pokemons: [...payload.pokemons],
@@ -63,36 +60,6 @@ function pokemonReducer(state: PokemonType, action: Action): PokemonType {
 
 function PokemonProvider({ children }: { children: React.ReactNode }) {
 	const [state, dispatch] = React.useReducer(pokemonReducer, DEFAULT_STATE);
-
-	useEffect(() => {
-		const getPokemonData = async () => {
-			try {
-				// console.log('Fetching pokemon data...');
-				// const response = await fetchAPI(`/(api)/pokemons/load/${user}`, {
-				// 	method: 'GET',
-				// });
-				// const lockedPokemonIds: Set<number> = new Set<number>(
-				// 	response.data.map((pokemon: Pokemon) => pokemon.id)
-				// );
-				// dispatch({
-				// 	type: 'add_pokemons',
-				// 	payload: {
-				// 		randomId: 0,
-				// 		pokemons: response.data,
-				// 		lockedPokemonIds,
-				// 	},
-				// });
-				// getUserPokemons(response.data);
-			} catch (error) {
-				console.log('Error fetching pokemons:', error);
-				throw error;
-			}
-		};
-
-		getPokemonData().catch((error) =>
-			console.log('Error fetching Pokémons', error)
-		);
-	}, []);
 
 	return (
 		<PokemonContext.Provider value={{ state, dispatch }}>
