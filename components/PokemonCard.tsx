@@ -1,9 +1,9 @@
-import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
+import { UserPokemon } from '@/app/lib/interface/pokemon.mixin';
 import { router } from 'expo-router';
 import { Image, TouchableOpacity, Text, View } from 'react-native';
 
 interface PokemonCardProps {
-	pokemon: Pokemon;
+	pokemon: UserPokemon;
 	width?: number;
 	disabled?: boolean;
 }
@@ -11,7 +11,7 @@ interface PokemonCardProps {
 const IMAGE_URL =
 	'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
-const handlePress = (pokemon: Pokemon) => {
+const handlePress = (pokemon: UserPokemon) => {
 	console.log(`${pokemon.name} details`);
 	router.push({
 		pathname: '/(root)/pokemon-details',

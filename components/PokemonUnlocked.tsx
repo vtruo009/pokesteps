@@ -1,8 +1,7 @@
 import { router } from 'expo-router';
 import { Pressable, Text, View, Image } from 'react-native';
 import { Overlay, Icon } from '@rneui/themed';
-import { usePokemonContext } from '@/contexts/PokemonContext';
-import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
+import { UserPokemon } from '@/app/lib/interface/pokemon.mixin';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
@@ -10,6 +9,7 @@ import {
 import { APP_COLOR } from '@/app/lib/constants';
 
 interface PokemonUnlockedProps {
+	newPokemon: UserPokemon;
 	visible: boolean;
 	setVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -19,10 +19,11 @@ const position = {
 	right: wp('3%'),
 };
 
-const PokemonUnlocked = ({ visible, setVisible }: PokemonUnlockedProps) => {
-	const { state } = usePokemonContext();
-	const newPokemon: Pokemon = state.pokemons[state.randomId];
-
+const PokemonUnlocked = ({
+	newPokemon,
+	visible,
+	setVisible,
+}: PokemonUnlockedProps) => {
 	return (
 		<Overlay
 			isVisible={visible}
@@ -58,11 +59,11 @@ const PokemonUnlocked = ({ visible, setVisible }: PokemonUnlockedProps) => {
 					className=' text-white text-center font-JetBrainsMono'
 					style={{ fontSize: wp('10%') }}
 				>
-					{`${newPokemon?.name.toUpperCase()} UNLOCKED!`}
+					{`${newPokemon.name.toUpperCase()} UNLOCKED!`}
 				</Text>
 				<Image
 					source={{
-						uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${newPokemon?.id}.png`,
+						uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${newPokemon.id}.png`,
 					}}
 					alt='pokemon'
 					className=' bg-gray-50 rounded-full'

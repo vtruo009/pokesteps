@@ -1,12 +1,6 @@
-import {
-	createContext,
-	SetStateAction,
-	useContext,
-	useEffect,
-	useState,
-} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { getCurrentUser } from '@/app/lib/appwrite';
-import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
+import { UserPokemon } from '@/app/lib/interface/pokemon.mixin';
 import { getUserPokemons } from '@/app/lib/database';
 
 interface UserType {
@@ -24,7 +18,7 @@ interface GlobalContextType {
 	currentUser: UserType | null;
 	setCurrentUser: React.Dispatch<React.SetStateAction<UserType | null>>;
 	isLoading: boolean;
-	pokemons: Pokemon[];
+	pokemons: UserPokemon[];
 }
 
 const DEFAULT_STATE: GlobalContextType = {
@@ -42,7 +36,7 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [currentUser, setCurrentUser] = useState<UserType | null>(null);
-	const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+	const [pokemons, setPokemons] = useState<UserPokemon[]>([]);
 
 	useEffect(() => {
 		getCurrentUser()

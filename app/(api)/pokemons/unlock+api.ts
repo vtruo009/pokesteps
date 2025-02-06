@@ -5,17 +5,15 @@ export async function POST(request: Request) {
 
 	try {
 		const { userId, randomId } = await request.json();
-		console.log('randomId:', randomId);
-		console.log('userId:', userId);
 
-		if (!userId) {
+		if (!userId || !randomId) {
 			return Response.json(
 				{ error: 'Missing required field(s)' },
 				{ status: 400 }
 			);
 		}
 
-		const response = await sql.transaction([
+		await sql.transaction([
 			sql`
 		    INSERT INTO user_pokemons (
 		        user_id,
@@ -31,9 +29,11 @@ export async function POST(request: Request) {
 		`,
 		]);
 
-		return new Response(JSON.stringify({ data: response }), {
-			status: 201,
-		});
+		return new Response(
+			JSON.stringify({
+				status: 201,
+			})
+		);
 	} catch (error) {
 		return Response.json(
 			{ error: `POST request failed: ${error}` },

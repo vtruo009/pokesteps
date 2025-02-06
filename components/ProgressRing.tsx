@@ -10,14 +10,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { APP_COLOR } from '@/app/lib/constants';
-import {
-	getItemForKey,
-	setItemForKey,
-	StorageKeys,
-} from '@/app/lib/utils/storageHelpers';
-import { fetchAPI } from '@/app/lib/fetch';
+import { setItemForKey, StorageKeys } from '@/app/lib/utils/storageHelpers';
 import { useGlobalContext } from '@/contexts/GlobalContext';
-import { getRandomPokemonId } from '@/app/lib/database';
+import { unlockPokemon } from '@/app/lib/database';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
@@ -42,7 +37,8 @@ const resetPress = () => {
 };
 
 const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
-	const { currentUser } = useGlobalContext();
+	const { currentUser, pokemons } = useGlobalContext();
+	const [newPokemonId, setNewPokemonId] = useState(0);
 	const [overlayVisible, setOverlayVisible] = useState(false);
 	const [disabled, setDisabled] = useState(false);
 	const innerRadius = RADIUS - STROKEWIDTH / 2;
@@ -65,25 +61,11 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 		fill.value = withTiming(progress, { duration: 2000 });
 	}, [progress]);
 
-	useEffect(() => {
-		const getHasUnlocked = async () => {
-			const hasUnlocked = await getItemForKey(StorageKeys.HAS_UNLOCKED);
-			setDisabled(hasUnlocked === 'true');
-		};
-
-		getHasUnlocked().catch((error) => console.log(error));
-	});
-
 	const handlePress = async () => {
 		try {
-			const randomId = await getRandomPokemonId(currentUser?.user_id);
-			await fetchAPI('/(api)/pokemons/unlock', {
-				method: 'POST',
-				body: JSON.stringify({
-					userId: currentUser?.user_id,
-					randomId,
-				}),
-			});
+			const randomPokemonId = await unlockPokemon(currentUser?.user_id);
+
+			setNewPokemonId(randomPokemonId);
 			setDisabled(true);
 			setOverlayVisible(true);
 		} catch (error) {
@@ -113,7 +95,7 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 						position: 'absolute',
 						zIndex: 1,
 					}}
-					disabled={currentUser?.has_unlocked_today}
+					disabled={disabled || currentUser?.has_unlocked_today}
 					onPress={handlePress}
 				>
 					<Image
@@ -122,10 +104,13 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 					/>
 				</TouchableOpacity>
 			)}
-			<PokemonUnlocked
-				visible={overlayVisible}
-				setVisible={setOverlayVisible}
-			/>
+			{overlayVisible && (
+				<PokemonUnlocked
+					newPokemon={pokemons[newPokemonId]}
+					visible={overlayVisible}
+					setVisible={setOverlayVisible}
+				/>
+			)}
 			<SVG>
 				<Circle
 					cx={RADIUS}

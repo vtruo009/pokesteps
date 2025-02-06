@@ -34,39 +34,43 @@ export const getUser = async (userId: string) => {
 };
 
 /********************* POKEMONS TABLE *********************/
-export const getRandomPokemonId = async (userId: string | undefined) => {
-	try {
-		if (!userId) {
-			throw new Error('User ID not found');
-		}
-
-		const response = await fetchAPI(
-			`/(api)/pokemons/get-locked-pokemons/${userId}`,
-			{
-				method: 'GET',
-			}
-		);
-
-		if (response.error) {
-			throw new Error(response.error);
-		}
-
-		return Math.ceil(Math.random() * response.data.length);
-	} catch (error) {
-		throw new Error(`Error getting random pokemon id from database: ${error}`);
-	}
-};
-
 export const getUserPokemons = async (userId: string) => {
 	try {
 		console.log('Fetching pokemon data...');
 		const response = await fetchAPI(`/(api)/pokemons/load/${userId}`, {
 			method: 'GET',
 		});
+
 		return response.data;
 	} catch (error) {
 		throw new Error(
 			`Error getting current user's pokemons from database: ${error}`
 		);
+	}
+};
+
+export const unlockPokemon = async (userId: string | undefined) => {
+	try {
+		console.log('Unlocking pokemon...');
+		const { data: lockedPokemonIds } = await fetchAPI(
+			`/(api)/pokemons/get-locked-pokemons/${userId}`,
+			{
+				method: 'GET',
+			}
+		);
+
+		const randomId = Math.ceil(Math.random() * lockedPokemonIds.length);
+
+		await fetchAPI('/(api)/pokemons/unlock', {
+			method: 'POST',
+			body: JSON.stringify({
+				userId,
+				randomId,
+			}),
+		});
+
+		return randomId;
+	} catch (error) {
+		throw new Error(`Error unlocking pokemon: ${error}`);
 	}
 };

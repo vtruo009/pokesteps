@@ -3,14 +3,14 @@ import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import PokemonCard from '@/components/PokemonCard';
 import { SearchBar, Icon } from '@rneui/themed';
 import { useEffect, useState } from 'react';
-import { Pokemon } from '@/app/lib/interface/pokemon.mixin';
+import { UserPokemon } from '@/app/lib/interface/pokemon.mixin';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { useGlobalContext } from '@/contexts/GlobalContext';
 
-const filterPokemons = (pokemons: Pokemon[], searchText: string) => {
+const filterPokemons = (pokemons: UserPokemon[], searchText: string) => {
 	return pokemons.filter((pokemon) => {
 		return (
 			pokemon.name.toLowerCase().includes(searchText.toLowerCase()) &&
