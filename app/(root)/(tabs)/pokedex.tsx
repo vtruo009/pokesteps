@@ -4,11 +4,9 @@ import PokemonCard from '@/components/PokemonCard';
 import { SearchBar, Icon } from '@rneui/themed';
 import { useEffect, useState } from 'react';
 import { UserPokemon } from '@/app/lib/interface/pokemon.mixin';
-import {
-	widthPercentageToDP as wp,
-	heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useGlobalContext } from '@/contexts/GlobalContext';
+import { colors } from '@/app/lib/constants';
 
 const filterPokemons = (pokemons: UserPokemon[], searchText: string) => {
 	return pokemons.filter((pokemon) => {
@@ -37,7 +35,7 @@ const Pokedex = () => {
 
 	return (
 		<View
-			className='flex-1 justify-between bg-white'
+			className='flex-1 justify-between bg-ghostWhite'
 			style={{
 				paddingTop: insets.top,
 				paddingRight: insets.right,
@@ -57,6 +55,7 @@ const Pokedex = () => {
 				clearButtonMode='while-editing'
 				containerStyle={{
 					marginHorizontal: 10,
+					backgroundColor: colors.ghostWhite,
 				}}
 			/>
 			{loading ? (

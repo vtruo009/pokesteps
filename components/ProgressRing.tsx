@@ -11,7 +11,7 @@ import Animated, {
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import { getUserPokemons, unlockPokemon } from '@/app/lib/database';
-import { APP_COLOR } from '@/app/lib/constants';
+import { colors, images } from '@/app/lib/constants';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
@@ -80,7 +80,7 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 					onPress={handlePress}
 				>
 					<Image
-						source={require('../assets/images/pokeball.png')}
+						source={images.pokeball}
 						style={{ width: '70%', height: '70%' }}
 					/>
 				</TouchableOpacity>
@@ -109,7 +109,7 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 					r={innerRadius}
 					fill='transparent'
 					strokeWidth={STROKEWIDTH}
-					stroke={goalMet ? APP_COLOR.yellow : APP_COLOR.blue}
+					stroke={goalMet ? colors.yellow : colors.blue}
 					animatedProps={animatedProps}
 					strokeLinecap='round'
 					rotation='-90'

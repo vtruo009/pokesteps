@@ -1,7 +1,6 @@
-export const APP_COLOR: { [key: string]: string } = {
-	blue: '#3C5AA6',
-	yellow: '#FFCB05',
-};
+import tailwindConfig from '@/tailwind.config.js';
+
+export const { colors } = tailwindConfig.theme.extend;
 
 // <a target="_blank" href="https://icons8.com/icon/WKMb0hRqjwdP/create">Create</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 export const icons = {
@@ -12,4 +11,8 @@ export const icons = {
 	pokedex: require('../../assets/icons/pokedex.png'),
 	sneaker: require('../../assets/icons/sneaker.png'),
 	trophy: require('../../assets/icons/trophy.png'),
+};
+
+export const images = {
+	pokeball: require('../../assets/images/pokeball.png'),
 };

@@ -65,7 +65,7 @@ export default function StepsHomeScreen() {
 	}, []);
 
 	return (
-		<SafeAreaView className='relative flex-1 justify-around items-center bg-white pb-20'>
+		<SafeAreaView className='relative flex-1 justify-around items-center bg-ghostWhite pb-20'>
 			<StatusBar style='dark' />
 			<TouchableOpacity
 				style={{ position: 'absolute', top: hp('10%'), left: wp('10%') }}

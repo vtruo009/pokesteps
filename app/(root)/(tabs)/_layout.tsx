@@ -1,4 +1,4 @@
-import { APP_COLOR, icons } from '@/app/lib/constants';
+import { colors, icons } from '@/app/lib/constants';
 import { Tabs } from 'expo-router';
 import { View, Image, ImageSourcePropType } from 'react-native';
 import {
@@ -15,22 +15,16 @@ const TabIcon = ({
 }) => {
 	return (
 		<View
-			className={`flex flex-row justify-center items-center w-full h-full ${
-				focused ? 'bg-gray-300' : ''
+			className={`rounded-[55px] w-14 h-12 items-center justify-center ${
+				focused ? 'bg-ghostWhite' : ''
 			}`}
 		>
-			<View
-				className={`rounded-[55px] w-14 h-12 items-center justify-center ${
-					focused ? 'bg-white' : ''
-				}`}
-			>
-				<Image
-					source={source}
-					tintColor={focused ? 'black' : 'white'}
-					resizeMode='contain'
-					className='w-7 h-7'
-				/>
-			</View>
+			<Image
+				source={source}
+				tintColor='black'
+				resizeMode='contain'
+				className='w-7 h-7'
+			/>
 		</View>
 	);
 };
@@ -42,7 +36,7 @@ function TabLayout() {
 			screenOptions={{
 				tabBarShowLabel: false,
 				tabBarStyle: {
-					backgroundColor: APP_COLOR.yellow,
+					backgroundColor: colors.blue,
 					borderRadius: 50,
 					paddingBottom: 0,
 					marginBottom: hp('3%'),

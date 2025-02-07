@@ -6,7 +6,6 @@ import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { APP_COLOR } from '../lib/constants';
 import FormField from '@/components/FormField';
 import { Link, router } from 'expo-router';
 import { signIn } from '../lib/appwrite';
@@ -43,7 +42,7 @@ const SignIn = () => {
 
 	return (
 		<SafeAreaView
-			className='bg-white flex-1 text-start'
+			className='bg-ghostWhite flex-1 text-start'
 			style={{ paddingHorizontal: wp('10%'), paddingTop: hp('5%') }}
 		>
 			<Text className='text-4xl font-JetBrainsMono'>Sign In</Text>
@@ -67,17 +66,16 @@ const SignIn = () => {
 				/>
 				<TouchableOpacity
 					onPress={handleSignIn}
-					className='rounded-md mt-5'
+					className={`rounded-md mt-5 bg-yellow items-center justify-center ${
+						isSubmitting ? 'opacity-50' : ''
+					}`}
 					style={{
 						width: wp('50%'),
 						height: hp('5%'),
-						alignItems: 'center',
-						justifyContent: 'center',
-						backgroundColor: APP_COLOR.yellow,
 					}}
 					disabled={isSubmitting}
 				>
-					<Text className='text-md font-JetBrainsMono text-center my-2'>
+					<Text className='text-md font-JetBrainsMonoExtraBold text-center my-2'>
 						Sign In
 					</Text>
 				</TouchableOpacity>
@@ -87,8 +85,7 @@ const SignIn = () => {
 					</Text>
 					<Link
 						href='./sign-up'
-						className='font-JetBrainsMonoExtraBold text-sm'
-						style={{ color: APP_COLOR.blue }}
+						className='font-JetBrainsMonoExtraBold text-sm text-blue'
 					>
 						Sign up
 					</Link>

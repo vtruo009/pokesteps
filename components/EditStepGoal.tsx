@@ -9,7 +9,6 @@ import {
 import Modal from 'react-native-modal';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import ErrorMessage from './ErrorMessage';
-import { APP_COLOR } from '@/app/lib/constants';
 import { updateStepGoal } from '@/app/lib/database';
 import { useGlobalContext } from '@/contexts/GlobalContext';
 
@@ -63,7 +62,7 @@ const EditStepGoal = ({
 			style={{ justifyContent: 'center', alignItems: 'center' }}
 		>
 			<View
-				className='m-10 bg-white rounded-lg items-center justify-center'
+				className='m-10 bg-ghostWhite rounded-lg items-center justify-center'
 				style={{ width: wp('80%'), height: 'auto', padding: wp('5%') }}
 			>
 				<Text className='text-3xl m-1 font-JetBrainsMonoBold'>
@@ -92,11 +91,8 @@ const EditStepGoal = ({
 						</Text>
 					</TouchableOpacity>
 					<Pressable
-						className='w-2/5 rounded-xl px-3 py-2 m-1'
+						className='w-2/5 rounded-xl px-3 py-2 m-1 bg-yellow'
 						onPress={onSave}
-						style={{
-							backgroundColor: APP_COLOR.yellow,
-						}}
 					>
 						<Text className='text-center font-JetBrainsMonoSemiBold'>Save</Text>
 					</Pressable>
