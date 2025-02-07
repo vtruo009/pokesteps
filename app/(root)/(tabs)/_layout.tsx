@@ -36,7 +36,7 @@ function TabLayout() {
 			screenOptions={{
 				tabBarShowLabel: false,
 				tabBarStyle: {
-					backgroundColor: colors.blue,
+					backgroundColor: colors.yellow,
 					borderRadius: 50,
 					paddingBottom: 0,
 					marginBottom: hp('3%'),

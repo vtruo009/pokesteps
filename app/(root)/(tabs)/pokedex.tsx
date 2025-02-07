@@ -54,7 +54,21 @@ const Pokedex = () => {
 				clearIcon={false}
 				clearButtonMode='while-editing'
 				containerStyle={{
-					marginHorizontal: 10,
+					backgroundColor: colors.ghostWhite,
+					marginHorizontal: 16,
+					padding: 0,
+				}}
+				inputContainerStyle={{
+					height: 64,
+					backgroundColor: colors.ghostWhite,
+					borderWidth: 2,
+					borderBottomWidth: 2,
+					borderColor: 'black',
+					borderStyle: 'solid',
+					borderRadius: 16,
+				}}
+				inputStyle={{
+					width: '100%',
 					backgroundColor: colors.ghostWhite,
 				}}
 			/>
