@@ -66,7 +66,7 @@ const SignUp = () => {
 				/>
 				<TouchableOpacity
 					onPress={handleSignUp}
-					className={`rounded-md mt-5 bg-yellow items-center justify-center ${
+					className={`rounded-xl mt-5 bg-yellow items-center justify-center ${
 						isSubmitting ? 'opacity-50' : ''
 					}`}
 					style={{
