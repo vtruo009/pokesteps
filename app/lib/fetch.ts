@@ -1,12 +1,11 @@
-export async function fetchAPI(url: string, options?: RequestInit) {
+const BASE_URL = process.env.BASE_URL || 'http://localhost:4242';
+
+export const fetchUsers = async (userId: string) => {
 	try {
-		const response = await fetch(url, options);
-		if (!response.ok) {
-			new Error(`HTTP error! status: ${response.status}`);
-		}
-		return await response.json();
+		const res = await fetch(`${BASE_URL}/users/${userId}`);
+		const data = await res.json();
+		return data;
 	} catch (error) {
-		console.error('Fetch error:', error);
-		throw error;
+		console.log(error);
 	}
-}
+};

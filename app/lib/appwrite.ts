@@ -1,5 +1,6 @@
 import { Account, Client, ID } from 'react-native-appwrite';
 import { createUserInDatabase, getUser } from './database';
+import { fetchUser } from './fetch';
 
 export const config = {
 	endpoint: 'https://cloud.appwrite.io/v1',
@@ -61,7 +62,7 @@ export const getCurrentUser = async () => {
 
 		if (!currentAccount) throw Error;
 
-		const currentUser = await getUser(currentAccount.$id);
+		const currentUser = await fetchUser(currentAccount.$id);
 
 		if (!currentUser) throw Error;
 
