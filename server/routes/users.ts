@@ -1,5 +1,5 @@
 import { neon } from '@neondatabase/serverless';
-import express from 'express';
+import * as express from 'express';
 
 const router = express.Router();
 const sql = neon(process.env.DATABASE_URL || '');
@@ -10,7 +10,7 @@ router.post('/:userId', async (req, res) => {
 
 		const { email, password } = req.body;
 		if (!email || !password) {
-			res.status(400).json({ error: 'Missing required field(s)' });
+			throw new Error('Missing email or password');
 		}
 
 		const response = await sql`
@@ -18,7 +18,7 @@ router.post('/:userId', async (req, res) => {
 			VALUES (${userId}, ${email}, ${password});
 		`;
 
-		res.json({ data: response, status: 201 });
+		res.status(201).json({ data: response });
 	} catch (error) {
 		res
 			.status(500)
@@ -77,7 +77,7 @@ router.get('/:userId', async (req, res) => {
 			SELECT * FROM users WHERE user_id = ${userId};
 		`;
 
-		res.json({ data: response, status: 200 });
+		res.status(200).json({ data: response });
 	} catch (error) {
 		res
 			.status(500)

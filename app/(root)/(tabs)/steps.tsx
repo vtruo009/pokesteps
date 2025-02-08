@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, View, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useHealthData from '@/hooks/useHealthData';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProgressRing from '@/components/ProgressRing';
@@ -12,8 +12,8 @@ import EditStepGoal from '@/components/EditStepGoal';
 import { signOut } from '@/app/lib/appwrite';
 import { router } from 'expo-router';
 import { useGlobalContext } from '@/contexts/GlobalContext';
-import { updateHasUnlockedToday } from '@/app/lib/database';
 import { icons } from '@/app/lib/constants';
+import { fetchUsers } from '@/app/lib/fetch';
 
 const textSizes = {
 	xl: hp('1.5%'),
@@ -57,7 +57,12 @@ export default function StepsHomeScreen() {
 			const timeToMidnight = reset.getTime() - Date.now();
 			setTimeout(async () => {
 				console.log('Resetting press...');
-				await updateHasUnlockedToday(currentUser?.user_id);
+				await fetchUsers(`${currentUser?.user_id}/unlocked-status`, {
+					method: 'PATCH',
+					body: JSON.stringify({
+						unlockedStatus: false,
+					}),
+				});
 			}, timeToMidnight);
 		};
 
