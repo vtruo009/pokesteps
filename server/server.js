@@ -10,8 +10,6 @@ const PORT = process.env.PORT || 4242;
 app.use(cors());
 app.use(express.json());
 app.use('/users', usersRoutes);
-app.use('users/step-goal', usersRoutes);
-app.use('users/unlocked-status', usersRoutes);
 app.use('/pokemons', pokemonsRoutes);
 
 app.listen(PORT, () => {
