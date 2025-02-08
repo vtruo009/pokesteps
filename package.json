@@ -68,5 +68,16 @@
 		"tailwindcss": "3.3.2",
 		"typescript": "~5.3.3"
 	},
-	"private": true
+	"private": true,
+	"description": "An iOS step counter application inspired by Ash Ketchum's Pokémon journey, emphasizing that growth and continuous improvement are as important as achieving the goal.",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vtruo009/pokesteps.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/vtruo009/pokesteps/issues"
+	},
+	"homepage": "https://github.com/vtruo009/pokesteps#readme"
 }

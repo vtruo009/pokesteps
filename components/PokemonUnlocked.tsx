@@ -6,7 +6,6 @@ import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { APP_COLOR } from '@/app/lib/constants';
 
 interface PokemonUnlockedProps {
 	newPokemon: UserPokemon;
@@ -66,7 +65,7 @@ const PokemonUnlocked = ({
 						uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${newPokemon.id}.png`,
 					}}
 					alt='pokemon'
-					className=' bg-gray-50 rounded-full'
+					className='rounded-full'
 					style={{ width: wp('60%'), height: wp('60%') }}
 				/>
 				<Pressable
@@ -74,10 +73,7 @@ const PokemonUnlocked = ({
 						router.replace('/(root)/(tabs)/pokedex');
 						setVisible(false);
 					}}
-					className='p-2 w-auto h-auto text-center justify-center rounded-lg'
-					style={{
-						backgroundColor: APP_COLOR.yellow,
-					}}
+					className='p-2 w-auto h-auto text-center justify-center rounded-lg bg-yellow'
 				>
 					<Text
 						className='text-black font-JetBrainsMonoBold uppercase'

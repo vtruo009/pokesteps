@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getCurrentUser } from '@/app/lib/appwrite';
 import { UserPokemon } from '@/app/lib/interface/pokemon.mixin';
-import { getUserPokemons } from '@/app/lib/database';
+import { fetchPokemons } from '@/app/lib/fetch';
 
 interface UserType {
 	email: string;
@@ -44,7 +44,7 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 		getCurrentUser()
 			.then((res) => {
 				if (res) {
-					getUserPokemons(res.user_id)
+					fetchPokemons(res.user_id)
 						.then((pokemons) => {
 							setPokemons(pokemons);
 						})

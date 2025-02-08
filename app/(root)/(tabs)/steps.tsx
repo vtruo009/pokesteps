@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, View, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useHealthData from '@/hooks/useHealthData';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ProgressRing from '@/components/ProgressRing';
@@ -12,7 +12,8 @@ import EditStepGoal from '@/components/EditStepGoal';
 import { signOut } from '@/app/lib/appwrite';
 import { router } from 'expo-router';
 import { useGlobalContext } from '@/contexts/GlobalContext';
-import { updateHasUnlockedToday } from '@/app/lib/database';
+import { icons } from '@/app/lib/constants';
+import { fetchUsers } from '@/app/lib/fetch';
 
 const textSizes = {
 	xl: hp('1.5%'),
@@ -37,15 +38,15 @@ export default function StepsHomeScreen() {
 	const { todaySteps, yesterdaySteps } = useHealthData();
 	const { currentUser } = useGlobalContext();
 	const [stepGoal, setStepGoal] = useState(currentUser?.step_goal || 3000);
-	const [goalReached, setGoalReached] = useState(false);
+	const [goalMet, setGoalMet] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const progress = todaySteps / stepGoal;
 
 	useEffect(() => {
 		if (todaySteps >= stepGoal) {
-			setGoalReached(true);
+			setGoalMet(true);
 		} else {
-			setGoalReached(false);
+			setGoalMet(false);
 		}
 	}, [todaySteps, stepGoal]);
 
@@ -56,7 +57,13 @@ export default function StepsHomeScreen() {
 			const timeToMidnight = reset.getTime() - Date.now();
 			setTimeout(async () => {
 				console.log('Resetting press...');
-				await updateHasUnlockedToday(currentUser?.user_id);
+				// TODO: What happens if the user doesn't unlock today? or doesn't run the app today?
+				await fetchUsers(`${currentUser?.user_id}/unlocked-status`, {
+					method: 'PATCH',
+					body: JSON.stringify({
+						unlockedStatus: false,
+					}),
+				});
 			}, timeToMidnight);
 		};
 
@@ -64,25 +71,19 @@ export default function StepsHomeScreen() {
 	}, []);
 
 	return (
-		<SafeAreaView className='relative flex-1 justify-around items-center bg-white pb-20'>
+		<SafeAreaView className='relative flex-1 justify-around items-center bg-ghostWhite pb-20'>
 			<StatusBar style='dark' />
 			<TouchableOpacity
 				style={{ position: 'absolute', top: hp('10%'), left: wp('10%') }}
-				onPress={() => setVisible(true)}
+				onPress={handleSignOut}
 			>
-				<Image
-					source={require('../../../assets/icons/edit-button.png')}
-					style={{ width: 32, height: 32 }}
-				/>
+				<Image source={icons.logout} style={{ width: 32, height: 32 }} />
 			</TouchableOpacity>
 			<TouchableOpacity
 				style={{ position: 'absolute', top: hp('10%'), right: wp('10%') }}
-				onPress={handleSignOut}
+				onPress={() => setVisible(true)}
 			>
-				<Image
-					source={require('../../../assets/icons/logout.png')}
-					style={{ width: 32, height: 32 }}
-				/>
+				<Image source={icons.editButton} style={{ width: 32, height: 32 }} />
 			</TouchableOpacity>
 			<EditStepGoal
 				visible={visible}
@@ -90,7 +91,7 @@ export default function StepsHomeScreen() {
 				currentStepGoal={stepGoal}
 				setStepGoal={setStepGoal}
 			/>
-			<ProgressRing progress={progress} goalReached={goalReached} />
+			<ProgressRing progress={progress} goalMet={goalMet} />
 			<View className='flex justify-center items-center font-JetBrainsMono'>
 				<Text
 					className='font-JetBrainsMono'
