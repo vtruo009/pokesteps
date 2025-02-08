@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import usersRoutes from './routes/users.ts';
-import pokemonsRoutes from './routes/pokemons.ts';
+import usersRoutes from './routes/users';
+import pokemonsRoutes from './routes/pokemons';
 
 const app = express();
 const PORT = process.env.PORT || 4242;
