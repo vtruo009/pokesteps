@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { getCurrentUser } from '@/app/lib/appwrite';
 import { UserPokemon } from '@/app/lib/interface/pokemon.mixin';
-import { getUserPokemons } from '@/app/lib/database';
+import { fetchPokemons } from '@/app/lib/fetch';
 
 interface UserType {
 	email: string;
@@ -19,6 +19,7 @@ interface GlobalContextType {
 	setCurrentUser: React.Dispatch<React.SetStateAction<UserType | null>>;
 	isLoading: boolean;
 	pokemons: UserPokemon[];
+	setPokemons: React.Dispatch<React.SetStateAction<UserPokemon[]>>;
 }
 
 const DEFAULT_STATE: GlobalContextType = {
@@ -28,6 +29,7 @@ const DEFAULT_STATE: GlobalContextType = {
 	setCurrentUser: () => null,
 	isLoading: true,
 	pokemons: [],
+	setPokemons: () => null,
 };
 
 const GlobalContext = createContext<GlobalContextType>(DEFAULT_STATE);
@@ -42,7 +44,7 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 		getCurrentUser()
 			.then((res) => {
 				if (res) {
-					getUserPokemons(res.user_id)
+					fetchPokemons(res.user_id)
 						.then((pokemons) => {
 							setPokemons(pokemons);
 						})
@@ -69,6 +71,7 @@ const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
 				setCurrentUser,
 				isLoading,
 				pokemons,
+				setPokemons,
 			}}
 		>
 			{children}

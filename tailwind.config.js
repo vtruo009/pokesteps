@@ -12,6 +12,12 @@ module.exports = {
 				JetBrainsMonoBold: ['JetBrainsMono-Bold', 'monospace'],
 				JetBrainsMonoExtraBold: ['JetBrainsMono-ExtraBold', 'monospace'],
 			},
+			colors: {
+				blue: '#3C5AA6',
+				yellow: '#FFCB05',
+				ghostWhite: '#F8F7FF',
+				mutedOrange: '#FFF7ED',
+			},
 		},
 	},
 	plugins: [],

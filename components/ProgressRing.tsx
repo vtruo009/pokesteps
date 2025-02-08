@@ -10,7 +10,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useGlobalContext } from '@/contexts/GlobalContext';
-import { unlockPokemon } from '@/app/lib/database';
+import { colors, images } from '@/app/lib/constants';
+import { fetchPokemons } from '@/app/lib/fetch';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
@@ -19,11 +20,11 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 interface ProgressRingProps {
 	progress: number;
-	goalReached: boolean;
+	goalMet: boolean;
 }
 
-const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
-	const { currentUser, pokemons } = useGlobalContext();
+const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
+	const { currentUser, pokemons, setPokemons } = useGlobalContext();
 	const [newPokemonId, setNewPokemonId] = useState(0);
 	const [overlayVisible, setOverlayVisible] = useState(false);
 	const [disabled, setDisabled] = useState(false);
@@ -39,13 +40,32 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 		fill.value = withTiming(progress, { duration: 2000 });
 	}, [progress]);
 
+	const unlockPokemon = async () => {
+		try {
+			const lockedPokemonIds = await fetchPokemons(
+				`${currentUser?.user_id}/locked-pokemon-ids`,
+				{
+					method: 'GET',
+				}
+			);
+			const randomId = Math.ceil(Math.random() * lockedPokemonIds.length);
+			setNewPokemonId(randomId - 1);
+
+			const userPokemons = await fetchPokemons(currentUser?.user_id || '', {
+				method: 'GET',
+			});
+			setPokemons(userPokemons);
+		} catch (error) {
+			console.log('Error unlocking pokemon:', error);
+			throw error;
+		}
+	};
+
 	const handlePress = async () => {
 		try {
-			const randomPokemonId = await unlockPokemon(currentUser?.user_id);
-
-			setNewPokemonId(randomPokemonId);
 			setDisabled(true);
 			setOverlayVisible(true);
+			await unlockPokemon();
 		} catch (error) {
 			console.log(error);
 		}
@@ -61,7 +81,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 				marginTop: '10%',
 			}}
 		>
-			{goalReached && (
+			{goalMet && (
 				<TouchableOpacity
 					testID='pokeball-button'
 					style={{
@@ -77,7 +97,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 					onPress={handlePress}
 				>
 					<Image
-						source={require('../assets/images/pokeball.png')}
+						source={images.pokeball}
 						style={{ width: '70%', height: '70%' }}
 					/>
 				</TouchableOpacity>
@@ -106,7 +126,7 @@ const ProgressRing = ({ progress = 0.0, goalReached }: ProgressRingProps) => {
 					r={innerRadius}
 					fill='transparent'
 					strokeWidth={STROKEWIDTH}
-					stroke='#3C5AA6'
+					stroke={goalMet ? colors.yellow : colors.blue}
 					animatedProps={animatedProps}
 					strokeLinecap='round'
 					rotation='-90'
