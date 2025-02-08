@@ -10,7 +10,7 @@ const PokemonDetails = () => {
 	const pokemon = JSON.parse(useRoute().params?.pokemon) as Pokemon;
 
 	return (
-		<SafeAreaView className='flex-1 justify-evenly items-center bg-white'>
+		<SafeAreaView className='flex-1 justify-evenly items-center bg-ghostWhite'>
 			<View className='flex items-center'>
 				<PokemonCard pokemon={pokemon} width={60} disabled={true} />
 				<Text className='text-xl text-gray-500 font-JetBrainsMono'>
