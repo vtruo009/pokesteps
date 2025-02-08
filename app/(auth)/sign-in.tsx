@@ -34,7 +34,7 @@ const SignIn = () => {
 
 			router.replace('/(root)/(tabs)/steps');
 		} catch (error) {
-			Alert.alert('Error', (error as Error).message);
+			Alert.alert('Error', `${(error as Error).message}`);
 		} finally {
 			setIsSubmitting(false);
 		}
