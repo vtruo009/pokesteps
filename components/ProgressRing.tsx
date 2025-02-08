@@ -10,8 +10,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useGlobalContext } from '@/contexts/GlobalContext';
-import { getUserPokemons, unlockPokemon } from '@/app/lib/database';
 import { colors, images } from '@/app/lib/constants';
+import { fetchPokemons } from '@/app/lib/fetch';
 
 const RADIUS = wp('35%');
 const STROKEWIDTH = 35;
@@ -40,15 +40,32 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 		fill.value = withTiming(progress, { duration: 2000 });
 	}, [progress]);
 
+	const unlockPokemon = async () => {
+		try {
+			const lockedPokemonIds = await fetchPokemons(
+				`${currentUser?.user_id}/locked-pokemon-ids`,
+				{
+					method: 'GET',
+				}
+			);
+			const randomId = Math.ceil(Math.random() * lockedPokemonIds.length);
+			setNewPokemonId(randomId - 1);
+
+			const userPokemons = await fetchPokemons(currentUser?.user_id || '', {
+				method: 'GET',
+			});
+			setPokemons(userPokemons);
+		} catch (error) {
+			console.log('Error unlocking pokemon:', error);
+			throw error;
+		}
+	};
+
 	const handlePress = async () => {
 		try {
 			setDisabled(true);
 			setOverlayVisible(true);
-
-			const randomPokemonId = await unlockPokemon(currentUser?.user_id);
-			setNewPokemonId(randomPokemonId - 1);
-
-			setPokemons(await getUserPokemons(currentUser?.user_id));
+			await unlockPokemon();
 		} catch (error) {
 			console.log(error);
 		}
