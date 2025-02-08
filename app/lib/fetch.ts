@@ -11,7 +11,7 @@ export const fetchUsers = async (url: string, config?: RequestInit) => {
 		const data = await res.json();
 		return data;
 	} catch (error) {
-		console.log('Fetch error:', error);
+		console.error('Fetch error:', error);
 		throw error;
 	}
 };
@@ -27,7 +27,7 @@ export const fetchPokemons = async (url: string, config?: RequestInit) => {
 		const data = await res.json();
 		return data;
 	} catch (error) {
-		console.log('Fetch error:', error);
+		console.error('Fetch error:', error);
 		throw error;
 	}
 };
