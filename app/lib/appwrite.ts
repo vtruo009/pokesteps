@@ -64,7 +64,9 @@ export const getCurrentUser = async () => {
 
 		if (!currentAccount) throw Error;
 
-		const currentUser = await fetchUsers(currentAccount.$id);
+		const currentUser = await fetchUsers(currentAccount.$id, {
+			method: 'GET',
+		});
 
 		if (!currentUser) throw Error;
 

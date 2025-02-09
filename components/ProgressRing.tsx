@@ -51,6 +51,13 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 			const randomId = Math.ceil(Math.random() * lockedPokemonIds.length);
 			setNewPokemonId(randomId - 1);
 
+			await fetchPokemons(`${currentUser?.user_id}/unlock-pokemon`, {
+				method: 'POST',
+				body: JSON.stringify({
+					newPokemonId: randomId,
+				}),
+			});
+
 			const userPokemons = await fetchPokemons(currentUser?.user_id || '', {
 				method: 'GET',
 			});
@@ -102,7 +109,7 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 					/>
 				</TouchableOpacity>
 			)}
-			{overlayVisible && (
+			{newPokemonId != 0 && (
 				<PokemonUnlocked
 					newPokemon={pokemons[newPokemonId]}
 					visible={overlayVisible}
