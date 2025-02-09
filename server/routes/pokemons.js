@@ -22,9 +22,7 @@ router.post('/:userId/unlock-pokemon', async (req, res) => {
 
 		res.json({ status: 201 });
 	} catch (error) {
-		res
-			.status(500)
-			.json({ error: `POST request failed: ${(error as Error).message}` });
+		res.status(500).json({ error: `POST request failed: ${error.message}` });
 	}
 });
 
@@ -40,9 +38,7 @@ router.get('/:userId', async (req, res) => {
 
 		res.json({ data: response, status: 200 });
 	} catch (error) {
-		res
-			.status(500)
-			.json({ error: `GET request failed: ${(error as Error).message}` });
+		res.status(500).json({ error: `POST request failed: ${error.message}` });
 	}
 });
 

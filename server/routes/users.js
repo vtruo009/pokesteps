@@ -20,9 +20,7 @@ router.post('/:userId', async (req, res) => {
 
 		res.status(201).json({ data: response });
 	} catch (error) {
-		res
-			.status(500)
-			.json({ error: `POST request failed: ${(error as Error).message}` });
+		res.status(500).json({ error: `POST request failed: ${error.message}` });
 	}
 });
 
@@ -43,9 +41,7 @@ router.patch('/:userId/step-goal', async (req, res) => {
 
 		res.json({ status: 200 });
 	} catch (error) {
-		res
-			.status(500)
-			.json({ error: `PATCH request failed: ${(error as Error).message}` });
+		res.status(500).json({ error: `PATCH request failed: ${error.message}` });
 	}
 });
 
@@ -63,9 +59,7 @@ router.patch('/:userId/unlocked-status', async (req, res) => {
 
 		res.json({ status: 200 });
 	} catch (error) {
-		res
-			.status(500)
-			.json({ error: `PATCH request failed: ${(error as Error).message}` });
+		res.status(500).json({ error: `PATCH request failed: ${error.message}` });
 	}
 });
 
@@ -79,9 +73,7 @@ router.get('/:userId', async (req, res) => {
 
 		res.status(200).json({ data: response });
 	} catch (error) {
-		res
-			.status(500)
-			.json({ error: `GET request failed: ${(error as Error).message}` });
+		res.status(500).json({ error: `GET request failed: ${error.message}` });
 	}
 });
 
