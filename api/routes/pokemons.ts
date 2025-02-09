@@ -46,10 +46,6 @@ router.get('/:userId', async (req, res) => {
 	}
 });
 
-router.get('/', (req, res) => {
-	res.send('Hello World!');
-});
-
 router.get('/:userId/locked-pokemon-ids', async (req, res) => {
 	try {
 		const { userId } = req.params;
