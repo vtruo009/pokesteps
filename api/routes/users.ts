@@ -18,7 +18,7 @@ router.post('/:userId', async (req, res) => {
 			VALUES (${userId}, ${email}, ${password});
 		`;
 
-		res.status(201).json({ data: response });
+		res.status(201).json({ data: response[0] });
 	} catch (error) {
 		res
 			.status(500)
