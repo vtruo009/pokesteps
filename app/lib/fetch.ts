@@ -1,4 +1,6 @@
-const BASE_URL = process.env.BASE_URL || 'http://localhost:4242';
+import Constants from 'expo-constants';
+
+const BASE_URL = Constants.expoConfig?.extra?.BASE_URL || process.env.BASE_URL;
 
 export const fetchUsers = async (url: string, config?: RequestInit) => {
 	try {
@@ -8,10 +10,10 @@ export const fetchUsers = async (url: string, config?: RequestInit) => {
 			},
 			...config,
 		});
-		const data = await res.json();
+		const { data } = await res.json();
 		return data;
 	} catch (error) {
-		console.error('Fetch error:', error);
+		console.error('Fetch error:', (error as Error).message);
 		throw error;
 	}
 };
@@ -24,7 +26,7 @@ export const fetchPokemons = async (url: string, config?: RequestInit) => {
 			},
 			...config,
 		});
-		const data = await res.json();
+		const { data } = await res.json();
 		return data;
 	} catch (error) {
 		console.error('Fetch error:', error);
