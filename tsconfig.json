@@ -12,6 +12,9 @@
 		"**/*.tsx",
 		".expo/types/**/*.ts",
 		"expo-env.d.ts",
-		"setup-tests.js"
+		"setup-tests.js",
+		"server/routes/users.js",
+		"server/routes/pokemons.js",
+		"server/server.js"
 	]
 }
