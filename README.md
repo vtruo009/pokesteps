@@ -7,6 +7,7 @@ An iOS step counter application inspired by Ash Ketchum's Pokémon journey, emph
 Pokésteps is a gamified fitness app designed to make routine activities like walking more enjoyable and engaging. By integrating elements of gaming, it motivates users to stay active while having fun. Users can unlock and collect all 151 original Pokémon by earning experience points, which are accumulated through their daily step counts. The app leverages HealthKit ([react-native-health](https://github.com/agencyenterprise/react-native-health)) to track steps and PokéAPI to deliver a Pokédex-inspired interface for tracking progress and achievements. With features like customizable step goals, the app caters to both beginners looking to ease into a healthier lifestyle and advanced users trying to push their limits.
 
 <p align="center">
+   <img src="./assets/images/screenshots/sign-up.png" alt="pokemon details" width="200"/>
    <img src="./assets/images/screenshots/steps.png" alt="steps" width="200"/>
    <img src="./assets/images/screenshots/pokedex.png" alt="pokedex" width="200"/>
    <img src="./assets/images/screenshots/pokemon-details.png" alt="pokemon details" width="200"/>
@@ -63,6 +64,10 @@ Press `i` to open app in iOS simulator.
 
 - React Native
 - TypeScript
+- ExpressJS
 - Tailwind/NativeWind
 - Expo
+- Appwrite (user authentication)
+- NeonDB (serverless PostgreSQL)
+- Vercel (backend hosting)
 - HealthKit ([react-native-health](https://github.com/agencyenterprise/react-native-health))
