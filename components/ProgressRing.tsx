@@ -58,7 +58,7 @@ const ProgressRing = ({ progress = 0.0, goalMet }: ProgressRingProps) => {
 				}),
 			});
 
-			const userPokemons = await fetchPokemons(currentUser?.user_id || '', {
+			const userPokemons = await fetchPokemons(`${currentUser?.user_id}`, {
 				method: 'GET',
 			});
 			setPokemons(userPokemons);
