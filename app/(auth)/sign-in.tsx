@@ -10,9 +10,10 @@ import FormField from '@/components/FormField';
 import { Link, router } from 'expo-router';
 import { signIn } from '../lib/appwrite';
 import { useGlobalContext } from '@/contexts/GlobalContext';
+import { fetchPokemons } from '../lib/fetch';
 
 const SignIn = () => {
-	const { setCurrentUser, setIsLoggedIn } = useGlobalContext();
+	const { setCurrentUser, setIsLoggedIn, setPokemons } = useGlobalContext();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [form, setForm] = useState({
 		email: '',
@@ -28,8 +29,10 @@ const SignIn = () => {
 		try {
 			await signIn(form.email, form.password);
 			const user = await getCurrentUser();
+			const pokemons = await fetchPokemons(user.user_id);
 
 			setCurrentUser(user);
+			setPokemons(pokemons);
 			setIsLoggedIn(true);
 
 			router.replace('/(root)/(tabs)/steps');

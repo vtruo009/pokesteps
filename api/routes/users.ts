@@ -15,7 +15,8 @@ router.post('/:userId', async (req, res) => {
 
 		const response = await sql`
 			INSERT INTO users (user_id, email, password)
-			VALUES (${userId}, ${email}, ${password});
+			VALUES (${userId}, ${email}, ${password})
+			RETURNING *;
 		`;
 
 		res.status(201).json({ data: response[0] });
