@@ -18,16 +18,9 @@ const filterPokemons = (pokemons: UserPokemon[], searchText: string) => {
 };
 
 const Pokedex = () => {
-	const { pokemons } = useGlobalContext();
+	const { isLoading, pokemons } = useGlobalContext();
 	const insets = useSafeAreaInsets();
 	const [searchText, setSearchText] = useState('');
-	const [loading, setLoading] = useState(true);
-
-	useEffect(() => {
-		if (pokemons.length > 0) {
-			setLoading(false);
-		}
-	}, [pokemons]);
 
 	const handleOnChangeText = (text: string) => {
 		setSearchText(text);
@@ -72,7 +65,7 @@ const Pokedex = () => {
 					backgroundColor: colors.ghostWhite,
 				}}
 			/>
-			{loading ? (
+			{isLoading ? (
 				<ActivityIndicator size='large' style={{ flex: 1 }} />
 			) : (
 				<View className='flex-1 w-full h-full items-center'>

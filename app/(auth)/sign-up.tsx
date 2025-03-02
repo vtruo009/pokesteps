@@ -26,10 +26,10 @@ const SignUp = () => {
 		setIsSubmitting(true);
 
 		try {
-			const result = await createUser(form.email, form.password);
-			const pokemons = await fetchPokemons(result.user_id);
+			const user = await createUser(form.email, form.password);
+			const pokemons = await fetchPokemons(user.user_id);
 
-			setCurrentUser(result);
+			setCurrentUser(user);
 			setPokemons(pokemons);
 			setIsLoggedIn(true);
 

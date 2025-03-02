@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 const BASE_URL = Constants.expoConfig?.extra?.BASE_URL || process.env.BASE_URL;
 
 export const fetchUsers = async (url: string, config?: RequestInit) => {
-	if (!url) throw new Error(`No url provided: ${url}`);
+	if (!url) throw new Error(`No url provided to fetchUsers: ${url}`);
 	try {
 		const res = await fetch(`${BASE_URL}/users/${url}`, {
 			headers: {
@@ -20,7 +20,7 @@ export const fetchUsers = async (url: string, config?: RequestInit) => {
 };
 
 export const fetchPokemons = async (url: string, config?: RequestInit) => {
-	if (!url) throw new Error(`No url provided: ${url}`);
+	if (!url) throw new Error(`No url provided to fetchPokemons: ${url}`);
 	try {
 		const res = await fetch(`${BASE_URL}/pokemons/${url}`, {
 			headers: {
