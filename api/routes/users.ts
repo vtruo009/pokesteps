@@ -15,10 +15,11 @@ router.post('/:userId', async (req, res) => {
 
 		const response = await sql`
 			INSERT INTO users (user_id, email, password)
-			VALUES (${userId}, ${email}, ${password});
+			VALUES (${userId}, ${email}, ${password})
+			RETURNING *;
 		`;
 
-		res.status(201).json({ data: response });
+		res.status(201).json({ data: response[0] });
 	} catch (error) {
 		res
 			.status(500)
@@ -76,6 +77,11 @@ router.get('/:userId', async (req, res) => {
 		const response = await sql`
 			SELECT * FROM users WHERE user_id = ${userId};
 		`;
+
+		if (response.length === 0) {
+			res.status(404).json({ error: 'User not found' });
+			return;
+		}
 
 		res.status(200).json({ data: response[0] });
 	} catch (error) {
