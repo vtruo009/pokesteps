@@ -12,7 +12,7 @@ export const fetchUsers = async (url: string, config?: RequestInit) => {
 			...config,
 		});
 		const response = await res.json();
-		return response.data;
+		return response.data[0] || response.data;
 	} catch (error) {
 		console.error('Fetch error:', (error as Error).message);
 		throw error;
