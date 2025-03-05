@@ -15,6 +15,6 @@
 		"setup-tests.js",
 		"api/routes/users.ts",
 		"api/routes/pokemons.ts",
-		"api/index.js"
+		"api/index.ts"
 	]
 }

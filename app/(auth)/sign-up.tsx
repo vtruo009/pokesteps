@@ -55,6 +55,7 @@ const SignUp = () => {
 					textContentType='emailAddress'
 					keyboardType='email-address'
 					autoCapitalize='none'
+					autoFocus
 					otherStyles='mb-5'
 				/>
 				<FormField

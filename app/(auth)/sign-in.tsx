@@ -54,7 +54,10 @@ const SignIn = () => {
 					label='Email'
 					value={form.email}
 					handleChangeText={(text: string) => setForm({ ...form, email: text })}
+					textContentType='emailAddress'
+					keyboardType='email-address'
 					autoCapitalize='none'
+					autoFocus
 					otherStyles='mb-5'
 				/>
 				<FormField

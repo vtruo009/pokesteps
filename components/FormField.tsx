@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import { icons } from '@/app/lib/constants';
+import { Link, router } from 'expo-router';
 
 const FormField = ({
 	label,
@@ -35,6 +36,14 @@ const FormField = ({
 					</TouchableOpacity>
 				)}
 			</View>
+			{label === 'Password' && (
+				<Link
+					href='./reset-password'
+					className='font-JetBrainsMonoExtraBold text-sm text-blue text-right px-2'
+				>
+					Forgot password?
+				</Link>
+			)}
 		</View>
 	);
 };
