@@ -14,7 +14,7 @@ import {
 import { resetPassword } from '../lib/appwrite';
 import { router } from 'expo-router';
 
-const ResetPassword = ({ email }: { email: string }) => {
+const ResetPassword = () => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [form, setForm] = useState({
 		email: '',
@@ -23,7 +23,7 @@ const ResetPassword = ({ email }: { email: string }) => {
 	});
 
 	const handlePasswordReset = async () => {
-		if (!form.newPassword || !form.confirmNewPassword) {
+		if (!form.email || !form.newPassword || !form.confirmNewPassword) {
 			Alert.alert('Error', 'Please fill in all the fields');
 			return;
 		}
@@ -36,11 +36,9 @@ const ResetPassword = ({ email }: { email: string }) => {
 		setIsSubmitting(true);
 
 		try {
-			const response = await resetPassword(form.email, form.newPassword);
-			if (response) {
-				Alert.alert('Success', 'Password reset successfully');
-				router.replace('/(auth)/sign-in');
-			}
+			await resetPassword(form.email, form.newPassword);
+			Alert.alert('Success', 'Password reset successfully');
+			router.replace('/(auth)/sign-in');
 		} catch (error) {
 			console.log('Error resetting password:', error);
 			throw error;

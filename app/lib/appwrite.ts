@@ -1,5 +1,5 @@
 import { Account, Client, ID } from 'react-native-appwrite';
-import { fetchUsers } from './fetch';
+import { fetchAccounts, fetchUsers } from './fetch';
 
 export const config = {
 	endpoint: 'https://cloud.appwrite.io/v1',
@@ -84,6 +84,32 @@ export const signOut = async () => {
 		return session;
 	} catch (error) {
 		console.log('Error signing out:', error);
+		throw error;
+	}
+};
+
+export const resetPassword = async (email: string, newPassword: string) => {
+	try {
+		const user = await fetchAccounts(email, {
+			method: 'GET',
+		});
+		console.log('user:', user);
+
+		if (!user) throw new Error('User not found');
+
+		await signIn(email, user.password);
+		const response = await account.updatePassword(newPassword, user.password);
+		if (!response) throw new Error('Failed to reset password');
+		await signOut();
+
+		await fetchAccounts(`${user}/password`, {
+			method: 'PATCH',
+			body: JSON.stringify({ password: newPassword }),
+		});
+
+		return null;
+	} catch (error) {
+		console.log('Error resetting password:', error);
 		throw error;
 	}
 };
