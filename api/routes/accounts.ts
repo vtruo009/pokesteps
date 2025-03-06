@@ -1,6 +1,5 @@
 import { neon } from '@neondatabase/serverless';
 import * as express from 'express';
-import { stat } from 'fs';
 
 const router = express.Router();
 const sql = neon(process.env.DATABASE_URL || '');

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import { icons } from '@/app/lib/constants';
-import { Link, router } from 'expo-router';
+import { Link } from 'expo-router';
+import { useRoute } from '@react-navigation/native';
 
 const FormField = ({
 	label,
@@ -12,6 +13,7 @@ const FormField = ({
 	...props
 }: any) => {
 	const [showPassword, setShowPassword] = useState(false);
+	const route = useRoute();
 
 	return (
 		<View className={`space-y-2 ${otherStyles}`}>
@@ -23,10 +25,10 @@ const FormField = ({
 					placeholderTextColor='#7B7B8B'
 					value={value}
 					onChangeText={handleChangeText}
-					secureTextEntry={label === 'Password' && !showPassword}
+					secureTextEntry={label.includes('Password') && !showPassword}
 					{...props}
 				/>
-				{label === 'Password' && (
+				{label.includes('Password') && (
 					<TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
 						<Image
 							source={showPassword ? icons.eyeHide : icons.eye}
@@ -36,7 +38,7 @@ const FormField = ({
 					</TouchableOpacity>
 				)}
 			</View>
-			{label === 'Password' && (
+			{label === 'Password' && route.name === 'sign-in' && (
 				<Link
 					href='./reset-password'
 					className='font-JetBrainsMonoExtraBold text-sm text-blue text-right px-2'

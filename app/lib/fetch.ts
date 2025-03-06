@@ -1,6 +1,7 @@
 import Constants from 'expo-constants';
 
-const BASE_URL = Constants.expoConfig?.extra?.BASE_URL || process.env.BASE_URL;
+const BASE_URL =
+	process.env.EXPO_PUBLIC_BASE_URL || Constants.expoConfig?.extra?.BASE_URL;
 
 export const fetchUsers = async (url: string, config?: RequestInit) => {
 	if (!url) throw new Error(`Invalid url provided to fetchUsers: ${url}`);

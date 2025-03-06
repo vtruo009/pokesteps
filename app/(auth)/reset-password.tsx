@@ -1,12 +1,7 @@
+import { View, TouchableOpacity, Text, Alert } from 'react-native';
 import { useState } from 'react';
 import FormField from '@/components/FormField';
-import {
-	SafeAreaView,
-	View,
-	TouchableOpacity,
-	Text,
-	Alert,
-} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
@@ -68,8 +63,8 @@ const ResetPassword = () => {
 					handleChangeText={(text: string) =>
 						setForm({ ...form, newPassword: text })
 					}
-					autoCapitalize='none'
 					textContentType='password'
+					autoCapitalize='none'
 					otherStyles='mb-5'
 				/>
 				<FormField

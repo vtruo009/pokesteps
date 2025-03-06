@@ -2,10 +2,18 @@ import { Account, Client, ID } from 'react-native-appwrite';
 import { fetchAccounts, fetchUsers } from './fetch';
 
 export const config = {
-	endpoint: 'https://cloud.appwrite.io/v1',
-	platform: 'com.vantruong.Pokesteps',
-	projectId: '67a121780008aa706a61',
-	storageId: '67a1234700051042a105',
+	endpoint:
+		process.env.APPWRITE_API_ENDPOINT ||
+		process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT ||
+		'',
+	platform:
+		process.env.APPWRITE_PLATFORM ||
+		process.env.EXPO_PUBLIC_APPWRITE_PLATFORM ||
+		'',
+	projectId:
+		process.env.APPWRITE_PROJECT_ID ||
+		process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID ||
+		'',
 };
 
 const client = new Client();
