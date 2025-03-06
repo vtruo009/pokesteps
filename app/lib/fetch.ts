@@ -12,6 +12,8 @@ export const fetchUsers = async (url: string, config?: RequestInit) => {
 			},
 			...config,
 		});
+		if (res.status === 204) return null;
+
 		const response = await res.json();
 		return response.data[0] || response.data;
 	} catch (error) {
@@ -46,12 +48,10 @@ export const fetchAccounts = async (url: string, config?: RequestInit) => {
 			},
 			...config,
 		});
-		if (res) {
-			const response = await res.json();
-			return response.data[0] || response.data;
-		}
+		if (res.status === 204) return null;
 
-		return null;
+		const response = await res.json();
+		return response.data[0] || response.data;
 	} catch (error) {
 		console.log('fetchAccounts error:', error);
 	}
