@@ -1,17 +1,18 @@
 import { Account, Client, ID } from 'react-native-appwrite';
 import { fetchAccounts, fetchUsers } from './fetch';
+import Constants from 'expo-constants';
 
 export const config = {
 	endpoint:
-		process.env.APPWRITE_API_ENDPOINT ||
-		process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT ||
+		Constants.expoConfig?.extra?.APPWRITE_API_ENDPOINT ||
+		process.env.EXPO_PUBLIC_APPWRITE_API_ENDPOINT ||
 		'',
 	platform:
-		process.env.APPWRITE_PLATFORM ||
+		Constants.expoConfig?.extra?.APPWRITE_PLATFORM ||
 		process.env.EXPO_PUBLIC_APPWRITE_PLATFORM ||
 		'',
 	projectId:
-		process.env.APPWRITE_PROJECT_ID ||
+		Constants.expoConfig?.extra?.APPWRITE_PROJECT_ID ||
 		process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID ||
 		'',
 };

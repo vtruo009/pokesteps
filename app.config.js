@@ -43,6 +43,9 @@ export default {
 				projectId: '1164e768-406f-4500-b7aa-056842cbfdc3',
 			},
 			BASE_URL: process.env.BASE_URL,
+			APPWRITE_API_ENDPOINT: process.env.APPWRITE_API_ENDPOINT,
+			APPWRITE_PROJECT_ID: process.env.APPWRITE_PROJECT_ID,
+			APPWRITE_PLATFORM: process.env.APPWRITE_PLATFORM,
 		},
 	},
 };
