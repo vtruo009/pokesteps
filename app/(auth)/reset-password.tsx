@@ -1,41 +1,42 @@
 import { View, TouchableOpacity, Text, Alert } from 'react-native';
-import { createUser } from '../lib/appwrite';
 import { useState } from 'react';
+import FormField from '@/components/FormField';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
 	widthPercentageToDP as wp,
 	heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import FormField from '@/components/FormField';
-import { Link, router } from 'expo-router';
-import { useGlobalContext } from '@/contexts/GlobalContext';
-import { fetchPokemons } from '../lib/fetch';
+import { resetPassword } from '../lib/appwrite';
+import { router } from 'expo-router';
 
-const SignUp = () => {
-	const { setCurrentUser, setIsLoggedIn, setPokemons } = useGlobalContext();
+const ResetPassword = () => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [form, setForm] = useState({
 		email: '',
-		password: '',
+		newPassword: '',
+		confirmNewPassword: '',
 	});
 
-	const handleSignUp = async () => {
-		if (!form.email || !form.password)
+	const handlePasswordReset = async () => {
+		if (!form.email || !form.newPassword || !form.confirmNewPassword) {
 			Alert.alert('Error', 'Please fill in all the fields');
+			return;
+		}
+
+		if (form.newPassword !== form.confirmNewPassword) {
+			Alert.alert('Error', 'Passwords do not match');
+			return;
+		}
 
 		setIsSubmitting(true);
 
 		try {
-			const user = await createUser(form.email, form.password);
-			const pokemons = await fetchPokemons(user.user_id);
-
-			setCurrentUser(user);
-			setPokemons(pokemons);
-			setIsLoggedIn(true);
-
-			router.replace('/(root)/(tabs)/steps');
+			await resetPassword(form.email, form.newPassword);
+			Alert.alert('Success', 'Password reset successfully');
+			router.replace('/(auth)/sign-in');
 		} catch (error) {
-			Alert.alert('Error', `${(error as Error).message}`);
+			console.log('Error resetting password:', error);
+			throw error;
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -46,30 +47,38 @@ const SignUp = () => {
 			className='bg-ghostWhite flex-1 text-start'
 			style={{ paddingHorizontal: wp('10%'), paddingTop: hp('5%') }}
 		>
-			<Text className='text-4xl font-JetBrainsMono'>Sign Up</Text>
+			<Text className='text-4xl font-JetBrainsMono'>Reset Password</Text>
 			<View className='flex flex-col justify-center items-center w-full mt-14'>
 				<FormField
 					label='Email'
+					textContentType='emailAddress'
 					value={form.email}
 					handleChangeText={(text: string) => setForm({ ...form, email: text })}
-					textContentType='emailAddress'
-					keyboardType='email-address'
 					autoCapitalize='none'
-					autoFocus
 					otherStyles='mb-5'
 				/>
 				<FormField
-					label='Password'
-					value={form.password}
+					label='New Password'
+					value={form.newPassword}
 					handleChangeText={(text: string) =>
-						setForm({ ...form, password: text })
+						setForm({ ...form, newPassword: text })
+					}
+					textContentType='password'
+					autoCapitalize='none'
+					otherStyles='mb-5'
+				/>
+				<FormField
+					label='Confirm Password'
+					value={form.confirmNewPassword}
+					handleChangeText={(text: string) =>
+						setForm({ ...form, confirmNewPassword: text })
 					}
 					textContentType='password'
 					autoCapitalize='none'
 					otherStyles='mb-7'
 				/>
 				<TouchableOpacity
-					onPress={handleSignUp}
+					onPress={handlePasswordReset}
 					className={`rounded-xl mt-5 bg-yellow items-center justify-center ${
 						isSubmitting ? 'opacity-50' : ''
 					}`}
@@ -80,23 +89,12 @@ const SignUp = () => {
 					disabled={isSubmitting}
 				>
 					<Text className='text-md font-JetBrainsMonoExtraBold text-center my-2'>
-						Sign Up
+						Reset Password
 					</Text>
 				</TouchableOpacity>
-				<View className='flex flex-row gap-x-1 justify-center items-center mt-2'>
-					<Text className='font-JetBrainsMono text-sm'>
-						Already have an account?
-					</Text>
-					<Link
-						href='./sign-in'
-						className='font-JetBrainsMonoExtraBold text-sm text-blue'
-					>
-						Sign in
-					</Link>
-				</View>
 			</View>
 		</SafeAreaView>
 	);
 };
 
-export default SignUp;
+export default ResetPassword;

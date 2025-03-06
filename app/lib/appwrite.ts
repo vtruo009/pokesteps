@@ -1,11 +1,19 @@
 import { Account, Client, ID } from 'react-native-appwrite';
-import { fetchUsers } from './fetch';
+import { fetchAccounts, fetchUsers } from './fetch';
 
 export const config = {
-	endpoint: 'https://cloud.appwrite.io/v1',
-	platform: 'com.vantruong.Pokesteps',
-	projectId: '67a121780008aa706a61',
-	storageId: '67a1234700051042a105',
+	endpoint:
+		process.env.APPWRITE_API_ENDPOINT ||
+		process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT ||
+		'',
+	platform:
+		process.env.APPWRITE_PLATFORM ||
+		process.env.EXPO_PUBLIC_APPWRITE_PLATFORM ||
+		'',
+	projectId:
+		process.env.APPWRITE_PROJECT_ID ||
+		process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID ||
+		'',
 };
 
 const client = new Client();
@@ -84,6 +92,32 @@ export const signOut = async () => {
 		return session;
 	} catch (error) {
 		console.log('Error signing out:', error);
+		throw error;
+	}
+};
+
+export const resetPassword = async (email: string, newPassword: string) => {
+	try {
+		const user = await fetchAccounts(email, {
+			method: 'GET',
+		});
+		console.log('user:', user);
+
+		if (!user) throw new Error('User not found');
+
+		await signIn(email, user.password);
+		const response = await account.updatePassword(newPassword, user.password);
+		if (!response) throw new Error('Failed to reset password');
+		await signOut();
+
+		await fetchAccounts(`${user}/password`, {
+			method: 'PATCH',
+			body: JSON.stringify({ password: newPassword }),
+		});
+
+		return null;
+	} catch (error) {
+		console.log('Error resetting password:', error);
 		throw error;
 	}
 };
