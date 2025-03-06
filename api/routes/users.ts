@@ -42,7 +42,7 @@ router.patch('/:userId/step-goal', async (req, res) => {
             WHERE user_id = ${userId};
 		`;
 
-		res.status(200).end();
+		res.status(204).end();
 	} catch (error) {
 		res
 			.status(500)
@@ -62,7 +62,7 @@ router.patch('/:userId/unlocked-status', async (req, res) => {
 			WHERE user_id = ${userId};
 		`;
 
-		res.status(200).end();
+		res.status(204).end();
 	} catch (error) {
 		res
 			.status(500)

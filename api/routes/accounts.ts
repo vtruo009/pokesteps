@@ -15,7 +15,7 @@ router.patch('/:email/password', async (req, res) => {
 			WHERE email = ${email};
 		`;
 
-		res.status(200).end();
+		res.status(204).end();
 	} catch (error) {
 		res
 			.status(500)

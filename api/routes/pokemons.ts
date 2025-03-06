@@ -20,7 +20,7 @@ router.post('/:userId/unlock-pokemon', async (req, res) => {
 		`,
 		]);
 
-		res.json({ status: 201 });
+		res.status(204).end();
 	} catch (error) {
 		res
 			.status(500)
@@ -38,7 +38,7 @@ router.get('/:userId', async (req, res) => {
             AND user_pokemons.user_id = ${userId};
         `;
 
-		res.json({ data: response, status: 200 });
+		res.status(200).json({ data: response });
 	} catch (error) {
 		res
 			.status(500)
@@ -62,7 +62,7 @@ router.get('/:userId/locked-pokemon-ids', async (req, res) => {
                 ) as result
 		`;
 
-		res.json({ data: response[0].array_agg, status: 200 });
+		res.status(200).json({ data: response[0].array_agg });
 	} catch (error) {}
 });
 
