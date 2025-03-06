@@ -10,7 +10,7 @@ router.patch('/:email/password', async (req, res) => {
 
 	try {
 		await sql`
-			UPDATE test
+			UPDATE users
 			SET password = ${password}
 			WHERE email = ${email};
 		`;
@@ -33,7 +33,7 @@ router.get('/:email', async (req, res) => {
 
 	try {
 		const response = await sql`
-			SELECT * FROM test WHERE email = ${email};
+			SELECT * FROM users WHERE email = ${email};
 		`;
 
 		if (response.length === 0) {
