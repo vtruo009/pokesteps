@@ -102,7 +102,6 @@ export const resetPassword = async (email: string, newPassword: string) => {
 		const user = await fetchAccounts(email, {
 			method: 'GET',
 		});
-		console.log('user:', user);
 
 		if (!user) throw new Error('User not found');
 
