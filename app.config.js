@@ -27,7 +27,7 @@ export default {
 			[
 				'expo-router',
 				{
-					origin: 'https://pokesteps-4rk1vl1ds-vtruo009s-projects.vercel.app/',
+					origin: 'https://pokesteps.vercel.app/',
 				},
 			],
 			'react-native-health',
