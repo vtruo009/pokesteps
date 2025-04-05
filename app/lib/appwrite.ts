@@ -1,20 +1,11 @@
 import { Account, Client, ID } from 'react-native-appwrite';
 import { fetchAccounts, fetchUsers } from './fetch';
-import Constants from 'expo-constants';
 
 export const config = {
-	endpoint:
-		Constants.expoConfig?.extra?.APPWRITE_API_ENDPOINT ||
-		process.env.EXPO_PUBLIC_APPWRITE_API_ENDPOINT ||
-		'',
-	platform:
-		Constants.expoConfig?.extra?.APPWRITE_PLATFORM ||
-		process.env.EXPO_PUBLIC_APPWRITE_PLATFORM ||
-		'',
-	projectId:
-		Constants.expoConfig?.extra?.APPWRITE_PROJECT_ID ||
-		process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID ||
-		'',
+	endpoint: 'https://cloud.appwrite.io/v1',
+	platform: 'com.vantruong.Pokesteps',
+	projectId: '67a121780008aa706a61',
+	storageId: '67a1234700051042a105',
 };
 
 const client = new Client();
