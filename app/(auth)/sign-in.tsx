@@ -81,7 +81,7 @@ const SignIn = () => {
 					}}
 					disabled={isSubmitting}
 				>
-					<Text className='text-md font-JetBrainsMonoExtraBold text-center my-2'>
+					<Text className='text-base font-JetBrainsMonoExtraBold text-center my-2'>
 						Sign In
 					</Text>
 				</TouchableOpacity>
