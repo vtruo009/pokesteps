@@ -42,7 +42,23 @@ router.get('/:email', async (req, res) => {
 		}
 
 		res.status(200).json({ data: response[0] });
-	} catch (error) {}
+	} catch (error) {
+		res.status(500).json({ error: 'GET accounts/:email request failed' });
+	}
+});
+
+router.put('/reset-unlocked-status', async (req, res) => {
+	try {
+		await sql`
+			UPDATE users SET has_unlocked_today = FALSE WHERE has_unlocked_today = TRUE;
+		`;
+
+		res.status(204).end();
+	} catch (error) {
+		res.status(500).json({
+			error: `accounts PUT request failed: ${(error as Error).message}`,
+		});
+	}
 });
 
 export default router;

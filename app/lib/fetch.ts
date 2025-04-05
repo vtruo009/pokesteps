@@ -31,6 +31,8 @@ export const fetchPokemons = async (url: string, config?: RequestInit) => {
 			},
 			...config,
 		});
+		if (res.status === 204) return null;
+
 		const response = await res.json();
 		return response.data;
 	} catch (error) {
