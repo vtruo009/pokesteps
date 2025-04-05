@@ -18,7 +18,7 @@ const FormField = ({
 	return (
 		<View className={`space-y-2 ${otherStyles}`}>
 			<Text className='text-md font-JetBrainsMono text-left'>{label}</Text>
-			<View className='w-full h-16 px-4 rounded-2xl border-2 border-black-200 flex flex-row items-center'>
+			<View className='w-full h-16 px-4 rounded-2xl border-2 border-black flex flex-row items-center'>
 				<TextInput
 					className='flex-1 text-black font-JetBrainsMono'
 					placeholder={placeholder}
