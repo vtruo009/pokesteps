@@ -50,6 +50,26 @@ export default function StepsHomeScreen() {
 		}
 	}, [todaySteps, stepGoal]);
 
+	useEffect(() => {
+		const resetPress = () => {
+			const reset = new Date();
+			reset.setHours(24, 0, 0, 0);
+			const timeToMidnight = reset.getTime() - Date.now();
+			setTimeout(async () => {
+				console.log('Resetting press...');
+				// TODO: What happens if the user doesn't unlock today? or doesn't run the app today?
+				await fetchUsers(`${currentUser?.user_id}/unlocked-status`, {
+					method: 'PATCH',
+					body: JSON.stringify({
+						unlockedStatus: false,
+					}),
+				});
+			}, timeToMidnight);
+		};
+
+		resetPress();
+	}, []);
+
 	return (
 		<SafeAreaView className='relative flex-1 justify-around items-center bg-ghostWhite pb-20'>
 			<StatusBar style='dark' />
