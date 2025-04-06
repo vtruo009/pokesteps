@@ -2,7 +2,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Text, View, FlatList, ActivityIndicator } from 'react-native';
 import PokemonCard from '@/components/PokemonCard';
 import { SearchBar, Icon } from '@rneui/themed';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UserPokemon } from '@/app/lib/interface/pokemon.mixin';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useGlobalContext } from '@/contexts/GlobalContext';
@@ -71,7 +71,6 @@ const Pokedex = () => {
 				<View className='flex-1 w-full h-full items-center'>
 					<FlatList
 						data={searchText ? filterPokemons(pokemons, searchText) : pokemons}
-						keyExtractor={(item) => item.name}
 						renderItem={({ item: pokemon }) => (
 							<PokemonCard
 								pokemon={pokemon}

@@ -1,12 +1,5 @@
 {
 	"version": 2,
-	"builds": [
-		{ "src": "dist/index.js", "use": "@vercel/node" },
-		{ "src": "/resetUnlockStatus.ts", "use": "@vercel/node" }
-	],
-	"routes": [
-		{ "src": "/resetUnlockStatus", "dest": "/resetUnlockStatus.ts" },
-		{ "src": "/(.*)", "dest": "dist/index.js" }
-	],
-	"crons": [{ "path": "/resetUnlockStatus", "schedule": "0 8 * * *" }]
+	"builds": [{ "src": "dist/index.js", "use": "@vercel/node" }],
+	"routes": [{ "src": "/(.*)", "dest": "dist/index.js" }]
 }
